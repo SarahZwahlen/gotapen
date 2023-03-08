@@ -1,4 +1,4 @@
-import User from "../models/user.js"
+import User from "../../models/user.js"
 
 const createAccount = async (req, res) => {
     
@@ -9,7 +9,6 @@ const createAccount = async (req, res) => {
         await newUser.save()
         res.json({
             message : 'account created',
-            body : req.body
         })
     } catch (error) {
         console.log(error)

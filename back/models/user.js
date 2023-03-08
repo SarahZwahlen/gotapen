@@ -23,7 +23,8 @@ const userSchema = mongoose.Schema({
     roles : [{
         type : String, 
         required : true, 
-        enum : ['user', 'admin', 'superadmin']
+        enum : ['user', 'admin', 'superadmin'],
+        default : 'user'
     }],
     company : {
         type : mongoose.Schema.Types.ObjectId, ref :"Company",
@@ -32,7 +33,16 @@ const userSchema = mongoose.Schema({
         {
             type : mongoose.Schema.Types.ObjectId, ref :"Supply",
         }
-    ]
+    ],
+    rentedSupplies : [
+        {
+            type : mongoose.Schema.Types.ObjectId, ref : "Supply"
+        }
+    ],
+    sharingRequests : [{
+        applicant : {type : mongoose.Schema.Types.ObjectId, ref : "User"},
+        askedSupply : {type : mongoose.Schema.Types.ObjectId, ref : "Supply"} 
+    }]
 }, {timestamps : true})
 
 const User = mongoose.model("User", userSchema)

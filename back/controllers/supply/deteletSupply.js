@@ -2,6 +2,8 @@ import Supply from "../../models/supply.js";
 import fs from 'fs'
 
 const deleteSupply = async (req, res) => {
+    // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
+
     try {
 
         const supplyToDelete = await Supply.findOne({_id:req.body.id})

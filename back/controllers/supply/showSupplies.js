@@ -1,6 +1,8 @@
 import Supply from "../../models/supply.js";
 
 const showSupplies = async (req, res) => {
+    // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
+
     try {
 
         const supplies = await Supply.find({})

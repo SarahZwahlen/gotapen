@@ -9,6 +9,16 @@
   },
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "node --experimental-vm-modules jest"
+  },
+  "name": "back",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jest": "^29.5.0"
   }
 }

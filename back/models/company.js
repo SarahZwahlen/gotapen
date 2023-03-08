@@ -15,11 +15,9 @@ const companySchema = mongoose.Schema({
             type : mongoose.Schema.Types.ObjectId, ref : "User"
         }
     ],
-    supplies : [
-        {
-            type : mongoose.Schema.Types.ObjectId, ref : "Supply"  
+    suppliesManager :  {
+            type : mongoose.Schema.Types.ObjectId, ref : "User"  
         }
-    ]
 
 }, {timestamps : true})
 

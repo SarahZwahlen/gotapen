@@ -3,6 +3,8 @@ import formidable from "formidable"
 import fs from 'fs'
 
 const modifySupply = (req, res) => {
+    // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
+
 
     try {
         const form = formidable()

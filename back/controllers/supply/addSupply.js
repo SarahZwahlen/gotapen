@@ -1,8 +1,11 @@
 import Supply from '../../models/supply.js'
+import User from '../../models/user.js'
 import formidable from 'formidable'
 import fs from 'fs'
 
 const addSupply = async (req, res) => {
+    // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
+
     try {
         const from = formidable()
 
@@ -11,12 +14,12 @@ const addSupply = async (req, res) => {
             fs.copyFile(`${files.image.filepath}`, `public/suppliesImages/${newFileName}`, () => console.log("add a file !"))
             const newSupply = new Supply({
                 ...fields,
-                //Change to user session id when done
                  imagePath : `/suppliesImages/${newFileName}`
             })
             await newSupply.save()
-            res.json({
-                body : req.body,
+
+            await User.updateOne({_id : fields.owner}, {supplies : newSupply})
+               res.json({
                 message : "add a supply !"
             })
         })
