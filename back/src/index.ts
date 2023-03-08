@@ -1,5 +1,5 @@
 import express from 'express'
-import router from './routers/router.js'
+import router from './routers/router'
 import mongoose from 'mongoose'
 const app = express()
 const PORT = 3001

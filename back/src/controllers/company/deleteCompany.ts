@@ -1,6 +1,7 @@
-import Company from "../../models/company.js";
+import Company from "../../models/company";
+import Express from 'express'
 
-const deleteCompany = async (req, res) => {
+const deleteCompany = async (req: Express.Request, res: Express.Response) => {
     try {
         await Company.deleteOne({_id : req.body.id})
         res.json({

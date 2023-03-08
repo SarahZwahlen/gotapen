@@ -1,8 +1,9 @@
-import User from "../../models/user.js"
-import Supply from "../../models/supply.js"
+import User from "../../models/user"
+import Supply from "../../models/supply"
+import Express from 'express'
 
 
-const askForSupply = async(req, res) => {
+const askForSupply = async(req: Express.Request, res: Express.Response) => {
     // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
 
     const applicant = await User.findOne({_id: req.body.applicantId})

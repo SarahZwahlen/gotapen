@@ -1,6 +1,7 @@
-import Supply from "../../models/supply.js";
+import Supply from "../../models/supply";
+import Express from 'express'
 
-const showSupplies = async (req, res) => {
+const showSupplies = async (req: Express.Request, res: Express.Response) => {
     // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
 
     try {
