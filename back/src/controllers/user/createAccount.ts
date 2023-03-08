@@ -1,6 +1,8 @@
-import User from "../../models/user.js"
+import User from "../../models/user"
+import Express from 'express'
+import { MongoServerError } from "mongodb"
 
-const createAccount = async (req, res) => {
+const createAccount = async (req: Express.Request, res: Express.Response) => {
     
     try {
         const newUser = new User({
@@ -12,7 +14,7 @@ const createAccount = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        res.json({
+        res.status(500).json({
             message : "An error occured, please retry. Maybe some required data is missing or this email is already used."
         })
         // Verify is user already exists

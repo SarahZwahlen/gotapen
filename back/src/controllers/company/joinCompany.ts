@@ -1,10 +1,14 @@
-import Company from "../../models/company.js";
-import User from '../../models/user.js'
+import Company from "../../models/company";
+import User from '../../models/user'
 import bcrypt from 'bcrypt'
+import Express from 'express'
 
-const joinCompany = async(req, res) => {
+const joinCompany = async(req: Express.Request, res: Express.Response) => {
     const user = await User.findOne({_id:req.body.userId})
     const company = await Company.findOne({_id:req.body.companyId}) 
+    if (!company) {
+        return res.json({message: 'no company'});
+    }
 
     bcrypt.compare(req.body.joinCode, company.joinCode, async (error, result) => {
         if(result === true){
