@@ -1,17 +1,14 @@
-import Supply from "../../models/supply"
-import fs from 'fs'
-import Express from 'express'
+import Supply from '../../models/supply';
+import fs from 'fs';
+import Express from 'express';
 
 const modifySupply = (req: Express.Request, res: Express.Response) => {
     // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
 
-
     try {
         // const form = new IncomingForm()
-        
         // form.parse(req, async (error, fields, files) => {
         //     const fileToUpdate = await Supply.findOne({_id : fields.id})
-            
         //     console.log(fields)
         //     if(files.image){
         //         const newFileName = files.image.newFilename + files.image.originalFilename
@@ -26,12 +23,12 @@ const modifySupply = (req: Express.Request, res: Express.Response) => {
         //         message : "Supply modified"
         //     })
         // })
-    } catch (error){
-        console.log(error)
+    } catch (error) {
+        console.log(error);
         res.json({
-            message : 'An error occured'
-        })
+            message: 'An error occured',
+        });
     }
-}
+};
 
-export default modifySupply
+export default modifySupply;

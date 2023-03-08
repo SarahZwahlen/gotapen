@@ -1,14 +1,13 @@
-import Supply from '../../models/supply'
-import User from '../../models/user'
-import fs from 'fs'
-import Express from 'express'
+import Supply from '../../models/supply';
+import User from '../../models/user';
+import fs from 'fs';
+import Express from 'express';
 
 const addSupply = async (req: Express.Request, res: Express.Response) => {
     // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
 
     try {
         // const from = formidable();
-
         // from.parse(req, async(error, fields, files) => {
         //     const file = {
         //         newFilename: 'toto',
@@ -22,18 +21,17 @@ const addSupply = async (req: Express.Request, res: Express.Response) => {
         //          imagePath : `/suppliesImages/${newFileName}`
         //     })
         //     await newSupply.save()
-
         //     await User.updateOne({_id : fields.owner}, {supplies : newSupply})
         //        res.json({
         //         message : "add a supply !"
         //     })
         // })
     } catch (error) {
-        console.log(error)
+        console.log(error);
         res.json({
-            message : "An error occured, pleasy retry"
-        })
-    } 
-}
+            message: 'An error occured, pleasy retry',
+        });
+    }
+};
 
-export default addSupply
+export default addSupply;

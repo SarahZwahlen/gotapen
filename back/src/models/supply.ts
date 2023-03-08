@@ -1,31 +1,33 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema } from 'mongoose';
 
-const supplySchema: Schema = new Schema({
-    name : {
-        type : String, 
-        required : true
+const supplySchema: Schema = new Schema(
+    {
+        name: {
+            type: String,
+            required: true,
+        },
+        availability: {
+            type: Boolean,
+        },
+        imagePath: {
+            type: String,
+        },
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+            // refPath :"Owner",
+        },
+        // Owner :{
+        //     type : String,
+        //     required : true,
+        //     enum : ["User", "Company"]
+        // },
+        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     },
-    availability : {
-        type : Boolean,
-    },
-    imagePath : {
-        type : String,
-    },
-    owner : {
-        type : mongoose.Schema.Types.ObjectId, ref:"User",
-        required : true,
-        // refPath :"Owner",
-    },
-    // Owner :{
-    //     type : String,
-    //     required : true,  
-    //     enum : ["User", "Company"]
-    // },
-    comments : [
-        {type : mongoose.Schema.Types.ObjectId, ref : "Comment"}
-    ]
-}, {timestamps : true})
+    { timestamps: true },
+);
 
-const Supply = mongoose.model("Supply", supplySchema)
+const Supply = mongoose.model('Supply', supplySchema);
 
-export default Supply
+export default Supply;
