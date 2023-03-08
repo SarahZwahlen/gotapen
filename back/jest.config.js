@@ -1,4 +1,5 @@
 /** @type {import('jest').Config} */
 export default {
-    verbose: true
+    verbose: true,
+    preset: '@shelf/jest-mongodb',
 }
