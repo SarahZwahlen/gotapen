@@ -39,10 +39,11 @@ const userSchema: Schema = new Schema(
                 ref: 'Supply',
             },
         ],
-        rentedSupplies: [
+        borrowedSupplies: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Supply',
+                unique: true,
             },
         ],
         sharingRequests: [
