@@ -1,6 +1,16 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
+import { CommentType } from './comment';
+import { UserType } from './user';
 
-const supplySchema: Schema = new Schema(
+type SupplyType = {
+    name: string;
+    availability: boolean;
+    imagePath: string;
+    owner: UserType;
+    comments: CommentType;
+};
+
+const supplySchema = new Schema<SupplyType>(
     {
         name: {
             type: String,
@@ -16,18 +26,13 @@ const supplySchema: Schema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true,
-            // refPath :"Owner",
         },
-        // Owner :{
-        //     type : String,
-        //     required : true,
-        //     enum : ["User", "Company"]
-        // },
         comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
     },
     { timestamps: true },
 );
 
-const Supply = mongoose.model('Supply', supplySchema);
+const Supply = model<SupplyType>('Supply', supplySchema);
 
+export type { SupplyType };
 export default Supply;

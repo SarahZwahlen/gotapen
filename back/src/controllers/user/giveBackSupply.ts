@@ -4,32 +4,22 @@ import User from '../../models/user';
 
 const giveBackSupply = async (req: Express.Request, res: Express.Response) => {
     try {
-        await Supply.updateOne(
-            { _id: req.body.supplyId },
-            { availability: true },
-        );
-        const supplyToGiveBack = await Supply.findOne({
-            _id: req.body.supplyId,
-        });
-        if (supplyToGiveBack) {
+        const supply = await Supply.findOne({ _id: req.body.supplyId });
+        if (supply) {
+            console.log(supply);
+            await Supply.updateOne({ _id: supply._id }, { availability: true });
             await User.updateOne(
                 { id: req.body.applicantId },
-                { $pull: { borrowedSupplies: supplyToGiveBack._id } },
+                { $pull: { borrowedSupplies: supply._id } },
             );
             res.json({
-                message: 'Supply is gived back',
-                isGivedBack: true,
-            });
-        } else {
-            res.json({
-                message: 'Something is wrong with this supply',
-                idGivedBack: false,
+                message: 'User gives back a supply',
             });
         }
     } catch (error) {
         console.log(error);
         res.json({
-            message: 'An error occurend',
+            message: 'An error occured',
         });
     }
 };

@@ -1,6 +1,14 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
+import { UserType } from './user';
 
-const companySchema: Schema = new Schema(
+type CompanyType = {
+    name: string;
+    joinCode: string;
+    employees: UserType[];
+    suppliesManager: UserType;
+};
+
+const companySchema = new Schema<CompanyType>(
     {
         name: {
             type: String,
@@ -25,6 +33,7 @@ const companySchema: Schema = new Schema(
     { timestamps: true },
 );
 
-const Company = mongoose.model('Company', companySchema);
+const Company = model<CompanyType>('Company', companySchema);
 
 export default Company;
+export type { CompanyType };

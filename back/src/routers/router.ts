@@ -7,8 +7,9 @@ import showSupplies from '../controllers/supply/showSupplies';
 import createCompany from '../controllers/company/createCompany';
 import joinCompany from '../controllers/company/joinCompany';
 import deleteCompany from '../controllers/company/deleteCompany';
-import askForSupply from '../controllers/user/askForSupply';
-import showSharingRequest from '../controllers/user/showSharingRequests';
+import sendSharingRequest from '../controllers/user/sendSharingRequest';
+import showReceivedSharingRequest from '../controllers/user/showReceivedSharingRequests';
+import showSentSharingRequests from '../controllers/user/showSentSharingRequests';
 import acceptSharing from '../controllers/user/acceptSharing';
 import deniedSharing from '../controllers/user/deniedSharing';
 import giveBackSupply from '../controllers/user/giveBackSupply';
@@ -29,14 +30,15 @@ const upload = multer({ storage: storage, preservePath: true });
 const router = express.Router();
 
 router.get('/show-supplies', showSupplies);
-router.get('/show-sharing-requests', showSharingRequest);
+router.get('/show-received-sharing-requests', showReceivedSharingRequest);
+router.get('/show-sent-sharing-requests', showSentSharingRequests);
 
 router.post('/create-account', createAccount);
 router.post('/add-supply', upload.single('image'), addSupply);
 router.post('/modify-supply', upload.single('image'), modifySupply);
 router.post('/create-company', createCompany);
 router.post('/join-company', joinCompany);
-router.post('/ask-for-supply', askForSupply);
+router.post('/send-sharing-request', sendSharingRequest);
 router.post('/accept-sharing', acceptSharing);
 router.post('/denied-sharing', deniedSharing);
 

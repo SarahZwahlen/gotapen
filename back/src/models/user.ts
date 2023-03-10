@@ -1,6 +1,22 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
+import { CompanyType } from './company';
+import { SharingRequestType } from './sharingRequest';
+import { SupplyType } from './supply';
 
-const userSchema: Schema = new Schema(
+type UserType = {
+    email: string;
+    password: string;
+    firstname: string;
+    surname: string;
+    roles: string[];
+    company: CompanyType;
+    supplies: SupplyType[];
+    borrowedSupplies: SupplyType[];
+    sentSharingRequests: SharingRequestType[];
+    receivedSharingRequests: SharingRequestType[];
+};
+
+const userSchema = new Schema<UserType>(
     {
         email: {
             type: String,
@@ -46,21 +62,22 @@ const userSchema: Schema = new Schema(
                 unique: true,
             },
         ],
-        sharingRequests: [
+        sentSharingRequests: [
             {
-                applicant: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'User',
-                },
-                askedSupply: {
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref: 'Supply',
-                },
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'SharingRequest',
+            },
+        ],
+        receivedSharingRequests: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'SharingRequest',
             },
         ],
     },
     { timestamps: true },
 );
 
-const User = mongoose.model('User', userSchema);
+const User = model<UserType>('User', userSchema);
+export type { UserType };
 export default User;

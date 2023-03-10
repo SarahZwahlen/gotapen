@@ -1,40 +1,41 @@
 import Express from 'express';
-import Supply from '../../models/supply';
+import SharingRequest from '../../models/sharingRequest';
 import User from '../../models/user';
 
 const deniedSharing = async (req: Express.Request, res: Express.Response) => {
     try {
-        const applicant = await User.findOne({ _id: req.body.applicant });
-        const owner = await User.findOne({ _id: req.body.ownerId });
-        const askedSupply = await Supply.findOne({ _id: req.body.supplyId });
+        const sharingRequest = await SharingRequest.findOne({
+            _id: req.body.sharingRequestId,
+        });
 
-        if (askedSupply && applicant && owner) {
-            console.log(applicant.surname, askedSupply.name, owner.surname);
-            // await User.updateOne(
-            //     { _id: req.body.applicant },
-            //     { $push: { borrowedSupplies: askedSupply } },
-            // );
-            await Supply.updateOne(
-                { _id: req.body.supplyId },
-                { availability: true },
-            );
+        console.log(sharingRequest);
+        if (sharingRequest) {
             await User.updateOne(
-                { _id: req.body.ownerId },
+                { _id: sharingRequest.applicant },
+                {
+                    $pull: { sentSharingRequests: sharingRequest._id },
+                },
+            );
+
+            await User.updateOne(
+                {
+                    _id: sharingRequest.sharer,
+                },
                 {
                     $pull: {
-                        sharingRequests: {
-                            _id: req.body.sharingRequestId,
-                        },
+                        receivedSharingRequests: sharingRequest._id,
                     },
                 },
             );
+            await SharingRequest.deleteOne({ _id: sharingRequest._id });
+
             res.json({
-                message: 'done',
-                isShared: false,
+                message: 'The other user denied the sharing request',
+                request: sharingRequest,
             });
         } else {
             res.json({
-                message: 'An error occured',
+                message: "This request doesn't exists",
             });
         }
     } catch (error) {

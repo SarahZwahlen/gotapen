@@ -1,6 +1,12 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
+import { UserType } from './user';
 
-const commentSchema: Schema = new Schema(
+type CommentType = {
+    author: UserType;
+    content: string;
+};
+
+const commentSchema = new Schema<CommentType>(
     {
         author: {
             type: mongoose.Schema.Types.ObjectId,
@@ -15,6 +21,7 @@ const commentSchema: Schema = new Schema(
     { timestamps: true },
 );
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = model<CommentType>('Comment', commentSchema);
 
 export default Comment;
+export type { CommentType };
