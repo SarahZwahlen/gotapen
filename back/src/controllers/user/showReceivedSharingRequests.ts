@@ -1,13 +1,10 @@
 import Express from 'express';
-import SharingRequest, {
-    SharingRequestType,
-} from '../../models/sharingRequest';
-import Supply from '../../models/supply';
 import User from '../../models/user';
+import { sharingRequestRepository } from '../../repositories/sharingRequest.repository';
 
 const showReceivedSharingRequest = async (
     req: Express.Request,
-    res: Express.Response,
+    res: Express.Response
 ) => {
     // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
     try {
@@ -16,40 +13,20 @@ const showReceivedSharingRequest = async (
         const user = await User.findById(req.body.userId);
 
         if (user) {
-            await Promise.all(
-                user.receivedSharingRequests.map(
-                    async (request: SharingRequestType) => {
-                        const receivedRequest = await SharingRequest.findOne({
-                            _id: request,
-                        });
-                        console.log(receivedRequest);
-                        const applicant = await User.findOne({
-                            _id: receivedRequest?.applicant,
-                        });
-                        const sharer = await User.findOne({
-                            _id: receivedRequest?.sharer,
-                        });
-                        const supply = await Supply.findOne({
-                            _id: receivedRequest?.sharedSupply,
-                        });
-
-                        userSharingRequests.push({
-                            applicant: applicant?.firstname,
-                            sharer: sharer?.firstname,
-                            supply: supply?.name,
-                        });
-                    },
-                ),
-            );
+            const requestResult =
+                sharingRequestRepository.showReceivedSharingRequest(
+                    userSharingRequests,
+                    user
+                );
             res.json({
                 message: 'Here are your received sharing requests',
-                requests: userSharingRequests,
+                requests: requestResult
             });
         }
     } catch (error) {
         console.log(error);
         res.json({
-            message: 'An error occured',
+            message: 'An error occured'
         });
     }
 };

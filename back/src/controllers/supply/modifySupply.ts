@@ -9,24 +9,24 @@ const modifySupply = async (req: Express.Request, res: Express.Response) => {
         if (req.file) {
             if (fileToUpdate) {
                 fs.unlink(`public/${fileToUpdate.imagePath}`, () =>
-                    console.log('Image is deleted'),
+                    console.log('Image is deleted')
                 );
             }
             await Supply.updateOne(
                 { _id: req.body.id },
-                { imagePath: `suppliesImages/${req.file?.filename}` },
+                { imagePath: `suppliesImages/${req.file?.filename}` }
             );
         }
         if (req.body) {
             await Supply.updateOne({ _id: req.body.id }, { ...req.body });
         }
         res.json({
-            message: 'Supply modified',
+            message: 'Supply modified'
         });
     } catch (error) {
         console.log(error);
         res.json({
-            message: 'An error occured',
+            message: 'An error occured'
         });
     }
 };

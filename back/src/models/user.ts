@@ -23,59 +23,63 @@ const userSchema = new Schema<UserType>(
             lowercase: true,
             unique: true,
             required: true,
-            min: 5,
+            min: 5
         },
         password: {
             type: String,
-            required: true,
+            required: true
         },
         firstname: {
             type: String,
-            required: true,
+            required: true
         },
         surname: {
             type: String,
-            required: true,
+            required: true
         },
         roles: [
             {
                 type: String,
                 required: true,
                 enum: ['user', 'admin', 'superadmin'],
-                default: 'user',
-            },
+                default: 'user'
+            }
         ],
         company: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Company',
+            ref: 'Company'
         },
         supplies: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Supply',
-            },
+                default: []
+            }
         ],
         borrowedSupplies: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Supply',
-                unique: true,
-            },
+                default: []
+                // unique: true
+            }
         ],
         sentSharingRequests: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'SharingRequest',
-            },
+                default: []
+            }
         ],
         receivedSharingRequests: [
             {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'SharingRequest',
-            },
-        ],
+                default: []
+            }
+        ]
     },
-    { timestamps: true },
+    { timestamps: true }
 );
 
 const User = model<UserType>('User', userSchema);

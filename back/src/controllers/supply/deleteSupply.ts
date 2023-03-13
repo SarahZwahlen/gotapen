@@ -9,21 +9,21 @@ const deleteSupply = async (req: Express.Request, res: Express.Response) => {
         const supplyToDelete = await Supply.findOne({ _id: req.body.id });
         if (!supplyToDelete) {
             return res.json({
-                message: 'error',
+                message: 'error'
             });
         }
         console.log(supplyToDelete);
 
         fs.unlink(`public/${supplyToDelete.imagePath}`, () =>
-            console.log('pic deleted'),
+            console.log('pic deleted')
         );
         await Supply.deleteOne({ _id: req.body.id });
         res.json({
-            message: 'try to delete a supply',
+            message: 'try to delete a supply'
         });
     } catch (error) {
         res.json({
-            message: 'An error occured',
+            message: 'An error occured'
         });
     }
 };

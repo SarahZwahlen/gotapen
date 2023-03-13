@@ -8,12 +8,12 @@ const showSupplies = async (req: Express.Request, res: Express.Response) => {
         const supplies = await Supply.find({});
         res.json({
             message: 'Here are the supplies',
-            supplies: supplies,
+            supplies: supplies
         });
     } catch (error) {
         console.log(error);
         res.json({
-            message: 'An error occured',
+            message: 'An error occured'
         });
     }
 };

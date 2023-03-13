@@ -8,22 +8,22 @@ const addSupply = async (req: Express.Request, res: Express.Response) => {
     try {
         const newSupply = new Supply({
             ...req.body,
-            imagePath: `suppliesImages/${req.file?.filename}`,
+            imagePath: `suppliesImages/${req.file?.filename}`
         });
 
         await newSupply.save();
         await User.updateOne(
             { _id: req.body.owner },
-            { $push: { supplies: newSupply } },
+            { $push: { supplies: newSupply } }
         );
         res.json({
             message: 'add a supply !',
-            isShared: true,
+            isShared: true
         });
     } catch (error) {
         res.json({
             message: 'An error occured, pleasy retry',
-            error: error,
+            error: error
         });
     }
 };
