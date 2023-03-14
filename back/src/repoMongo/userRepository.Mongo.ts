@@ -2,17 +2,17 @@ import User from '../models/user';
 import bcrypt from 'bcrypt';
 
 const userRepositoryMongo = {
-    saveUser: async (
-        email: string,
-        password: string,
-        firstname: string,
-        surname: string
-    ) => {
+    saveUser: async (datas: {
+        email: string;
+        password: string;
+        firstname: string;
+        surname: string;
+    }) => {
         const user = new User({
-            email,
-            firstname,
-            surname,
-            password: await bcrypt.hash(password, 10)
+            email: datas.email,
+            firstname: datas.firstname,
+            surname: datas.surname,
+            password: await bcrypt.hash(datas.password, 10)
         });
 
         await user.save();

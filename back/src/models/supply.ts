@@ -1,5 +1,4 @@
 import mongoose, { Schema, model } from 'mongoose';
-import { CommentType } from './comment';
 import { UserType } from './user';
 
 type SupplyType = {
@@ -7,7 +6,7 @@ type SupplyType = {
     availability: boolean;
     imagePath: string;
     owner: UserType;
-    comments: CommentType;
+    // comments: CommentType;
 };
 
 const supplySchema = new Schema<SupplyType>(
@@ -26,8 +25,8 @@ const supplySchema = new Schema<SupplyType>(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
             required: true
-        },
-        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+        }
+        // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
     },
     { timestamps: true }
 );

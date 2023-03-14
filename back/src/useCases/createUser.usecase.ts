@@ -1,25 +1,27 @@
 import { UserType } from '../models/user';
 
 const createUser = async (
-    email: string,
-    password: string,
-    firstname: string,
-    surname: string,
-    saveUser: (
-        email: string,
-        password: string,
-        firstname: string,
-        surname: string
-    ) => Promise<UserType>,
+    datas: {
+        email: string;
+        password: string;
+        firstname: string;
+        surname: string;
+    },
+    saveUser: (datas: {
+        email: string;
+        password: string;
+        firstname: string;
+        surname: string;
+    }) => Promise<UserType>,
     getUser: (email: string) => Promise<UserType | null>
 ): Promise<UserType> => {
-    const existingEmail = await getUser(email);
+    const existingEmail = await getUser(datas.email);
 
     if (existingEmail) {
         throw new Error('This email is already used by an other user');
     }
 
-    const newUser = await saveUser(email, password, firstname, surname);
+    const newUser = await saveUser(datas);
 
     return newUser;
 };
