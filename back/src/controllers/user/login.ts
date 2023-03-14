@@ -17,7 +17,8 @@ const loginController = async (req: Request, res: Response) => {
         });
     } catch (error) {
         res.status(401).json({
-            message: "This user doesn't exists"
+            message:
+                'Authentification failed, maybe some fields are wrong or missing'
         });
     }
 

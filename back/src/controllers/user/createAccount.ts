@@ -4,7 +4,7 @@ import { createUser } from '../../useCases/createUser.usecase';
 
 const createAccount = async (req: Express.Request, res: Express.Response) => {
     try {
-        createUser(
+        const user = await createUser(
             req.body.email,
             req.body.password,
             req.body.firstname,
@@ -12,7 +12,7 @@ const createAccount = async (req: Express.Request, res: Express.Response) => {
             userRepositoryMongo.saveUser,
             userRepositoryMongo.getUserByEmail
         );
-        // await userRepository.createUser(req.body);
+        req.session.user = user;
         res.json({
             message: 'account created'
         });
@@ -20,10 +20,8 @@ const createAccount = async (req: Express.Request, res: Express.Response) => {
         console.log(error);
         res.status(500).json({
             message:
-                'An error occured, please retry. Maybe some required data is missing or this email is already used.'
+                'An error occured, please retry. Maybe some required datas are missing or this email is already used.'
         });
-        // Verify is user already exists
-        // Datas are missing
     }
 };
 

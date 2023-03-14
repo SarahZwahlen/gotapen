@@ -20,27 +20,8 @@ const createUser = async (
     }
 
     const newUser = await saveUser(email, password, firstname, surname);
-    // si non creer un user
 
     return newUser;
 };
-
-// const saveUserMongo = (
-//     email: string,
-//     password: string,
-//     firstname: string,
-//     surname: string
-// ) => {
-//     const user = new User({
-//         email,
-//         firstname,
-//         surname,
-//         password: await bcrypt(password, 10)
-//     });
-
-//     user.save();
-
-//     return user;
-// };
 
 export { createUser };
