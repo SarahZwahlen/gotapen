@@ -5,7 +5,6 @@ type CompanyType = {
     name: string;
     joinCode: string;
     employees: UserType[];
-    suppliesManager: UserType;
 };
 
 const companySchema = new Schema<CompanyType>(
@@ -13,24 +12,20 @@ const companySchema = new Schema<CompanyType>(
         name: {
             type: String,
             required: true,
-            unique: true,
+            unique: true
         },
         joinCode: {
             type: String,
-            required: true,
+            required: true
         },
         employees: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'User',
-            },
-        ],
-        suppliesManager: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        },
+                ref: 'User'
+            }
+        ]
     },
-    { timestamps: true },
+    { timestamps: true }
 );
 
 const Company = model<CompanyType>('Company', companySchema);

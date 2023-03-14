@@ -1,10 +1,10 @@
+import { userRepository } from './user.repository';
 import {
     clearDatabase,
     connectDBForTesting,
     disconnectDBForTesting
 } from '../../tests/connectDBForTesting';
 import User from '../models/user';
-import { userRepository } from './user.repository';
 
 describe('UserRepositiory', () => {
     afterEach(async () => {

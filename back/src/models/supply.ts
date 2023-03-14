@@ -14,22 +14,22 @@ const supplySchema = new Schema<SupplyType>(
     {
         name: {
             type: String,
-            required: true,
+            required: true
         },
         availability: {
-            type: Boolean,
+            type: Boolean
         },
         imagePath: {
-            type: String,
+            type: String
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            required: true,
+            required: true
         },
-        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
     },
-    { timestamps: true },
+    { timestamps: true }
 );
 
 const Supply = model<SupplyType>('Supply', supplySchema);

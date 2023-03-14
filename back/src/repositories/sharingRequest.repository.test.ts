@@ -196,42 +196,42 @@ describe('SharingRequestRepository', () => {
         });
     });
 
-//     describe('Show sharing requests of a user', () => {
-//         describe('Show recieved sharing requests', async () => {
-//             test('Show users received sharing requests');
+    //     describe('Show sharing requests of a user', () => {
+    //         describe('Show recieved sharing requests', async () => {
+    //             test('Show users received sharing requests');
 
-//             // Given I have a sharer
-//             const sharer = await User.create({
-//                 email: 'sharer@gmail.com',
-//                 firstname: 'Clark',
-//                 surname: 'Kent',
-//                 password: '1234'
-//             });
-//             // Given I have a supply to share
-//             const sharedSupply = await Supply.create({
-//                 name: 'pencil',
-//                 owner: sharer.id
-//             });
-//             // Given I have an applicant
-//             const existingApplicant = await User.create({
-//                 email: 'applicant@gmail.com',
-//                 firstname: 'Joe',
-//                 surname: 'Dalton',
-//                 password: '1234'
-//             });
+    //             // Given I have a sharer
+    //             const sharer = await User.create({
+    //                 email: 'sharer@gmail.com',
+    //                 firstname: 'Clark',
+    //                 surname: 'Kent',
+    //                 password: '1234'
+    //             });
+    //             // Given I have a supply to share
+    //             const sharedSupply = await Supply.create({
+    //                 name: 'pencil',
+    //                 owner: sharer.id
+    //             });
+    //             // Given I have an applicant
+    //             const existingApplicant = await User.create({
+    //                 email: 'applicant@gmail.com',
+    //                 firstname: 'Joe',
+    //                 surname: 'Dalton',
+    //                 password: '1234'
+    //             });
 
-//             // Given I have a sharing request params
-//             const existingSharingRequestParams = {
-//                 applicant: existingApplicant.id,
-//                 sharer: sharer.id,
-//                 sharedSupply: sharedSupply.id
-//             };
-//             //Given a sharing request
-//             const existingSharingRequest = await SharingRequest.create(
-//                 existingSharingRequestParams
-//             );
-//             //When I want to show all the sharer recieved requests
-//             expect();
-//         });
-//     });
-// });
+    //             // Given I have a sharing request params
+    //             const existingSharingRequestParams = {
+    //                 applicant: existingApplicant.id,
+    //                 sharer: sharer.id,
+    //                 sharedSupply: sharedSupply.id
+    //             };
+    //             //Given a sharing request
+    //             const existingSharingRequest = await SharingRequest.create(
+    //                 existingSharingRequestParams
+    //             );
+    //             //When I want to show all the sharer recieved requests
+    //             expect();
+    //         });
+    //     });
+});

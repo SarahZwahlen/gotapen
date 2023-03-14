@@ -1,9 +1,18 @@
 import Express from 'express';
-import { userRepository } from '../../repositories/user.repository';
+import userRepositoryMongo from '../../repoMongo/userRepository.Mongo';
+import { createUser } from '../../useCases/createUser.usecase';
 
 const createAccount = async (req: Express.Request, res: Express.Response) => {
     try {
-        await userRepository.createUser(req.body);
+        createUser(
+            req.body.email,
+            req.body.password,
+            req.body.firstname,
+            req.body.surname,
+            userRepositoryMongo.saveUser,
+            userRepositoryMongo.getUserByEmail
+        );
+        // await userRepository.createUser(req.body);
         res.json({
             message: 'account created'
         });

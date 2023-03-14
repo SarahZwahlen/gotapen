@@ -7,14 +7,14 @@ import showSupplies from '../controllers/supply/showSupplies';
 import createCompany from '../controllers/company/createCompany';
 import joinCompany from '../controllers/company/joinCompany';
 import deleteCompany from '../controllers/company/deleteCompany';
-import sendSharingRequest from '../controllers/user/sendSharingRequest';
-import showReceivedSharingRequest from '../controllers/user/showReceivedSharingRequests';
-import showSentSharingRequests from '../controllers/user/showSentSharingRequests';
-import acceptSharing from '../controllers/user/acceptSharing';
-import deniedSharing from '../controllers/user/deniedSharing';
-import giveBackSupply from '../controllers/user/giveBackSupply';
-
+import showReceivedSharingRequest from '../controllers/sharingRequest/showReceivedSharingRequests';
+import showSentSharingRequests from '../controllers/sharingRequest/showSentSharingRequests';
+import sendSharingRequest from '../controllers/sharingRequest/sendSharingRequest';
+import acceptSharing from '../controllers/sharingRequest/acceptSharing';
+import deniedSharing from '../controllers/sharingRequest/deniedSharing';
+import giveBackSupply from '../controllers/supply/giveBackSupply';
 import multer from 'multer';
+import loginController from '../controllers/user/login';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -34,6 +34,7 @@ router.get('/show-received-sharing-requests', showReceivedSharingRequest);
 router.get('/show-sent-sharing-requests', showSentSharingRequests);
 
 router.post('/create-account', createAccount);
+router.post('/login', loginController);
 router.post('/add-supply', upload.single('image'), addSupply);
 router.post('/modify-supply', upload.single('image'), modifySupply);
 router.post('/create-company', createCompany);

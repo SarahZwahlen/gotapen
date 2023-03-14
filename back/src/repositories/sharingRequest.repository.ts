@@ -92,34 +92,37 @@ const sharingRequestRepository = {
                 }
             )
         );
-    };
-    showSentSharingRequests : async (userSharingRequests: object[], user: UserType) => {
+    },
+    showSentSharingRequests: async (
+        userSharingRequests: object[],
+        user: UserType
+    ) => {
         await Promise.all(
             user.sentSharingRequests.map(
                 async (request: SharingRequestType) => {
                     const sentRequest = await SharingRequest.findOne({
-                        _id: request,
+                        _id: request
                     });
                     console.log(sentRequest);
                     const applicant = await User.findOne({
-                        _id: sentRequest?.applicant,
+                        _id: sentRequest?.applicant
                     });
                     const sharer = await User.findOne({
-                        _id: sentRequest?.sharer,
+                        _id: sentRequest?.sharer
                     });
                     const supply = await Supply.findOne({
-                        _id: sentRequest?.sharedSupply,
+                        _id: sentRequest?.sharedSupply
                     });
 
                     userSharingRequests.push({
                         applicant: applicant?.firstname,
                         sharer: sharer?.firstname,
-                        supply: supply?.name,
+                        supply: supply?.name
                     });
-                    
-                    return userSharingRequests
-                },
-            ),
+
+                    return userSharingRequests;
+                }
+            )
         );
     }
 };

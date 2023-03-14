@@ -10,6 +10,7 @@ const userRepository = {
             ...params,
             password: await bcrypt.hash(params.password, 10)
         });
+        console.log('new User', newUser);
         try {
             const createdUser = await newUser.save();
             return createdUser.toObject();
@@ -22,7 +23,10 @@ const userRepository = {
 
             throw error;
         }
+    },
+    login: async (password: string, user: UserType): Promise<boolean> => {
+        return await bcrypt.compare(password, user.password);
     }
 };
 
-export { userRepository };
+// export { userRepository };
