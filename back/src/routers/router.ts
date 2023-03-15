@@ -13,19 +13,8 @@ import sendSharingRequest from '../controllers/sharingRequest/sendSharingRequest
 import acceptSharing from '../controllers/sharingRequest/acceptSharing';
 import deniedSharing from '../controllers/sharingRequest/deniedSharing';
 import giveBackSupply from '../controllers/supply/giveBackSupply';
-import multer from 'multer';
 import loginController from '../controllers/user/login';
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/suppliesImages');
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-        cb(null, uniqueSuffix + file.originalname);
-    }
-});
-const upload = multer({ storage: storage, preservePath: true });
+import { uploadMulterSingleFile } from '../middlewares/multerUpload';
 
 const router = express.Router();
 
@@ -35,8 +24,9 @@ router.get('/show-sent-sharing-requests', showSentSharingRequests);
 
 router.post('/create-account', createAccount);
 router.post('/login', loginController);
-router.post('/add-supply', upload.single('image'), addSupply);
-router.post('/modify-supply', upload.single('image'), modifySupply);
+
+router.post('/add-supply', uploadMulterSingleFile, addSupply);
+router.post('/modify-supply', uploadMulterSingleFile, modifySupply);
 router.post('/create-company', createCompany);
 router.post('/join-company', joinCompany);
 router.post('/send-sharing-request', sendSharingRequest);

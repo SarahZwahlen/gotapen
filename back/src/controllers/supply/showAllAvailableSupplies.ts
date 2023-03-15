@@ -10,16 +10,18 @@ const showAllAvailableSupply = async (
     // Verify user authentification
     try {
         const user = await User.findById(req.session.user);
-        if (user.roles === 'user') {
-            const company = await Company.findOne(user.company);
+        if (user) {
+            if (user.roles.includes('user')) {
+                const company = await Company.findOne(user.company);
 
-            if (company) {
-                const availableSupplies =
-                    supplyRepository.showUserAvailableSupplies(company);
-            } else {
-                res.json({
-                    message: "This company does'nt exists"
-                });
+                if (company) {
+                    const availableSupplies =
+                        supplyRepository.showUserAvailableSupplies(company);
+                } else {
+                    res.json({
+                        message: "This company does'nt exists"
+                    });
+                }
             }
         }
     } catch (error) {

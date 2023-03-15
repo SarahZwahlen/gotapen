@@ -10,14 +10,6 @@ const PORT = 3001;
 app.use(express.static('/public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(
-//     session({
-//         secret: 'keyboard cat',
-//         resave: false,
-//         saveUninitialized: true,
-//         cookie: { secure: true, maxAge: 360000 }
-//     })
-// );
 
 app.use(
     session({

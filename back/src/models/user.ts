@@ -4,6 +4,7 @@ import { SharingRequestType } from './sharingRequest';
 import { SupplyType } from './supply';
 
 type UserType = {
+    id: string;
     email: string;
     password: string;
     firstname: string;

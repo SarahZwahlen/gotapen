@@ -33,7 +33,6 @@ const addSupply = async (req: Express.Request, res: Express.Response) => {
                 owner: req.session.user,
                 fileName: req.file?.filename
             };
-
             const result = await createNewSupply(
                 datas,
                 supplyRepositoryMongo.addSupply,

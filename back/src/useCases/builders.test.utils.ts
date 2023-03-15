@@ -2,9 +2,11 @@ import { UserType } from '../models/user';
 import bcrypt from 'bcrypt';
 import { CompanyType } from '../models/company';
 import { SupplyType } from '../models/supply';
+import { randomUUID } from 'crypto';
 
 const buildUser = async (params: Partial<UserType> = {}): Promise<UserType> => {
     const user = {
+        id: randomUUID(),
         email: 'sarah@mail.fr',
         password: '123',
         surname: 'Zwn',
@@ -25,7 +27,7 @@ const buildCompany = async (
     params: Partial<CompanyType> = {}
 ): Promise<CompanyType> => {
     const company = {
-        employees: [await buildUser()],
+        employees: [],
         name: 'Totoland',
         joinCode: '123',
         ...params
@@ -40,7 +42,7 @@ const buildSupply = async (
     params: Partial<SupplyType> = {}
 ): Promise<SupplyType> => {
     return {
-        supplyId: `${Date.now()}${Math.floor(Math.random() * 10000)}`,
+        id: randomUUID(),
         availability: true,
         company: await buildCompany(),
         imagePath: 'Image.jpg',

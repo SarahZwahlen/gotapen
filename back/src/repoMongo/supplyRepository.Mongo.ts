@@ -23,11 +23,11 @@ const supplyRepositoryMongo = {
         if (!supplyToDelete) {
             return false;
         }
+        await Supply.deleteOne({ _id: supplyId });
 
         fs.unlink(`public/${supplyToDelete.imagePath}`, () =>
             console.log('pic deleted')
         );
-        await Supply.deleteOne({ _id: supplyId });
 
         return true;
     }

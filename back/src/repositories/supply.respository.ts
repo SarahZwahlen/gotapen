@@ -8,7 +8,7 @@ const supplyRepository = {
         supplyDatas: Pick<SupplyType, 'name'>,
         fileName: string
     ) => {
-        const newSupply = new Supply({
+        const newSupply = new Supply({§
             ...supplyDatas,
             owner: owner,
             imagePath: `suppliesImages/${fileName}`

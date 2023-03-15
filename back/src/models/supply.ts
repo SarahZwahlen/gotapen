@@ -4,7 +4,7 @@ import SharingRequest from './sharingRequest';
 import { UserType } from './user';
 
 type SupplyType = {
-    supplyId: string;
+    id: string;
     name: string;
     availability: boolean;
     imagePath: string;
