@@ -22,7 +22,6 @@ const sharingRequestSchema = new Schema<SharingRequestType>({
         type: mongoose.Schema.Types.ObjectId,
         red: 'Supply'
     }
-    // {timestamps : true}
 });
 
 sharingRequestSchema.post('save', async function (sharingRequest, next) {

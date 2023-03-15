@@ -16,20 +16,11 @@ const sendSharingRequest = async (
         });
 
         if (sharer && applicant && sharedSupply) {
-            if (
-                sharer.supplies.includes(req.body.sharedSupplyId) &&
-                sharedSupply.availability === true
-            ) {
-                sharingRequestRepository.sendSharingRequest(
-                    req.body.sharerId,
-                    req.body.applicantId,
-                    req.body.sharedSupplyId
-                );
-            } else {
-                res.json({
-                    message: 'User doesnt possess this supply'
-                });
-            }
+            sharingRequestRepository.sendSharingRequest(
+                req.body.sharerId,
+                req.body.applicantId,
+                req.body.sharedSupplyId
+            );
         } else {
             res.json({
                 message: 'Something is null'

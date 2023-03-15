@@ -10,7 +10,7 @@ type UserType = {
     surname: string;
     roles: string[];
     company: CompanyType;
-    supplies: SupplyType[];
+    // supplies: SupplyType[];
     borrowedSupplies: SupplyType[];
     sentSharingRequests: SharingRequestType[];
     receivedSharingRequests: SharingRequestType[];
@@ -49,13 +49,13 @@ const userSchema = new Schema<UserType>(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Company'
         },
-        supplies: [
-            {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Supply',
-                default: []
-            }
-        ],
+        // supplies: [
+        //     {
+        //         type: mongoose.Schema.Types.ObjectId,
+        //         ref: 'Supply',
+        //         default: []
+        //     }
+        // ],
         borrowedSupplies: [
             {
                 type: mongoose.Schema.Types.ObjectId,

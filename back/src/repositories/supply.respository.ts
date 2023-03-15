@@ -20,30 +20,12 @@ const supplyRepository = {
             { $push: { supplies: newSupply } }
         );
     },
-    showUserAvailableSupplies: (company: CompanyType) => {
-        let allSupplies: object[] = [];
-        company.employees.map(async (employee) => {
-            const newEmployee = await User.findById(employee);
-
-            if (newEmployee) {
-                const availableSupplies: object[] = [];
-                newEmployee.supplies.forEach(async (supply) => {
-                    const theSupply = await Supply.findById(supply);
-
-                    if (theSupply?.availability === true) {
-                        availableSupplies.push(theSupply);
-                    }
-                });
-
-                allSupplies = [
-                    ...allSupplies,
-                    {
-                        employee: newEmployee,
-                        supplies: availableSupplies
-                    }
-                ];
-            }
+    showUserAvailableSupplies: async (company: CompanyType) => {
+        const allSupplies = await Supply.find({
+            company: company,
+            availability: true
         });
+
         return allSupplies;
     }
 };

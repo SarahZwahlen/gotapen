@@ -1,25 +1,27 @@
 import { SupplyType } from '../models/supply';
 import { UserType } from '../models/user';
 
-const addSupply = async (
-    name: string,
-    owner: UserType,
-    filename: string,
-    saveSupply: (
-        email: string,
-        owner: UserType,
-        filename: string
-    ) => Promise<SupplyType>,
-    getUserByEmail: (ownerEmail: string) => Promise<UserType>
+const createNewSupply = async (
+    datas: {
+        name: string;
+        owner: UserType;
+        fileName: string;
+    },
+    saveSupply: (datas: {
+        name: string;
+        owner: UserType;
+        fileName: string;
+    }) => Promise<SupplyType>,
+    getUserByEmail: (owner: UserType) => Promise<UserType | null>
 ): Promise<SupplyType> => {
-    const existingUser = await getUserByEmail(owner.email);
+    const existingUser = await getUserByEmail(datas.owner);
     if (!existingUser) {
         throw new Error("This user doesn't exists");
     }
-    const newSupply = await saveSupply(name, owner, filename);
-    // Ajouter le supply au user      
+
+    const newSupply = await saveSupply(datas);
 
     return newSupply;
 };
 
-export { addSupply };
+export { createNewSupply };

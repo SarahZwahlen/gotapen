@@ -1,4 +1,4 @@
-import User from '../models/user';
+import User, { UserType } from '../models/user';
 import bcrypt from 'bcrypt';
 
 const userRepositoryMongo = {
@@ -21,6 +21,10 @@ const userRepositoryMongo = {
     },
     getUserByEmail: async (email: string) => {
         const user = await User.findOne({ email });
+        return user;
+    },
+    getUserByUser: async (userDatas: UserType) => {
+        const user = await User.findOne({ email: userDatas.email });
         return user;
     }
 };

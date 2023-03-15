@@ -1,31 +1,50 @@
 import Express from 'express';
-import supplyRepository from '../../repositories/supply.respository';
+import User from '../../models/user';
+import { supplyRepositoryMongo } from '../../repoMongo/supplyRepository.Mongo';
+import userRepositoryMongo from '../../repoMongo/userRepository.Mongo';
+import { createNewSupply } from '../../useCases/addSuply.usecase';
 
 const addSupply = async (req: Express.Request, res: Express.Response) => {
     // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
 
     try {
-        const supplyDatas = req.body;
-        // Warning currently session system is not designed ...
-        const owner = req.session.user;
-        if (!owner) {
-            return res.status(401).json({
-                message: 'User is not authentified'
+        if (!req.session.user) {
+            res.json({
+                message: 'User is not logged'
             });
         }
-        const fileName = req.file?.filename;
-        if (!fileName) {
-            return res.status(401).json({
+
+        if (!req.body.name) {
+            res.json({
+                message: 'The supply name is missing'
+            });
+        }
+
+        if (!req.file?.filename) {
+            res.json({
                 message: 'A file is missing'
             });
         }
 
-        supplyRepository.addSupply(owner, supplyDatas, fileName);
+        const user = await User.findById(req.body.ownerId);
+        if (req.body.name && req.file?.filename && req.session.user) {
+            const datas = {
+                name: req.body.name,
+                owner: req.session.user,
+                fileName: req.file?.filename
+            };
 
-        res.json({
-            message: 'add a supply !',
-            isShared: true
-        });
+            const result = await createNewSupply(
+                datas,
+                supplyRepositoryMongo.addSupply,
+                userRepositoryMongo.getUserByUser
+            );
+
+            res.json({
+                message: 'Supply is created',
+                supply: result
+            });
+        }
     } catch (error) {
         res.json({
             message: 'An error occured, pleasy retry',

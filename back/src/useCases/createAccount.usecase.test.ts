@@ -1,6 +1,6 @@
 import { UserType } from '../models/user';
 import { createUser } from './createUser.usecase';
-import { buildUser } from './user.usercase.utils';
+import { buildUser } from './builders.test.utils';
 
 describe('Create a user account', () => {
     test('Connection succeed', async () => {
