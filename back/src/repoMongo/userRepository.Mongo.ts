@@ -1,4 +1,4 @@
-import User, { UserType } from '../models/user';
+import User from '../models/user';
 import bcrypt from 'bcrypt';
 
 const userRepositoryMongo = {
@@ -23,9 +23,17 @@ const userRepositoryMongo = {
         const user = await User.findOne({ email });
         return user;
     },
-    getUserByUser: async (userDatas: UserType) => {
-        const user = await User.findOne({ email: userDatas.email });
+    getUserById: async (userId: string) => {
+        console.log('repo', userId);
+        const user = (await User.findById(userId))?.toObject() || null;
+        if (!user) {
+            throw new Error('Id is not valid');
+        }
+        console.log('repo', user);
         return user;
+    },
+    deleteUser: async (userId: string) => {
+        await User.deleteOne({ _id: userId });
     }
 };
 

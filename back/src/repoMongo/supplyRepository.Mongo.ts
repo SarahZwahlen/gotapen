@@ -1,4 +1,4 @@
-import Supply from '../models/supply';
+import Supply, { SupplyType } from '../models/supply';
 import { UserType } from '../models/user';
 import fs from 'fs';
 
@@ -30,6 +30,14 @@ const supplyRepositoryMongo = {
         );
 
         return true;
+    },
+    getSupply: async (supplyId: string): Promise<SupplyType | null> => {
+        const supply = await Supply.findById(supplyId);
+        return supply;
+    },
+    getAllCompynySupplies: async (companyId: string): Promise<SupplyType[]> => {
+        const supplies = await Supply.find({ company: companyId });
+        return supplies;
     }
 };
 

@@ -2,6 +2,7 @@ import mongoose, { Schema, model } from 'mongoose';
 import { UserType } from './user';
 
 type CompanyType = {
+    id: string;
     name: string;
     joinCode: string;
     employees: UserType[];
