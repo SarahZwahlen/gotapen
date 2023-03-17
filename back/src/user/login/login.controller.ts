@@ -10,6 +10,7 @@ const loginController = async (req: Request, res: Response) => {
             req.body.password,
             userRepositoryMongo.getUserByEmail
         );
+        console.log(user);
         req.session.user = user;
         // req.session.user._id = user._id;
         console.log('login', req.session.user);

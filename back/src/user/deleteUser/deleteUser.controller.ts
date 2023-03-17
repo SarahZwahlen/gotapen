@@ -1,15 +1,14 @@
 import { Request, Response } from 'express';
-import User from '../../models/user';
 import userRepositoryMongo from '../../repoMongo/userRepository.Mongo';
 import { deleteAccount } from './deleteUser.usecase';
 
 const deleteUser = async (req: Request, res: Response) => {
     try {
         if (req.session.user) {
-            const loggedUser = await User.findById(req.body.userId);
-
+            console.log('session user', req.session.user);
+            // const loggedUser = await User.findById(req.body.userId);
             if (
-                loggedUser!.id === req.body.userId ||
+                req.session.user.id === req.body.userId ||
                 req.session.user.roles.includes('admin')
             ) {
                 await deleteAccount(

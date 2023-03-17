@@ -2,7 +2,7 @@ import express from 'express';
 import createAccount from '../user/createAccount/createAccount.controller';
 import addSupply from '../supply/addSupply/addSupply.controller';
 import deleteSupply from '../supply/deleteSupply/deleteSupply.controller';
-import modifySupply from '../supply/modifySupply/modifySupply';
+import modifySupply from '../supply/modifySupply/modifySupply.controller';
 import showCompanySupplies from '../supply/showCompanySupplies/showCompanySupplies.controller';
 import createCompany from '../company/createCompany/createCompany.controller';
 import joinCompany from '../company/joinCompany/joinCompany.controller';
@@ -18,12 +18,16 @@ import { uploadMulterSingleFile } from '../middlewares/multerUpload';
 import showSupply from '../supply/showSupply/showSupply.controller';
 import logOutController from '../user/logout/logout.controller';
 import deleteUser from '../user/deleteUser/deleteUser.controller';
+import showUserSupplies from '../supply/getUserSupplies/getUserSupplies.controller';
+import showUserDatas from '../user/showAccount/getUserDatas.controller';
 
 const router = express.Router();
 
 router.get('/show-supplies', showCompanySupplies);
 router.get('/show-received-sharing-requests', showReceivedSharingRequest);
 router.get('/show-sent-sharing-requests', showSentSharingRequests);
+router.get('/show-user-supplies', showUserSupplies);
+router.get('/show-user-datas', showUserDatas);
 
 router.post('/create-account', createAccount);
 router.post('/login', loginController);

@@ -1,7 +1,7 @@
 import Company from '../../models/company';
 import User from '../../models/user';
 import Express from 'express';
-import supplyRepository from '../../repositories/supply.respository';
+import { supplyRepositoryMongo } from '../../repoMongo/supplyRepository.Mongo';
 
 const showAllAvailableSupply = async (
     req: Express.Request,
@@ -16,7 +16,7 @@ const showAllAvailableSupply = async (
 
                 if (company) {
                     const availableSupplies =
-                        supplyRepository.showUserAvailableSupplies(company);
+                        supplyRepositoryMongo.getUserAvailableSupplies(company);
                 } else {
                     res.json({
                         message: "This company does'nt exists"

@@ -1,6 +1,7 @@
 import Supply, { SupplyType } from '../models/supply';
 import { UserType } from '../models/user';
 import fs from 'fs';
+import { CompanyType } from '../models/company';
 
 const supplyRepositoryMongo = {
     addSupply: async (datas: {
@@ -35,9 +36,21 @@ const supplyRepositoryMongo = {
         const supply = await Supply.findById(supplyId);
         return supply;
     },
+    getSupplies: async (userId: string): Promise<SupplyType[]> => {
+        const supplies = await Supply.find({ owner: userId });
+        return supplies;
+    },
     getAllCompynySupplies: async (companyId: string): Promise<SupplyType[]> => {
         const supplies = await Supply.find({ company: companyId });
         return supplies;
+    },
+    getUserAvailableSupplies: async (company: CompanyType) => {
+        const allSupplies = await Supply.find({
+            company: company,
+            availability: true
+        });
+
+        return allSupplies;
     }
 };
 

@@ -32,6 +32,12 @@ declare module 'express-session' {
 }
 
 mongoose.set('strictQuery', false);
+mongoose.set('toJSON', {
+    getters: true
+});
+mongoose.set('toObject', {
+    getters: true
+});
 mongoose.connect(
     'mongodb+srv://sarahZwahlen:123@cluster0.9lnobhu.mongodb.net/?retryWrites=true&w=majority'
 );

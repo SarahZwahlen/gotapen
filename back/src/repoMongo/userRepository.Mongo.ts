@@ -24,12 +24,10 @@ const userRepositoryMongo = {
         return user;
     },
     getUserById: async (userId: string) => {
-        console.log('repo', userId);
-        const user = (await User.findById(userId))?.toObject() || null;
+        const user = await User.findById(userId);
         if (!user) {
             throw new Error('Id is not valid');
         }
-        console.log('repo', user);
         return user;
     },
     deleteUser: async (userId: string) => {
