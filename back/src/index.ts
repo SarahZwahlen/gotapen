@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import router from './routers/router';
 import mongoose from 'mongoose';
-import { UserType } from './models/user';
+import { UserType } from './infrasturcture/models/user';
 
 const app = express();
 const PORT = 3001;

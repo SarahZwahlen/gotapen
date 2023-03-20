@@ -1,3 +1,0 @@
-const modifyUser = () => {};
-
-export { modifyUser };
