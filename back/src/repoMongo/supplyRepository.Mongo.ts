@@ -2,13 +2,10 @@ import Supply, { SupplyType } from '../models/supply';
 import { UserType } from '../models/user';
 import fs from 'fs';
 import { CompanyType } from '../models/company';
+import { SupplyRepositoryInterface } from '../models/persistence/SupplyRepositoryInterface';
 
-const supplyRepositoryMongo = {
-    addSupply: async (datas: {
-        name: string;
-        owner: UserType;
-        fileName: string;
-    }) => {
+const supplyRepositoryMongo: SupplyRepositoryInterface = {
+    addSupply: async (datas) => {
         const newSupply = new Supply({
             ...datas,
             imagePath: `public/images/${datas.fileName}`

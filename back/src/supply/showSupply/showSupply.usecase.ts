@@ -1,12 +1,23 @@
+import { SupplyRepositoryInterface } from '../../models/persistence/SupplyRepositoryInterface';
 import { SupplyType } from '../../models/supply';
 
-const showSupplyUseCase = (
-    supplyId: string,
-    getSupply: (supplyId: string) => Promise<SupplyType | null>
-): Promise<SupplyType | null> => {
-    const supply = getSupply(supplyId);
+type ShowSupplyUsecase = (
+    supplyId: string
+    // repo: SupplyRepositoryInterface
+) => Promise<SupplyType | null>;
 
-    return supply;
-};
+const showSupplyUsecaseCreator =
+    (repo: SupplyRepositoryInterface): ShowSupplyUsecase =>
+    async (supplyId) => {
+        const supply = await repo.getSupply(supplyId);
 
-export { showSupplyUseCase };
+        return supply;
+    };
+// const showSupplyUseCase: ShowSupplyUsecase = async (supplyId, repo) => {
+//     const supply = await repo.getSupply(supplyId);
+
+//     return supply;
+// };
+
+export type { ShowSupplyUsecase };
+export { showSupplyUsecaseCreator };

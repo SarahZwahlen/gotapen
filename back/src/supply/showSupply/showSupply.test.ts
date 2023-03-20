@@ -2,27 +2,30 @@
 // est-ce que le supply est retourné =
 
 import { buildSupply } from '../../builders/builders.test.utils';
-import { SupplyType } from '../../models/supply';
-import { showSupplyUseCase } from './showSupply.usecase';
+import { supplyRepoInMemory } from '../../repositoryInMemory/supply.respository.inMemory';
+import { showSupplyUsecaseCreator } from './showSupply.usecase';
+// import { showSupplyUseCase } from './showSupply.usecase';
 
-describe('Show supply', () => {
+describe('Show supply usecase', () => {
+    const useCase = showSupplyUsecaseCreator(supplyRepoInMemory);
+
+    beforeEach(() => {
+        supplyRepoInMemory.reset();
+    });
+
     test('The supply exists', async () => {
-        const supply = await buildSupply();
-        const supplyID = supply.id;
+        const supply = await buildSupply({ id: '456' });
+        supplyRepoInMemory.givenExistingSupply(supply);
 
-        const getSupply = async (): Promise<SupplyType> => {
-            return supply;
-        };
-        expect(await showSupplyUseCase(supplyID, getSupply)).toEqual(supply);
+        expect(await useCase(supply.id)).toEqual(
+            supplyRepoInMemory.supplies[0]
+        );
     });
 
     test("the supply doesn't exists", async () => {
-        const supply = await buildSupply();
+        const supply = await buildSupply({ id: '456' });
         const supplyID = supply.id;
-        const getSupply = async (): Promise<null> => {
-            return null;
-        };
 
-        expect(await showSupplyUseCase(supplyID, getSupply)).toBe(null);
+        expect(await useCase(supplyID)).toBe(null);
     });
 });
