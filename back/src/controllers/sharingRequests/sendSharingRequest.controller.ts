@@ -1,7 +1,7 @@
 import Express from 'express';
 import Supply from '../../infrasturcture/models/supply';
 import User from '../../infrasturcture/models/user';
-import { sharingRequestRepository } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import { sharingRequestRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
 
 const sendSharingRequest = async (
     req: Express.Request,
@@ -16,7 +16,7 @@ const sendSharingRequest = async (
         });
 
         if (sharer && applicant && sharedSupply) {
-            sharingRequestRepository.sendSharingRequest(
+            sharingRequestRepositoryMongo.sendSharingRequest(
                 req.body.sharerId,
                 req.body.applicantId,
                 req.body.sharedSupplyId

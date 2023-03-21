@@ -1,24 +1,26 @@
 import Express from 'express';
-import SharingRequest from '../../infrasturcture/models/sharingRequest';
-import { sharingRequestRepository } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import { sharingRequestRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import { supplyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/supplyRepository.Mongo';
+import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
+import { acceptSharingRequest } from '../../usecases/sharingRequest/acceptSharingRequest.usecase';
 
 const acceptSharing = async (req: Express.Request, res: Express.Response) => {
     try {
-        const sharingRequest = await SharingRequest.findOne({
-            _id: req.body.sharingRequestId
-        });
-
-        console.log(sharingRequest);
-        if (sharingRequest) {
-            await sharingRequestRepository.acceptSharingRequest(sharingRequest);
+        if (req.session.user) {
+            acceptSharingRequest(
+                req.body.sharingRequestId,
+                sharingRequestRepositoryMongo.getSharingRequest,
+                userRepositoryMongo.getUserById,
+                supplyRepositoryMongo.getSupply,
+                sharingRequestRepositoryMongo.acceptSharingRequest
+            );
 
             res.json({
-                message: 'done',
-                request: sharingRequest
+                message: 'done'
             });
         } else {
             res.json({
-                message: "This request doesn't exists"
+                message: 'You must be logged'
             });
         }
     } catch (error) {

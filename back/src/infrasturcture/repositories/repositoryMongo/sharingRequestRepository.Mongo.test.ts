@@ -7,7 +7,7 @@ import {
 import SharingRequest from '../../models/sharingRequest';
 import Supply from '../../models/supply';
 import User from '../../models/user';
-import { sharingRequestRepository } from './sharingRequestRepository.Mongo';
+import { sharingRequestRepositoryMongo } from './sharingRequestRepository.Mongo';
 
 describe('SharingRequestRepository', () => {
     afterEach(async () => await clearDatabase());
@@ -49,7 +49,7 @@ describe('SharingRequestRepository', () => {
                 );
                 // When I accept the sharing request
                 const result =
-                    await sharingRequestRepository.acceptSharingRequest(
+                    await sharingRequestRepositoryMongo.acceptSharingRequest(
                         existingSharingRequest
                     );
 
@@ -122,9 +122,10 @@ describe('SharingRequestRepository', () => {
             );
 
             // When the sharing request is denied
-            const result = await sharingRequestRepository.deniedSharingRequest(
-                existingSharingRequest
-            );
+            const result =
+                await sharingRequestRepositoryMongo.deniedSharingRequest(
+                    existingSharingRequest
+                );
 
             // The sharing request is delete from DB
             const isRequestExiststing = await SharingRequest.findById(
@@ -174,7 +175,7 @@ describe('SharingRequestRepository', () => {
 
             // When I send a sharing request
             const sharingRequest =
-                await sharingRequestRepository.sendSharingRequest(
+                await sharingRequestRepositoryMongo.sendSharingRequest(
                     sharer._id,
                     applicant._id,
                     sharedSupply._id

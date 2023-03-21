@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import { CompanyType } from '../models/company';
 import { SupplyType } from '../models/supply';
 import { randomUUID } from 'crypto';
+import { SharingRequestType } from '../models/sharingRequest';
 
 const buildUser = async (params: Partial<UserType> = {}): Promise<UserType> => {
     const user = {
@@ -53,4 +54,15 @@ const buildSupply = async (
     };
 };
 
-export { buildUser, buildCompany, buildSupply };
+const buildSharinRequest = async (
+    params: Partial<SharingRequestType> = {}
+): Promise<SharingRequestType> => {
+    return {
+        id: randomUUID(),
+        sharedSupply: params.sharedSupply!,
+        sharer: params.sharer!,
+        applicant: params.applicant!
+    };
+};
+
+export { buildUser, buildCompany, buildSupply, buildSharinRequest };

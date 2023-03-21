@@ -3,9 +3,9 @@ import SharingRequest, {
     SharingRequestType
 } from '../../models/sharingRequest';
 import Supply from '../../models/supply';
-import User, { UserType } from '../../models/user';
+import User from '../../models/user';
 
-const sharingRequestRepository = {
+const sharingRequestRepositoryMongo = {
     acceptSharingRequest: async (sharingRequest: SharingRequestType) => {
         await User.updateOne(
             { _id: sharingRequest.applicant },
@@ -63,70 +63,53 @@ const sharingRequestRepository = {
             return newSharingRequest;
         }
     },
-    showReceivedSharingRequest: async (
-        userSharingRequests: object[],
-        user: UserType
-    ) => {
-        await Promise.all(
-            user.receivedSharingRequests.map(
-                async (request: SharingRequestType) => {
-                    const receivedRequest = await SharingRequest.findOne({
-                        _id: request
-                    });
-                    console.log(receivedRequest);
-                    const applicant = await User.findOne({
-                        _id: receivedRequest?.applicant
-                    });
-                    const sharer = await User.findOne({
-                        _id: receivedRequest?.sharer
-                    });
-                    const supply = await Supply.findOne({
-                        _id: receivedRequest?.sharedSupply
-                    });
-
-                    userSharingRequests.push({
-                        applicant: applicant?.firstname,
-                        sharer: sharer?.firstname,
-                        supply: supply?.name
-                    });
-
-                    return userSharingRequests;
-                }
-            )
-        );
+    showReceivedSharingRequest: async (userId: string) => {
+        const user = await User.findById(userId);
+        if (user?.receivedSharingRequests) {
+            return user?.receivedSharingRequests;
+        } else {
+            return null;
+        }
     },
-    showSentSharingRequests: async (
-        userSharingRequests: object[],
-        user: UserType
-    ) => {
-        await Promise.all(
-            user.sentSharingRequests.map(
-                async (request: SharingRequestType) => {
-                    const sentRequest = await SharingRequest.findOne({
-                        _id: request
-                    });
-                    console.log(sentRequest);
-                    const applicant = await User.findOne({
-                        _id: sentRequest?.applicant
-                    });
-                    const sharer = await User.findOne({
-                        _id: sentRequest?.sharer
-                    });
-                    const supply = await Supply.findOne({
-                        _id: sentRequest?.sharedSupply
-                    });
+    showSentSharingRequests: async (userId: string) => {
+        const user = await User.findById(userId);
+        if (user?.sentSharingRequests) {
+            return user.sentSharingRequests;
+        } else {
+            return null;
+        }
+        // await Promise.all(
+        //     user.sentSharingRequests.map(
+        //         async (request: SharingRequestType) => {
+        //             const sentRequest = await SharingRequest.findOne({
+        //                 _id: request
+        //             });
+        //             console.log(sentRequest);
+        //             const applicant = await User.findOne({
+        //                 _id: sentRequest?.applicant
+        //             });
+        //             const sharer = await User.findOne({
+        //                 _id: sentRequest?.sharer
+        //             });
+        //             const supply = await Supply.findOne({
+        //                 _id: sentRequest?.sharedSupply
+        //             });
 
-                    userSharingRequests.push({
-                        applicant: applicant?.firstname,
-                        sharer: sharer?.firstname,
-                        supply: supply?.name
-                    });
+        //             userSharingRequests.push({
+        //                 applicant: applicant?.firstname,
+        //                 sharer: sharer?.firstname,
+        //                 supply: supply?.name
+        //             });
 
-                    return userSharingRequests;
-                }
-            )
-        );
+        //             return userSharingRequests;
+        //         }
+        //     )
+        // );
+    },
+    getSharingRequest: async (sharingRequestId: string) => {
+        const sharingRequest = await SharingRequest.findById(sharingRequestId);
+        return sharingRequest;
     }
 };
 
-export { sharingRequestRepository };
+export { sharingRequestRepositoryMongo };

@@ -1,25 +1,31 @@
 import Express from 'express';
-import User from '../../infrasturcture/models/user';
-import { sharingRequestRepository } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import { sharingRequestRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
+import { showSentSharingReq } from '../../usecases/sharingRequest/showSentSharingRequest.usecase';
 
 const showSentSharingRequests = async (
     req: Express.Request,
     res: Express.Response
 ) => {
     try {
-        const userSharingRequests: object[] = [];
-        const user = await User.findById(req.body.userId);
-
-        if (user) {
-            const requestResult =
-                sharingRequestRepository.showSentSharingRequests(
-                    userSharingRequests,
-                    user
-                );
-            res.json({
-                message: 'Here are your received sharing requests',
-                requests: requestResult
-            });
+        if (req.session.user) {
+            const requests = await showSentSharingReq(
+                req.session.user.id,
+                userRepositoryMongo.getUserById,
+                sharingRequestRepositoryMongo.showSentSharingRequests
+            );
+            if (requests) {
+                res.json({
+                    message: 'Here are the sent sharing requests',
+                    requests
+                });
+            } else {
+                res.json({
+                    message: 'No sent sharing requests'
+                });
+            }
+        } else {
+            res.json('You must be logged');
         }
     } catch (error) {
         console.log(error);

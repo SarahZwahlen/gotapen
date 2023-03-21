@@ -1,24 +1,22 @@
 import Express from 'express';
-import SharingRequest from '../../infrasturcture/models/sharingRequest';
-import { sharingRequestRepository } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import { sharingRequestRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/sharingRequestRepository.Mongo';
+import { supplyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/supplyRepository.Mongo';
+import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
+import { deniedSharingRequest } from '../../usecases/sharingRequest/deniedSharingRequest.usecase';
 
 const deniedSharing = async (req: Express.Request, res: Express.Response) => {
     try {
-        const sharingRequest = await SharingRequest.findOne({
-            _id: req.body.sharingRequestId
-        });
-
-        console.log(sharingRequest);
-        if (sharingRequest) {
-            await sharingRequestRepository.deniedSharingRequest(sharingRequest);
-
-            res.json({
-                message: 'The other user denied the sharing request',
-                request: sharingRequest
-            });
+        if (req.session.user) {
+            await deniedSharingRequest(
+                req.body.sharingRequestId,
+                sharingRequestRepositoryMongo.getSharingRequest,
+                userRepositoryMongo.getUserById,
+                supplyRepositoryMongo.getSupply,
+                sharingRequestRepositoryMongo.deniedSharingRequest
+            );
         } else {
             res.json({
-                message: "This request doesn't exists"
+                message: 'You must be logged'
             });
         }
     } catch (error) {
