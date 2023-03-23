@@ -2,6 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import router from './routers/router';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import { UserType } from './infrasturcture/models/user';
 
 const app = express();
@@ -22,6 +23,13 @@ app.use(
             secure: false,
             sameSite: true
         }
+    })
+);
+app.use(
+    cors({
+        origin: 'http://localhost:3000',
+        credentials: true,
+        optionsSuccessStatus: 200
     })
 );
 

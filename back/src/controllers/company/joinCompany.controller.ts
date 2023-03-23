@@ -24,7 +24,7 @@ const joinCompany = async (req: Express.Request, res: Express.Response) => {
                     { employees: user }
                 );
                 res.json({
-                    message: 'try to join company'
+                    message: 'Company joined'
                 });
             } else {
                 res.json({

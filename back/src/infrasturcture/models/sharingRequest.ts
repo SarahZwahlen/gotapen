@@ -24,26 +24,6 @@ const sharingRequestSchema = new Schema<SharingRequestType>({
     }
 });
 
-sharingRequestSchema.post('save', async function (sharingRequest, next) {
-    await User.updateOne(
-        { _id: sharingRequest.applicant },
-        {
-            $push: { sentSharingRequests: sharingRequest.id }
-        }
-    );
-    await User.updateOne(
-        {
-            _id: sharingRequest.sharer
-        },
-        {
-            $push: {
-                receivedSharingRequests: sharingRequest.id
-            }
-        }
-    );
-    next();
-});
-
 sharingRequestSchema.pre(
     'deleteOne',
     { document: true, query: false },

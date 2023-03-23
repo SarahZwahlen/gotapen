@@ -3,7 +3,6 @@ import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMon
 import { getUserDatas } from '../../usecases/user/getUserDatas.usecase';
 
 const showUserDatas = async (req: Request, res: Response) => {
-    console.log('coucou');
     try {
         if (req.session.user) {
             const userDatas = await getUserDatas(
@@ -13,22 +12,26 @@ const showUserDatas = async (req: Request, res: Response) => {
             if (userDatas) {
                 res.json({
                     message: 'Here are the user datas',
-                    user: userDatas
+                    user: userDatas,
+                    isLogged: true
                 });
             } else {
                 res.json({
-                    message: "This user doesn't exists"
+                    message: "This user doesn't exists",
+                    isLogged: false
                 });
             }
         } else {
             res.json({
-                message: 'You must be logged'
+                message: 'You must be logged',
+                isLogged: false
             });
         }
     } catch (error) {
         console.log(error);
         res.json({
             message: 'An error occured',
+            isLogged: false,
             error: error
         });
     }

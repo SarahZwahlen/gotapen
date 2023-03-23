@@ -15,8 +15,6 @@ const userRepoInMemory: UserRepositoryInterface & {
         this.users.push(user);
     },
     getUserById: async function (userId: string) {
-        console.log(this.users);
-        console.log(userId);
         const result = this.users.find((user: UserType) => user.id === userId);
 
         if (!result) {
@@ -51,8 +49,26 @@ const userRepoInMemory: UserRepositoryInterface & {
         this.users.push(user);
         return user;
     },
-    deleteUser: async function (userId: string) {},
-    updateUser: async function () {}
+    deleteUser: async function (userId) {
+        const user = await this.getUserById(userId);
+        if (user) {
+            const userIndex = this.users.indexOf(user);
+            this.users.splice(userIndex, 1);
+        } else {
+            throw new Error("This user doesn't exists");
+        }
+    },
+    updateUser: async function (userId, datas) {
+        let user = await this.getUserById(userId);
+        if (user) {
+            user = {
+                ...user,
+                ...datas
+            };
+        } else {
+            return;
+        }
+    }
 };
 
 export { userRepoInMemory };

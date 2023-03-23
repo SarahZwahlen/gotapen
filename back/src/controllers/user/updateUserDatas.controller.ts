@@ -15,9 +15,9 @@ const updateUserDatas: RequestHandler = async (req, res) => {
                 ...req.body
             };
             const user = await modifyUser(
+                req.session.user.id,
                 datas,
-                await userRepositoryMongo.getUserById,
-                await userRepositoryMongo.updateUser
+                userRepositoryMongo
             );
             if (user) {
                 req.session.user = user;

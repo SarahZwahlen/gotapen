@@ -4,10 +4,11 @@ import {
     buildSharinRequest
 } from '../../infrasturcture/builders/builders.test.utils';
 import { SharingRequestType } from '../../infrasturcture/models/sharingRequest';
+import { SupplyType } from '../../infrasturcture/models/supply';
 import { UserType } from '../../infrasturcture/models/user';
 import { supplyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/supply.respository.inMemory';
 import { userRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/user.resposotory.InMemory';
-import { sendSharingRequest } from './sendSharingRequest.usecase';
+import { sendSharingRequestUseCase } from './sendSharingRequest.usecase';
 
 describe('Send a sharing request', () => {
     beforeEach(() => {
@@ -36,18 +37,22 @@ describe('Send a sharing request', () => {
             sharer: owner,
             sharedSupply: supply
         });
-        const sendSharingRq = async (owner: UserType, applicant: UserType) => {
+        const sendSharingRq = async (
+            owner: UserType,
+            applicant: UserType,
+            supply: SupplyType
+        ) => {
             owner.receivedSharingRequests = [sharingRequest];
             applicant.sentSharingRequests = [sharingRequest];
             sharingRequestDB.push(sharingRequest);
         };
 
-        await sendSharingRequest(
+        await sendSharingRequestUseCase(
             owner.id,
             applicant.id,
             supply.id,
             userRepoInMemory,
-            supplyRepoInMemory.getSupply,
+            supplyRepoInMemory,
             sendSharingRq
         );
 
@@ -85,18 +90,18 @@ describe('Send a sharing request', () => {
 
         await expect(
             async () =>
-                await sendSharingRequest(
+                await sendSharingRequestUseCase(
                     owner.id,
                     applicant.id,
                     supply.id,
                     userRepoInMemory,
-                    supplyRepoInMemory.getSupply,
+                    supplyRepoInMemory,
                     sendSharingRq
                 )
         ).rejects.toThrow("This supply doesn't exists");
     });
 
-    test("Supply doesn't exists", async () => {
+    test("Owner or applicant doesn't exists", async () => {
         const owner = await buildUser({
             email: 'owner@mail.com',
             firstname: 'owner'
@@ -126,12 +131,12 @@ describe('Send a sharing request', () => {
 
         await expect(
             async () =>
-                await sendSharingRequest(
+                await sendSharingRequestUseCase(
                     owner.id,
                     applicant.id,
                     supply.id,
                     userRepoInMemory,
-                    supplyRepoInMemory.getSupply,
+                    supplyRepoInMemory,
                     sendSharingRq
                 )
         ).rejects.toThrow("Owner or applicant doesn't exist");

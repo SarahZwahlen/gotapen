@@ -1,7 +1,7 @@
-import { UserType } from '../../infrasturcture/models/user';
 import { Response, Request } from 'express';
-import { logUser } from '../../usecases/user/logUser.usecase';
+import { UserType } from '../../infrasturcture/models/user';
 import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
+import { logUser } from '../../usecases/user/logUser.usecase';
 
 const loginController = async (req: Request, res: Response) => {
     try {
@@ -10,18 +10,18 @@ const loginController = async (req: Request, res: Response) => {
             req.body.password,
             userRepositoryMongo.getUserByEmail
         );
-        console.log(user);
         req.session.user = user;
-        // req.session.user._id = user._id;
-        console.log('login', req.session.user);
-        console.log('login', req.session.user.id);
+        console.log('session', req.session);
         res.json({
-            message: 'Authentification succeed'
+            message: 'Authentification succeed',
+            isLogged: true
         });
     } catch (error) {
         res.status(401).json({
             message:
-                'Authentification failed, maybe some fields are wrong or missing'
+                'Authentification failed, maybe some fields are wrong or missing',
+            error: error,
+            isLogged: false
         });
     }
 };

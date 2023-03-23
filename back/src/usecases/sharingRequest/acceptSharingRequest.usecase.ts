@@ -12,6 +12,10 @@ const acceptSharingRequest = async (
     acceptSharing: (sharingRequest: SharingRequestType) => Promise<void>
 ) => {
     const sharingRequest = await getSharingRequest(sharingRequestId);
+    // console.log('sharing request', sharingRequest);
+    // console.log('applicant', sharingRequest?.applicant);
+    // console.log('applicant', sharingRequest?.sharer);
+    // console.log('applicant', sharingRequest?.sharedSupply);
 
     if (sharingRequest) {
         const owner = await getUser(sharingRequest.sharer.id);

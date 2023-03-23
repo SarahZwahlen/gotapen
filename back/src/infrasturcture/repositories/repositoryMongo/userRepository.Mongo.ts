@@ -1,7 +1,8 @@
-import User, { UserType } from '../../models/user';
+import User from '../../models/user';
 import bcrypt from 'bcrypt';
+import { UserRepositoryInterface } from '../../models/persistence/UserRepositoryInterface';
 
-const userRepositoryMongo = {
+const userRepositoryMongo: UserRepositoryInterface = {
     saveUser: async (datas: {
         email: string;
         password: string;
@@ -33,16 +34,16 @@ const userRepositoryMongo = {
     deleteUser: async (userId: string) => {
         await User.deleteOne({ _id: userId });
     },
-    updateUser: async (datas: Partial<UserType>) => {
+    updateUser: async (userId, datas) => {
         await User.updateOne(
-            { _id: datas.id },
+            { _id: userId },
             {
                 ...datas
             }
         );
         if (datas.password) {
             await User.updateOne(
-                { _id: datas.id },
+                { _id: userId },
                 {
                     password: await bcrypt.hash(datas.password, 10)
                 }

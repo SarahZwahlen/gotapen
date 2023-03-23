@@ -23,13 +23,15 @@ const createAccount = async (req: Express.Request, res: Express.Response) => {
         );
         req.session.user = user;
         res.json({
-            message: 'account created'
+            message: 'account created',
+            isLogged: true
         });
     } catch (error) {
         console.log(error);
         res.status(500).json({
             message:
-                'An error occused, maybe something is missing, or this email is already used by an other user. Please retry'
+                'An error occused, maybe something is missing, or this email is already used by an other user. Please retry',
+            isLogged: false
         });
     }
 };

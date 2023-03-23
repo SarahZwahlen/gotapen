@@ -28,7 +28,7 @@ router.get('/show-supplies', showCompanySupplies);
 router.get('/show-received-sharing-requests', showReceivedSharingRequest);
 router.get('/show-sent-sharing-requests', showSentSharingRequests);
 router.get('/show-user-supplies', showUserSupplies);
-router.get('/show-user-datas', showUserDatas);
+router.get('/account', showUserDatas);
 
 router.post('/create-account', createAccount);
 router.post('/login', loginController);

@@ -7,7 +7,7 @@ import { acceptSharingRequest } from '../../usecases/sharingRequest/acceptSharin
 const acceptSharing = async (req: Express.Request, res: Express.Response) => {
     try {
         if (req.session.user) {
-            acceptSharingRequest(
+            await acceptSharingRequest(
                 req.body.sharingRequestId,
                 sharingRequestRepositoryMongo.getSharingRequest,
                 userRepositoryMongo.getUserById,
@@ -16,7 +16,7 @@ const acceptSharing = async (req: Express.Request, res: Express.Response) => {
             );
 
             res.json({
-                message: 'done'
+                message: 'The sharing request has been accepted'
             });
         } else {
             res.json({

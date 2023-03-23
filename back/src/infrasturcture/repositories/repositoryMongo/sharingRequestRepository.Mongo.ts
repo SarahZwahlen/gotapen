@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import SharingRequest, {
     SharingRequestType
 } from '../../models/sharingRequest';
@@ -25,9 +24,9 @@ const sharingRequestRepositoryMongo = {
         await request?.deleteOne();
     },
     sendSharingRequest: async (
-        sharerId: string | mongoose.Types.ObjectId,
-        applicantId: string | mongoose.Types.ObjectId,
-        sharedSupplyId: string | mongoose.Types.ObjectId
+        sharerId: string,
+        applicantId: string,
+        sharedSupplyId: string
     ) => {
         const applicant = await User.findById(applicantId);
         const sharer = await User.findById(sharerId);
@@ -59,8 +58,6 @@ const sharingRequestRepositoryMongo = {
                     }
                 }
             );
-
-            return newSharingRequest;
         }
     },
     showReceivedSharingRequest: async (userId: string) => {
@@ -78,33 +75,6 @@ const sharingRequestRepositoryMongo = {
         } else {
             return null;
         }
-        // await Promise.all(
-        //     user.sentSharingRequests.map(
-        //         async (request: SharingRequestType) => {
-        //             const sentRequest = await SharingRequest.findOne({
-        //                 _id: request
-        //             });
-        //             console.log(sentRequest);
-        //             const applicant = await User.findOne({
-        //                 _id: sentRequest?.applicant
-        //             });
-        //             const sharer = await User.findOne({
-        //                 _id: sentRequest?.sharer
-        //             });
-        //             const supply = await Supply.findOne({
-        //                 _id: sentRequest?.sharedSupply
-        //             });
-
-        //             userSharingRequests.push({
-        //                 applicant: applicant?.firstname,
-        //                 sharer: sharer?.firstname,
-        //                 supply: supply?.name
-        //             });
-
-        //             return userSharingRequests;
-        //         }
-        //     )
-        // );
     },
     getSharingRequest: async (sharingRequestId: string) => {
         const sharingRequest = await SharingRequest.findById(sharingRequestId);

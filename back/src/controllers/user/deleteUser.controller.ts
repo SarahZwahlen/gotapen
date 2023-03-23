@@ -5,7 +5,6 @@ import { deleteAccount } from '../../usecases/user/deleteUser.usecase';
 const deleteUser = async (req: Request, res: Response) => {
     try {
         if (req.session.user) {
-            console.log('session user', req.session.user);
             await deleteAccount(
                 req.body.userId,
                 userRepositoryMongo.getUserById,

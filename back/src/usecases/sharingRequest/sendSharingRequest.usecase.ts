@@ -1,22 +1,25 @@
+import { SupplyRepositoryInterface } from '../../infrasturcture/models/persistence/SupplyRepositoryInterface';
 import { UserRepositoryInterface } from '../../infrasturcture/models/persistence/UserRepositoryInterface';
-import { SupplyType } from '../../infrasturcture/models/supply';
-import { UserType } from '../../infrasturcture/models/user';
 
-const sendSharingRequest = async (
+const sendSharingRequestUseCase = async (
     ownerId: string,
     applicantId: string,
     supplyId: string,
     userRepo: UserRepositoryInterface,
-    getSupply: (supplyId: string) => Promise<SupplyType | null>,
-    sendSharingRq: (owner: UserType, applicant: UserType) => Promise<void>
+    supplyRepo: SupplyRepositoryInterface,
+    sendSharingRq: (
+        ownerId: string,
+        applicantId: string,
+        supplyId: string
+    ) => Promise<void>
 ) => {
     const owner = await userRepo.getUserById(ownerId);
     const applicant = await userRepo.getUserById(applicantId);
-    const supply = await getSupply(supplyId);
+    const supply = await supplyRepo.getSupply(supplyId);
 
-    if (!supply) {
+    if (supply) {
         if (owner && applicant) {
-            await sendSharingRq(owner, applicant);
+            await sendSharingRq(ownerId, applicantId, supplyId);
         } else {
             throw new Error("Owner or applicant doesn't exists");
         }
@@ -25,4 +28,4 @@ const sendSharingRequest = async (
     }
 };
 
-export { sendSharingRequest };
+export { sendSharingRequestUseCase };

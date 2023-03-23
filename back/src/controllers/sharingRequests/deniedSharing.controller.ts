@@ -14,6 +14,9 @@ const deniedSharing = async (req: Express.Request, res: Express.Response) => {
                 supplyRepositoryMongo.getSupply,
                 sharingRequestRepositoryMongo.deniedSharingRequest
             );
+            res.json({
+                message: 'The sharing request has been denied'
+            });
         } else {
             res.json({
                 message: 'You must be logged'
