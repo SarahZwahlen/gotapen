@@ -10,7 +10,22 @@ const modifyUser = async (
 ) => {
     const user = await userRepo.getUserById(userId);
     if (user) {
-        await userRepo.updateUser(userId, datas);
+        const updatePayload: Partial<
+            Pick<UserType, 'email' | 'password' | 'firstname' | 'surname'>
+        > = {};
+        if (datas.email) {
+            updatePayload.email = datas.email;
+        }
+        if (datas.password) {
+            updatePayload.password = datas.password;
+        }
+        if (datas.surname) {
+            updatePayload.surname = datas.surname;
+        }
+        if (datas.firstname) {
+            updatePayload.firstname = datas.firstname;
+        }
+        await userRepo.updateUser(userId, updatePayload);
         return await userRepo.getUserById(userId);
     } else {
         throw new Error("This user doesn't exists");

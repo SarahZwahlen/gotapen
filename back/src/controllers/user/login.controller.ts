@@ -11,7 +11,6 @@ const loginController = async (req: Request, res: Response) => {
             userRepositoryMongo.getUserByEmail
         );
         req.session.user = user;
-        console.log('session', req.session);
         res.json({
             message: 'Authentification succeed',
             isLogged: true

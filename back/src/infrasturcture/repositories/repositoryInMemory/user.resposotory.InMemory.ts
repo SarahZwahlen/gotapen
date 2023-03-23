@@ -61,10 +61,12 @@ const userRepoInMemory: UserRepositoryInterface & {
     updateUser: async function (userId, datas) {
         let user = await this.getUserById(userId);
         if (user) {
+            await this.deleteUser(user.id);
             user = {
                 ...user,
                 ...datas
             };
+            this.givenExistingUser(user);
         } else {
             return;
         }

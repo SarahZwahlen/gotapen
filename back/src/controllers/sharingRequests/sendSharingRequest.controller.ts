@@ -8,7 +8,6 @@ const sendSharingRequest = async (
     req: Express.Request,
     res: Express.Response
 ) => {
-    // Attention a reparamétrer avec les données de sessions quand celle-ci sera fonctionnelle
     try {
         if (req.session.user) {
             await sendSharingRequestUseCase(
@@ -22,26 +21,6 @@ const sendSharingRequest = async (
             res.json({
                 message: 'Sharing request success'
             });
-            // const applicant = await User.findOne({ _id: req.body.applicantId });
-            // const sharer = await User.findOne({ _id: req.body.sharerId });
-            // const sharedSupply = await Supply.findOne({
-            //     _id: req.body.sharedSupplyId
-            // });
-
-            // if (sharer && applicant && sharedSupply) {
-            //     sharingRequestRepositoryMongo.sendSharingRequest(
-            //         req.body.sharerId,
-            //         req.body.applicantId,
-            //         req.body.sharedSupplyId
-            //     );
-            //     res.json({
-            //         message: 'Sharing request success'
-            //     });
-            // } else {
-            //     res.json({
-            //         message: 'Something is null'
-            //     });
-            // }
         } else {
             res.json({
                 message: 'You must be logged'

@@ -10,7 +10,6 @@ type SupplyType = {
     imagePath: string;
     owner: UserType;
     company: CompanyType;
-    // comments: CommentType;
 };
 
 const supplySchema = new Schema<SupplyType>(
@@ -34,7 +33,6 @@ const supplySchema = new Schema<SupplyType>(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Company'
         }
-        // comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
     },
     { timestamps: true }
 );

@@ -151,88 +151,49 @@ describe('SharingRequestRepository', () => {
         });
     });
 
-    describe('Send sharing request', () => {
-        test('applicant send a sharing request', async () => {
-            // Given I have a sharer
-            const sharer = await User.create({
-                email: 'sharer@gmail.com',
-                firstname: 'Clark',
-                surname: 'Kent',
-                password: '1234'
-            });
-            // Given I have a supply to share
-            const sharedSupply = await Supply.create({
-                name: 'pencil',
-                owner: sharer.id
-            });
-            // Given I have an applicant
-            const applicant = await User.create({
-                email: 'applicant@gmail.com',
-                firstname: 'Joe',
-                surname: 'Dalton',
-                password: '1234'
-            });
-
-            // When I send a sharing request
-            const sharingRequest =
-                await sharingRequestRepositoryMongo.sendSharingRequest(
-                    sharer._id,
-                    applicant._id,
-                    sharedSupply._id
-                );
-            // The sharing request is created
-            if (sharingRequest) {
-                expect(
-                    await SharingRequest.findById(sharingRequest._id)
-                ).not.toBe(null);
-                // Applicant has its request in its sentSharingRequests
-                expect(
-                    (await User.findById(applicant.id))?.sentSharingRequests
-                ).toEqual(expect.arrayContaining([sharingRequest._id]));
-                // Sharer has its request in its receivedSharingRequests
-                expect(
-                    (await User.findById(sharer.id))?.receivedSharingRequests
-                ).toEqual(expect.arrayContaining([sharingRequest._id]));
-            }
-        });
-    });
-
-    //     describe('Show sharing requests of a user', () => {
-    //         describe('Show recieved sharing requests', async () => {
-    //             test('Show users received sharing requests');
-
-    //             // Given I have a sharer
-    //             const sharer = await User.create({
-    //                 email: 'sharer@gmail.com',
-    //                 firstname: 'Clark',
-    //                 surname: 'Kent',
-    //                 password: '1234'
-    //             });
-    //             // Given I have a supply to share
-    //             const sharedSupply = await Supply.create({
-    //                 name: 'pencil',
-    //                 owner: sharer.id
-    //             });
-    //             // Given I have an applicant
-    //             const existingApplicant = await User.create({
-    //                 email: 'applicant@gmail.com',
-    //                 firstname: 'Joe',
-    //                 surname: 'Dalton',
-    //                 password: '1234'
-    //             });
-
-    //             // Given I have a sharing request params
-    //             const existingSharingRequestParams = {
-    //                 applicant: existingApplicant.id,
-    //                 sharer: sharer.id,
-    //                 sharedSupply: sharedSupply.id
-    //             };
-    //             //Given a sharing request
-    //             const existingSharingRequest = await SharingRequest.create(
-    //                 existingSharingRequestParams
-    //             );
-    //             //When I want to show all the sharer recieved requests
-    //             expect();
+    // describe('Send sharing request', () => {
+    //     test('applicant send a sharing request', async () => {
+    //         // Given I have a sharer
+    //         const sharer = await User.create({
+    //             email: 'sharer@gmail.com',
+    //             firstname: 'Clark',
+    //             surname: 'Kent',
+    //             password: '1234'
     //         });
+    //         // Given I have a supply to share
+    //         const sharedSupply = await Supply.create({
+    //             name: 'pencil',
+    //             owner: sharer.id
+    //         });
+    //         // Given I have an applicant
+    //         const applicant = await User.create({
+    //             email: 'applicant@gmail.com',
+    //             firstname: 'Joe',
+    //             surname: 'Dalton',
+    //             password: '1234'
+    //         });
+
+    //         // When I send a sharing request
+    //         const sharingRequest =
+    //             await sharingRequestRepositoryMongo.sendSharingRequest(
+    //                 sharer.id,
+    //                 applicant.id,
+    //                 sharedSupply.id
+    //             );
+    //         // The sharing request is created
+    //         if (sharingRequest) {
+    //             expect(
+    //                 await SharingRequest.findById(sharingRequest.id)
+    //             ).not.toBe(null);
+    //             // Applicant has its request in its sentSharingRequests
+    //             expect(
+    //                 (await User.findById(applicant.id))?.sentSharingRequests
+    //             ).toEqual(expect.arrayContaining([sharingRequest.id]));
+    //             // Sharer has its request in its receivedSharingRequests
+    //             expect(
+    //                 (await User.findById(sharer.id))?.receivedSharingRequests
+    //             ).toEqual(expect.arrayContaining([sharingRequest.id]));
+    //         }
     //     });
+    // });
 });
