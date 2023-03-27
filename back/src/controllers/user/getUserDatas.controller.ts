@@ -12,7 +12,11 @@ const showUserDatas = async (req: Request, res: Response) => {
             if (userDatas) {
                 res.json({
                     message: 'Here are the user datas',
-                    user: userDatas,
+                    datas: {
+                        firstname: userDatas.firstname,
+                        surname: userDatas.surname,
+                        email: userDatas.email
+                    },
                     isLogged: true
                 });
             } else {

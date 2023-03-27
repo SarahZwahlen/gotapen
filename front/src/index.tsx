@@ -7,6 +7,9 @@ import Home from "./pages/Home";
 import Account from "./pages/Account";
 import AccesDenied from "./pages/AccessDenied";
 import PageNotFound from "./pages/PageNotFound";
+import Logout from "./components/Log/Logout";
+import UserHandleSupplies from "./pages/UserSupplies";
+import UserSharingRequests from "./pages/UserSharingRequests";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -18,7 +21,16 @@ root.render(
         <Route>
           <Route index element={<Home />} />
           <Route path="/account" element={<Account />} />
+          <Route
+            path="/handle-user-supplies"
+            element={<UserHandleSupplies />}
+          />
+          <Route
+            path="/handle-sharing-requests"
+            element={<UserSharingRequests />}
+          />
           <Route path="/access-denied" element={<AccesDenied />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/*" element={<PageNotFound />} />
         </Route>
       </Routes>

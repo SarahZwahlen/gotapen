@@ -20,7 +20,7 @@ const sharingRequestSchema = new Schema<SharingRequestType>({
     },
     sharedSupply: {
         type: mongoose.Schema.Types.ObjectId,
-        red: 'Supply'
+        ref: 'Supply'
     }
 });
 

@@ -61,23 +61,56 @@ const sharingRequestRepositoryMongo = {
         }
     },
     showReceivedSharingRequest: async (userId: string) => {
-        const user = await User.findById(userId);
-        if (user?.receivedSharingRequests) {
-            return user?.receivedSharingRequests;
+        const sharingRequest = await SharingRequest.find({
+            sharer: userId
+        }).populate(['sharedSupply', 'applicant']);
+
+        if (sharingRequest) {
+            let finalDatas: any = [];
+            sharingRequest.forEach((request) => {
+                finalDatas = [
+                    ...finalDatas,
+                    {
+                        supplyName: request.sharedSupply.name,
+                        supplyImage: request.sharedSupply.imagePath,
+                        applicantName: `${request.applicant.firstname} ${request.applicant.surname}`
+                    }
+                ];
+            });
+
+            return finalDatas;
         } else {
             return null;
         }
     },
     showSentSharingRequests: async (userId: string) => {
-        const user = await User.findById(userId);
-        if (user?.sentSharingRequests) {
-            return user.sentSharingRequests;
+        const sharingRequest = await SharingRequest.find({
+            applicant: userId
+        }).populate(['sharedSupply', 'sharer']);
+
+        if (sharingRequest) {
+            let finalDatas: any = [];
+            sharingRequest.forEach((request) => {
+                finalDatas = [
+                    ...finalDatas,
+                    {
+                        id: request.id,
+                        supplyName: request.sharedSupply.name,
+                        supplyImage: request.sharedSupply.imagePath,
+                        sharerName: `${request.sharer.firstname} ${request.sharer.surname}`
+                    }
+                ];
+            });
+
+            return finalDatas;
         } else {
             return null;
         }
     },
     getSharingRequest: async (sharingRequestId: string) => {
-        const sharingRequest = await SharingRequest.findById(sharingRequestId);
+        const sharingRequest = await SharingRequest.findById(
+            sharingRequestId
+        ).populate(['sharer', 'applicant', 'sharedSupply']);
         return sharingRequest;
     }
 };

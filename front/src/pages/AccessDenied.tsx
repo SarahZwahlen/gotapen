@@ -1,5 +1,11 @@
+import Layout from "../components/Layout";
+
 const AccesDenied = () => {
-  return <h1>Access denied</h1>;
+  return (
+    <Layout>
+      <h1>Access denied</h1>
+    </Layout>
+  );
 };
 
 export default AccesDenied;

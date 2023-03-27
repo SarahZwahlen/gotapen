@@ -7,6 +7,7 @@ import { deniedSharingRequest } from '../../usecases/sharingRequest/deniedSharin
 const deniedSharing = async (req: Express.Request, res: Express.Response) => {
     try {
         if (req.session.user) {
+            console.log(req.body);
             await deniedSharingRequest(
                 req.body.sharingRequestId,
                 sharingRequestRepositoryMongo.getSharingRequest,

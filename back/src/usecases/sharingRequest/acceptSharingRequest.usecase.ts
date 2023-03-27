@@ -1,7 +1,5 @@
 import { UserRepositoryInterface } from '../../infrasturcture/models/persistence/UserRepositoryInterface';
-import SharingRequest, {
-    SharingRequestType
-} from '../../infrasturcture/models/sharingRequest';
+import { SharingRequestType } from '../../infrasturcture/models/sharingRequest';
 import { SupplyType } from '../../infrasturcture/models/supply';
 
 const acceptSharingRequest = async (
@@ -15,20 +13,10 @@ const acceptSharingRequest = async (
 ) => {
     const sharingRequest = await getSharingRequest(sharingRequestId);
 
-    const SRapplicantDatas = await SharingRequest.findById(
-        sharingRequestId
-    ).populate('applicant');
-    const SRSharerDatas = await SharingRequest.findById(
-        sharingRequestId
-    ).populate('sharer');
-    const SRSupplyDatas = await SharingRequest.findById(
-        sharingRequestId
-    ).populate('sharedSupply');
-
     if (sharingRequest) {
-        const owner = await getUser(SRSharerDatas!.sharer.id);
-        const applicant = await getUser(SRapplicantDatas!.applicant.id);
-        const supply = await getSupply(SRSupplyDatas!.sharedSupply.id);
+        const owner = await getUser(sharingRequest.sharer.id);
+        const applicant = await getUser(sharingRequest.applicant.id);
+        const supply = await getSupply(sharingRequest.sharedSupply.id);
 
         if (owner && applicant && supply) {
             await acceptSharing(sharingRequest);

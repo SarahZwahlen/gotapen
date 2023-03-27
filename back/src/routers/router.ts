@@ -39,7 +39,6 @@ router.post('/show-supply', showSupply);
 router.post('/join-company', joinCompany);
 router.post('/send-sharing-request', sendSharingRequest);
 router.post('/accept-sharing', acceptSharing);
-router.post('/denied-sharing', deniedSharing);
 router.post('/modify-user', updateUserDatas);
 
 router.delete('/delete-supply', deleteSupply);
@@ -47,5 +46,6 @@ router.delete('/delete-company', deleteCompany);
 router.delete('/give-back-supply', giveBackSupply);
 router.delete('/logout', logOutController);
 router.delete('/delete-user', deleteUser);
+router.delete('/denied-sharing', deniedSharing);
 
 export default router;

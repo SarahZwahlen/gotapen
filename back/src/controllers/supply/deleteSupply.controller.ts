@@ -4,6 +4,7 @@ import { deleteSupplyUsecase } from '../../usecases/supply/deleteSupply.usecase'
 
 const deleteSupply = async (req: Express.Request, res: Express.Response) => {
     try {
+        console.log(req.body);
         if (req.body.supplyId) {
             if (req.session.user) {
                 await deleteSupplyUsecase(
