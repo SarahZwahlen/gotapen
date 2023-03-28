@@ -15,7 +15,6 @@ const Authentification: React.FC<Props> = ({ children }) => {
   fetch(`${process.env.REACT_APP_URL_BACK}/account`, reqInit)
     .then((response) => response.json())
     .then((datas) => {
-      console.log(datas);
       if (datas.isLogged) {
         return <>{children}</>;
       } else {

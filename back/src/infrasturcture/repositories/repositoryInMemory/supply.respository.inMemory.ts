@@ -21,10 +21,12 @@ const supplyRepoInMemory: SupplyRepositoryInterface & {
     givenExistingSupply: function (supply: SupplyType) {
         this.supplies.push(supply);
     },
-    addSupply: async function (data) {
+    addSupply: async function (name, user, company, imagePath) {
         const newSupply = await buildSupply({
-            ...data,
-            imagePath: `public/images/${data.fileName}`
+            name: name,
+            owner: user,
+            company: company,
+            imagePath: `public/images/${imagePath}`
         });
         this.supplies.push(newSupply);
 
@@ -45,7 +47,7 @@ const supplyRepoInMemory: SupplyRepositoryInterface & {
             this.supplies.filter((s) => s.company.id === companyId)
         );
     },
-    getUserAvailableSupplies: function (company) {
+    getCompanyAvailableSupplies: function (company) {
         return Promise.resolve(
             this.supplies.filter(
                 (s) => s.company.id === company.id && s.availability

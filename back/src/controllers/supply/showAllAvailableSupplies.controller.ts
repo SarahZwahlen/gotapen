@@ -1,28 +1,31 @@
-import Company from '../../infrasturcture/models/company';
-import User from '../../infrasturcture/models/user';
 import Express from 'express';
+import { companyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/companyRepository.Mongo';
 import { supplyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/supplyRepository.Mongo';
+import showCompanyAvailableSupplies from '../../usecases/supply/showCompanyAvailableSupplies.usecase';
 
 const showAllAvailableSupply = async (
     req: Express.Request,
     res: Express.Response
 ) => {
-    // Verify user authentification
     try {
-        const user = await User.findById(req.session.user);
-        if (user) {
-            if (user.roles.includes('user')) {
-                const company = await Company.findOne(user.company);
+        if (req.session.user) {
+            const supplies = await showCompanyAvailableSupplies(
+                req.session.user.company,
+                companyRepositoryMongo,
+                supplyRepositoryMongo
+            );
 
-                if (company) {
-                    const availableSupplies =
-                        supplyRepositoryMongo.getUserAvailableSupplies(company);
-                } else {
-                    res.json({
-                        message: "This company does'nt exists"
-                    });
-                }
+            if (!supplies) {
+                res.json({ message: 'there is no supplies' });
             }
+
+            res.json({
+                supplies: supplies
+            });
+        } else {
+            res.json({
+                message: 'You must be logged'
+            });
         }
     } catch (error) {
         console.log(error);

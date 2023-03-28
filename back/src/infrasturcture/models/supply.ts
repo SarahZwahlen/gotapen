@@ -19,10 +19,13 @@ const supplySchema = new Schema<SupplyType>(
             required: true
         },
         availability: {
-            type: Boolean
+            type: Boolean,
+            default: true,
+            required: true
         },
         imagePath: {
-            type: String
+            type: String,
+            required: true
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,

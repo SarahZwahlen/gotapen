@@ -2,7 +2,6 @@ import { SharingRequest } from "../../infrastructure/types";
 
 const AcceptSharingRequest = (props: SharingRequest) => {
   const acceptRequest = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(props.id);
     const reqInit: RequestInit = {
       method: "POST",
       mode: "cors",

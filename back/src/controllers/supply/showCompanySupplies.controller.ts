@@ -1,7 +1,7 @@
 import Express from 'express';
-import { companyRepoMongo } from '../../infrasturcture/repositories/repositoryMongo/companyRepository.Mongos';
+import { companyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/companyRepository.Mongo';
 import { supplyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/supplyRepository.Mongo';
-import { getAllCompanySupplies } from '../../usecases/supply/showCompanySupplies.usecase';
+companyRepositoryMongo;
 
 const showCompanySupplies = async (
     req: Express.Request,
@@ -9,13 +9,8 @@ const showCompanySupplies = async (
 ) => {
     try {
         if (req.session.user) {
-            const supplies = getAllCompanySupplies(
-                req.body.companyId,
-                req.body.user.id,
-                companyRepoMongo.getCompany,
-                companyRepoMongo.getCompanyByUser,
-                supplyRepositoryMongo.getAllCompynySupplies
-            );
+            const supplies =
+                await supplyRepositoryMongo.getCompanyAvailableSupplies;
             res.json({
                 message: 'Here are the supplies',
                 supplies: supplies

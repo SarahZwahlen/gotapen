@@ -2,7 +2,6 @@ import { SharingRequest } from "../../infrastructure/types";
 
 const CancelSharingRequest = (props: SharingRequest) => {
   const cancelRequest = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(props.id);
     const reqInit: RequestInit = {
       method: "DELETE",
       mode: "cors",

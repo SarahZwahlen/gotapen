@@ -51,7 +51,6 @@ const CreateAccount = (props: any) => {
     fetch(`${process.env.REACT_APP_URL_BACK}/create-account`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
-        console.log(datas);
         if (datas.isLogged) {
           navigate("/account");
         } else {

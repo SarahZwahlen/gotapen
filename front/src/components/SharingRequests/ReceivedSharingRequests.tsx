@@ -26,13 +26,11 @@ const ReceivedSharingRequests = () => {
     )
       .then((response) => response.json())
       .then((datas) => {
-        console.log(datas.requests);
         setSharingRequests(datas.requests);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  console.log("sharing request", sharingRequests);
   return (
     <div className="sharing-requests">
       <h2>Demande de partage reçues</h2>

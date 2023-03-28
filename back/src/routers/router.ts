@@ -22,6 +22,7 @@ import showUserSupplies from '../controllers/supply/getUserSupplies.controller';
 import showUserDatas from '../controllers/user/getUserDatas.controller';
 import updateUserDatas from '../controllers/user/updateUserDatas.controller';
 import getUserBorrowedSupplies from '../controllers/user/getUserBorrowedSupplies';
+import showAllAvailableSupply from '../controllers/supply/showAllAvailableSupplies.controller';
 
 const router = express.Router();
 
@@ -31,6 +32,7 @@ router.get('/show-sent-sharing-requests', showSentSharingRequests);
 router.get('/show-user-supplies', showUserSupplies);
 router.get('/show-borrowed-supplies', getUserBorrowedSupplies);
 router.get('/account', showUserDatas);
+router.get('/company-available-supplies', showAllAvailableSupply);
 
 router.post('/create-account', createAccount);
 router.post('/login', loginController);

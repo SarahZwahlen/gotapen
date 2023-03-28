@@ -15,7 +15,6 @@ const BorrowedSupplies = () => {
     fetch(`${process.env.REACT_APP_URL_BACK}/show-borrowed-supplies`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
-        console.log(datas);
         if (datas.supplies) {
           setBorrowedSupplies(datas.supplies);
         } else {

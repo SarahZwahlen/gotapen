@@ -1,7 +1,7 @@
 import Company, { CompanyType } from '../../models/company';
 import User from '../../models/user';
 
-const companyRepoMongo = {
+const companyRepositoryMongo = {
     getCompany: async (companyId: string): Promise<CompanyType | null> => {
         const company = await Company.findById(companyId);
         return company;
@@ -20,4 +20,4 @@ const companyRepoMongo = {
     }
 };
 
-export { companyRepoMongo };
+export { companyRepositoryMongo };

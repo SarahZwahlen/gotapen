@@ -25,7 +25,6 @@ const SentSharingRequests = () => {
     )
       .then((response) => response.json())
       .then((datas) => {
-        console.log(datas.requests);
         setSharingRequests(datas.requests);
       })
       .catch((error) => console.log(error));

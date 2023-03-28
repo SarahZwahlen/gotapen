@@ -26,7 +26,7 @@ const userRepositoryMongo: UserRepositoryInterface = {
         return user;
     },
     getUserById: async (userId: string) => {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).populate('company');
         if (!user) {
             throw new Error('Id is not valid');
         }

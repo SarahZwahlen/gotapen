@@ -4,14 +4,14 @@ import { CompanyType } from '../../models/company';
 import { SupplyRepositoryInterface } from '../../models/persistence/SupplyRepositoryInterface';
 
 const supplyRepositoryMongo: SupplyRepositoryInterface = {
-    addSupply: async (datas) => {
+    addSupply: async (supplyName, owner, company, imagePath) => {
         const newSupply = new Supply({
-            ...datas,
-            imagePath: `public/images/${datas.fileName}`
+            name: supplyName,
+            owner: owner,
+            company: company,
+            imagePath: `public/images/${imagePath}`
         });
-
         await newSupply.save();
-
         return newSupply;
     },
     deleteSupplyAndAllItsRef: async (supplyId: string): Promise<boolean> => {
@@ -40,9 +40,9 @@ const supplyRepositoryMongo: SupplyRepositoryInterface = {
         const supplies = await Supply.find({ company: companyId });
         return supplies;
     },
-    getUserAvailableSupplies: async (company: CompanyType) => {
+    getCompanyAvailableSupplies: async (company: CompanyType) => {
         const allSupplies = await Supply.find({
-            company: company,
+            company: company.id,
             availability: true
         });
 
