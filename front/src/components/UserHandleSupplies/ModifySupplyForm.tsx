@@ -32,7 +32,7 @@ const ModifySupplyForm = (props: any) => {
       body: formData,
     };
 
-    fetch("http://localhost:3001/modify-supply", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/modify-supply`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
         console.log(datas);

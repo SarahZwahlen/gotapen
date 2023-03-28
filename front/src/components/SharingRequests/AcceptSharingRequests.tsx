@@ -13,7 +13,7 @@ const AcceptSharingRequest = (props: SharingRequest) => {
       }),
     };
 
-    fetch("http://localhost:3001/accept-sharing", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/accept-sharing`, reqInit)
       .then((response) => response.json())
       .then((datas) => console.log(datas))
       .catch((error) => console.log(error));

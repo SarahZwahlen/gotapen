@@ -15,7 +15,7 @@ const Account = () => {
       credentials: "include",
     };
 
-    fetch("http://localhost:3001/account", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/account`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
         console.log(datas);

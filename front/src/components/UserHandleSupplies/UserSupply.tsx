@@ -10,7 +10,7 @@ const UserSupply = (props: any) => {
       <div>
         <div className="user-supply-infos">
           <img
-            src={"http://localhost:3001/" + props.supply.imagePath}
+            src={`${process.env.REACT_APP_URL_BACK}` + props.supply.imagePath}
             alt={props.supply.name}
           />
           <p>{props.supply.name}</p>

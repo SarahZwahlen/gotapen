@@ -48,7 +48,7 @@ const CreateAccount = (props: any) => {
         firstname,
       }),
     };
-    fetch("http://localhost:3001/create-account", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/create-account`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
         console.log(datas);

@@ -1,9 +1,11 @@
+import * as dotenv from 'dotenv';
 import express from 'express';
 import session from 'express-session';
 import router from './routers/router';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import { UserType } from './infrasturcture/models/user';
+dotenv.config();
 
 const app = express();
 const PORT = 3001;
@@ -27,7 +29,7 @@ app.use(
 );
 app.use(
     cors({
-        origin: 'http://localhost:3000',
+        origin: process.env.FRONT_LOCAL_URL,
         credentials: true,
         optionsSuccessStatus: 200
     })
@@ -58,5 +60,5 @@ mongoose.connection.on('open', () => {
 });
 
 app.listen(PORT, () =>
-    console.log(`Server is running at http://localhost:${PORT}`)
+    console.log(`Server is running at ${process.env.BACK_LOCAL_URL}`)
 );

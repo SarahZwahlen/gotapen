@@ -17,7 +17,7 @@ const CreateSupply = () => {
       body: formData,
     };
 
-    fetch("http://localhost:3001/add-supply", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/add-supply`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
         setErrorMessage(datas.error);

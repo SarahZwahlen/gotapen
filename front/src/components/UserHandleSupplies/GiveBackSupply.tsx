@@ -13,7 +13,7 @@ const GiveBackSupply = (props: Partial<Supply>) => {
       }),
     };
 
-    fetch("http://localhost:3001/give-back-supply", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/give-back-supply`, reqInit)
       .then((response) => response.json())
       .then((datas) => console.log(datas))
       .catch((error) => error);

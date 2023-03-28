@@ -13,7 +13,7 @@ const ShowUserSupplies = () => {
       credentials: "include",
     };
 
-    fetch("http://localhost:3001/show-user-supplies", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/show-user-supplies`, reqInit)
       .then((response) => response.json())
       .then((datas) => setSupplies(datas.supplies));
   }, []);
@@ -22,8 +22,7 @@ const ShowUserSupplies = () => {
     <div className="user-supplies">
       <h2>Vos fournitures</h2>
       {supplies.map((supply) => (
-          <UserSupply supply={supply} />
-
+        <UserSupply supply={supply} />
       ))}
     </div>
   );

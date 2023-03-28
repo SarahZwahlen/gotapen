@@ -35,7 +35,7 @@ const Login = (props: any) => {
       }),
     };
 
-    fetch("http://localhost:3001/login", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/login`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
         if (datas.isLogged) {

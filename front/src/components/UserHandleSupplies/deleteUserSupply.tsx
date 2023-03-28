@@ -13,7 +13,7 @@ const deleteUserSupply = (props: Pick<Supply, "id">) => {
       }),
     };
 
-    fetch("http://localhost:3001/delete-supply", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/delete-supply`, reqInit)
       .then((response) => response.json())
       .then((datas) => console.log(datas))
       .catch((error) => console.log(error));

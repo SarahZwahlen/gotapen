@@ -12,7 +12,7 @@ const BorrowedSupplies = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/show-borrowed-supplies", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/show-borrowed-supplies`, reqInit)
       .then((response) => response.json())
       .then((datas) => {
         console.log(datas);

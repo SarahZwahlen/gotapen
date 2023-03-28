@@ -20,7 +20,10 @@ const ReceivedSharingRequests = () => {
     credentials: "include",
   };
   useEffect(() => {
-    fetch("http://localhost:3001/show-received-sharing-requests", reqInit)
+    fetch(
+      `${process.env.REACT_APP_URL_BACK}/show-received-sharing-requests`,
+      reqInit
+    )
       .then((response) => response.json())
       .then((datas) => {
         console.log(datas.requests);

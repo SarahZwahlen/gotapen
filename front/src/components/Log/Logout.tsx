@@ -6,7 +6,7 @@ const Logout = () => {
     headers: { "content-type": "application/json" },
   };
 
-  fetch("http://localhost:3001/logout", reqInit)
+  fetch(`${process.env.REACT_APP_URL_BACK}/logout`, reqInit)
     .then((response) => response.json())
     .then((datas) => console.log(datas))
     .catch((error) => console.log(error));

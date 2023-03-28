@@ -12,7 +12,7 @@ const Authentification: React.FC<Props> = ({ children }) => {
     headers: { "content-type": "application/json" },
   };
 
-  fetch("http://localhost:3001/account", reqInit)
+  fetch(`${process.env.REACT_APP_URL_BACK}/account`, reqInit)
     .then((response) => response.json())
     .then((datas) => {
       console.log(datas);

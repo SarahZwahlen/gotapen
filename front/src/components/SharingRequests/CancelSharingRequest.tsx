@@ -13,7 +13,7 @@ const CancelSharingRequest = (props: SharingRequest) => {
       }),
     };
 
-    fetch("http://localhost:3001/denied-sharing", reqInit)
+    fetch(`${process.env.REACT_APP_URL_BACK}/denied-sharing`, reqInit)
       .then((response) => response.json())
       .then((datas) => console.log(datas))
       .catch((error) => console.log(error));
