@@ -81,3 +81,21 @@
         width: 100%;
     }
 }
+
+.borrowed-supplies {
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 8px global.$box-shadow;
+    padding: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap : 1rem;
+
+    img {
+    object-fit: cover;
+    border : 1px solid global.$main-red;
+    border-radius: 10px;
+    width: 5rem;
+    height: 5rem;
+    }
+}

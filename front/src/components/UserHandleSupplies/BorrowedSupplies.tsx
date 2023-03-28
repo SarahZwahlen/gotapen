@@ -29,7 +29,7 @@ const BorrowedSupplies = () => {
     <>
       <h2>Fournitures empruntées</h2>
       {borrowedSupplies.map((supply) => (
-        <div>
+        <div className="borrowed-supplies">
           <img src={supply.imagePath} alt={supply.name} />
           <p>{supply.name}</p>
           <GiveBackSupply id={supply.id} />
