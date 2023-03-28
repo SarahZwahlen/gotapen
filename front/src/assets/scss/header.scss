@@ -1,0 +1,44 @@
+.burger {
+    display: flex;
+    flex-direction: column;
+    gap : 0.3rem;
+    background-color: transparent;
+    border: none;
+    color : none;
+    div {
+        background-color: white;
+        width: 2rem;
+        height: 0.2rem;
+        border-radius: 3px;
+    }
+
+    &:hover {
+        cursor : pointer;
+    }
+}
+.hidden{
+    display: none;
+}
+
+.show{
+    display: flex;
+}
+
+header {
+    h1{
+        width: 152px;
+    }
+
+    nav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end
+            ;
+        }
+    }
+}

@@ -1,8 +1,7 @@
 import { SharingRequest } from "../../infrastructure/types";
 
-const CancelSharingRequest = (props: SharingRequest) => {
+const DeniedSharingRequest = (props: SharingRequest) => {
   const cancelRequest = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(props.id);
     const reqInit: RequestInit = {
       method: "DELETE",
       mode: "cors",
@@ -20,9 +19,9 @@ const CancelSharingRequest = (props: SharingRequest) => {
   };
   return (
     <button className="secondary-button" onClick={cancelRequest}>
-      Annuler
+      Refuser
     </button>
   );
 };
 
-export default CancelSharingRequest;
+export default DeniedSharingRequest;

@@ -1,3 +1,4 @@
+import { SupplyType } from '../supply';
 import { UserType } from '../user';
 
 type UserRepositoryInterface = {
@@ -16,6 +17,7 @@ type UserRepositoryInterface = {
     getUserByEmail: (email: string) => Promise<UserType | null>;
     getUserById: (userId: string) => Promise<UserType | null>;
     deleteUser: (userId: string) => Promise<void>;
+    getBorrowedSupplies: (userId: string) => Promise<SupplyType[] | null>;
 };
 
 export type { UserRepositoryInterface };

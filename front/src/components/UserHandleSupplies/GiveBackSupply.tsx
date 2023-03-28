@@ -18,7 +18,7 @@ const GiveBackSupply = (props: Partial<Supply>) => {
       .catch((error) => error);
   };
   return (
-    <button onClick={giveBackSupply} id={props.id}>
+    <button className="secondary-button" onClick={giveBackSupply} id={props.id}>
       Rendre la fourniture
     </button>
   );

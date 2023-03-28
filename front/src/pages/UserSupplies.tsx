@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import BorrowedSupplies from "../components/UserHandleSupplies/BorrowedSupplies";
 import CreateSupply from "../components/UserHandleSupplies/CreateSupply";
 import ShowUserSupplies from "../components/UserHandleSupplies/ShowUserSupplies";
+import "../assets/scss/userSupplies.scss";
 
 const UserHandleSupplies = () => {
   const [showSuppliesVIsibility, setShowSuppliesVisibility] = useState(false);
@@ -33,12 +34,20 @@ const UserHandleSupplies = () => {
   return (
     <Layout>
       <h1>Gérer vos fournitures</h1>
-      <button onClick={showUserSupplies}>Voir vos fournitures</button>
-      <button onClick={createSupply}>Créer une fourniture</button>
-      <button onClick={borrwedSupplies}>Vos fournitures empruntées</button>
-      {showSuppliesVIsibility && <ShowUserSupplies />}
-      {createSupplyVisibility && <CreateSupply />}
-      {borrowedSuppliesVisibility && <BorrowedSupplies />}
+      <div className="handle-supplies-options">
+        <button className="main-button" onClick={showUserSupplies}>
+          Voir vos fournitures
+        </button>
+        <button className="main-button" onClick={createSupply}>
+          Créer une fourniture
+        </button>
+        <button className="main-button" onClick={borrwedSupplies}>
+          Vos fournitures empruntées
+        </button>
+        {showSuppliesVIsibility && <ShowUserSupplies />}
+        {createSupplyVisibility && <CreateSupply />}
+        {borrowedSuppliesVisibility && <BorrowedSupplies />}
+      </div>
     </Layout>
   );
 };

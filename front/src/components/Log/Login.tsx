@@ -48,27 +48,33 @@ const Login = (props: any) => {
   };
 
   return (
-    <div className="container">
-      <button onClick={showLoginForm}>Se connecter</button>
-      <p>{errorMessage}</p>
+    <div className="login">
+      <button className="main-button" onClick={showLoginForm}>
+        Se connecter
+      </button>
       {props.loginFormVisibility && (
-        <form>
-          <label htmlFor="email">Email</label>
-          <input
-            type="ëmail"
-            name="email"
-            onChange={refreshEmail}
-            placeholder="Email"
-          />
-          <label htmlFor="password">Mot de passe</label>
-          <input
-            type="password"
-            name="password"
-            onChange={refreshPassword}
-            placeholder="Mot de passe"
-          />
-          <button onClick={login}>Connection</button>
-        </form>
+        <>
+          <p className="user-error">{errorMessage}</p>
+          <form>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              onChange={refreshEmail}
+              placeholder="Email"
+            />
+            <label htmlFor="password">Mot de passe</label>
+            <input
+              type="password"
+              name="password"
+              onChange={refreshPassword}
+              placeholder="Mot de passe"
+            />
+            <button className="main-button" onClick={login}>
+              Connection
+            </button>
+          </form>
+        </>
       )}
     </div>
   );

@@ -61,31 +61,37 @@ const CreateAccount = (props: any) => {
       .catch((error) => console.log(error));
   };
   return (
-    <div>
-      <button onClick={showCreateAccountForm}>Créer un compte</button>
-      <p>{errorMessage}</p>
+    <div className="create-account">
+      <button className="main-button" onClick={showCreateAccountForm}>
+        Créer un compte
+      </button>
       {props.createAccountFormVisibility && (
-        <form>
-          <label htmlFor="firstname">Prénom :</label>
-          <input type="text" name="firstname" onChange={refreshFirstname} />
-          <label htmlFor="surname">Nom de famille :</label>
-          <input type="text" name="surname" onChange={refreshSurname} />
-          <label htmlFor="email">Email</label>
-          <input
-            type="ëmail"
-            name="email"
-            onChange={refreshEmail}
-            placeholder="Your email"
-          />
-          <label htmlFor="password">Mot de passe</label>
-          <input
-            type="password"
-            name="password"
-            onChange={refreshPassword}
-            placeholder="Mot de passe"
-          />
-          <button onClick={createAccount}>Créer le compte</button>
-        </form>
+        <>
+          <p className="user-error">{errorMessage}</p>
+          <form>
+            <label htmlFor="firstname">Prénom</label>
+            <input type="text" name="firstname" onChange={refreshFirstname} />
+            <label htmlFor="surname">Nom de famille</label>
+            <input type="text" name="surname" onChange={refreshSurname} />
+            <label htmlFor="email">Email</label>
+            <input
+              type="ëmail"
+              name="email"
+              onChange={refreshEmail}
+              placeholder="Your email"
+            />
+            <label htmlFor="password">Mot de passe</label>
+            <input
+              type="password"
+              name="password"
+              onChange={refreshPassword}
+              placeholder="Mot de passe"
+            />
+            <button className="main-button" onClick={createAccount}>
+              Créer le compte
+            </button>
+          </form>
+        </>
       )}
     </div>
   );

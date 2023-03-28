@@ -3,10 +3,10 @@ import { ChangeEvent, useState } from "react";
 const CreateSupply = () => {
   const [name, setName] = useState("");
   const [imagePath, setImagePath] = useState("");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const createSupply = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log("create the supply");
     const formData = new FormData();
     formData.append("name", name);
 
@@ -19,7 +19,9 @@ const CreateSupply = () => {
 
     fetch("http://localhost:3001/add-supply", reqInit)
       .then((response) => response.json())
-      .then((datas) => console.log(datas))
+      .then((datas) => {
+        setErrorMessage(datas.error);
+      })
       .catch((error) => console.log(error));
   };
 
@@ -35,13 +37,18 @@ const CreateSupply = () => {
   return (
     <>
       <h2>Créer une fourniture</h2>
-      <form encType="multipart/form-data">
-        <label htmlFor="name">Nom de la fourniture</label>
-        <input onChange={updateSupplyName} name="name" type="text" />
-        <label htmlFor="image">Image</label>
-        <input name="image" onChange={updateImagePath} type="file" />
-        <button onClick={createSupply}>Créer la fourniture</button>
-      </form>
+      <div className="create-supply-form">
+        <form encType="multipart/form-data">
+          <label htmlFor="name">Nom de la fourniture</label>
+          <input onChange={updateSupplyName} name="name" type="text" />
+          <label htmlFor="image">Image</label>
+          <input name="image" onChange={updateImagePath} type="file" />
+          {errorMessage && <p className="user-error">{errorMessage}</p>}
+          <button className="secondary-button" onClick={createSupply}>
+            Créer la fourniture
+          </button>
+        </form>
+      </div>
     </>
   );
 };

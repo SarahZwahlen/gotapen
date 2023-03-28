@@ -9,7 +9,9 @@ type SupplyRepositoryInterface = {
     deleteSupplyAndAllItsRef: (supplyId: string) => Promise<boolean>;
     getSupplies: (userId: string) => Promise<SupplyType[]>;
     getAllCompynySupplies: (companyId: string) => Promise<SupplyType[]>;
-    getUserAvailableSupplies: (company: CompanyType) => Promise<SupplyType[]>;
+    getUserAvailableSupplies: (
+        company: CompanyType
+    ) => Promise<SupplyType[] | null>;
 };
 
 export type { SupplyRepositoryInterface };

@@ -71,6 +71,7 @@ const sharingRequestRepositoryMongo = {
                 finalDatas = [
                     ...finalDatas,
                     {
+                        id: request.id,
                         supplyName: request.sharedSupply.name,
                         supplyImage: request.sharedSupply.imagePath,
                         applicantName: `${request.applicant.firstname} ${request.applicant.surname}`

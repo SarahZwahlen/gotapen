@@ -1,6 +1,7 @@
 import User from '../../models/user';
 import bcrypt from 'bcrypt';
 import { UserRepositoryInterface } from '../../models/persistence/UserRepositoryInterface';
+import { SupplyType } from '../../models/supply';
 
 const userRepositoryMongo: UserRepositoryInterface = {
     saveUser: async (datas: {
@@ -48,6 +49,15 @@ const userRepositoryMongo: UserRepositoryInterface = {
                     password: await bcrypt.hash(datas.password, 10)
                 }
             );
+        }
+    },
+    getBorrowedSupplies: async (userId) => {
+        const user = await User.findById(userId).populate('borrowedSupplies');
+        if (user?.borrowedSupplies) {
+            const supplies: SupplyType[] = user?.borrowedSupplies;
+            return supplies;
+        } else {
+            return null;
         }
     }
 };

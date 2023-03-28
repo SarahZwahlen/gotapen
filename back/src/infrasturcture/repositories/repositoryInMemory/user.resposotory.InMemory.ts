@@ -70,6 +70,14 @@ const userRepoInMemory: UserRepositoryInterface & {
         } else {
             return;
         }
+    },
+    getBorrowedSupplies: async function (userId) {
+        const user = await this.getUserById(userId);
+        if (user) {
+            return user.borrowedSupplies;
+        } else {
+            throw new Error("This user doesn't exists");
+        }
     }
 };
 

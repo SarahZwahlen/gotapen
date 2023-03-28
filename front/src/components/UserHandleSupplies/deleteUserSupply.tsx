@@ -18,7 +18,11 @@ const deleteUserSupply = (props: Pick<Supply, "id">) => {
       .then((datas) => console.log(datas))
       .catch((error) => console.log(error));
   };
-  return <button onClick={deleteSupply}>Supprimer</button>;
+  return (
+    <button className="secondary-button" onClick={deleteSupply}>
+      Supprimer
+    </button>
+  );
 };
 
 export default deleteUserSupply;

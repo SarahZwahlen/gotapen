@@ -1,15 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Account from "./pages/Account";
 import AccesDenied from "./pages/AccessDenied";
 import PageNotFound from "./pages/PageNotFound";
-import Logout from "./components/Log/Logout";
 import UserHandleSupplies from "./pages/UserSupplies";
 import UserSharingRequests from "./pages/UserSharingRequests";
+import CloseSession from "./pages/CloseSession";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -30,7 +29,7 @@ root.render(
             element={<UserSharingRequests />}
           />
           <Route path="/access-denied" element={<AccesDenied />} />
-          <Route path="/logout" element={<Logout />} />
+          <Route path="/logout" element={<CloseSession />} />
           <Route path="/*" element={<PageNotFound />} />
         </Route>
       </Routes>

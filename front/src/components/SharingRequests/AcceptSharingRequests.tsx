@@ -1,10 +1,10 @@
 import { SharingRequest } from "../../infrastructure/types";
 
-const CancelSharingRequest = (props: SharingRequest) => {
-  const cancelRequest = async (event: React.MouseEvent<HTMLButtonElement>) => {
+const AcceptSharingRequest = (props: SharingRequest) => {
+  const acceptRequest = async (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log(props.id);
     const reqInit: RequestInit = {
-      method: "DELETE",
+      method: "POST",
       mode: "cors",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
@@ -13,16 +13,16 @@ const CancelSharingRequest = (props: SharingRequest) => {
       }),
     };
 
-    fetch("http://localhost:3001/denied-sharing", reqInit)
+    fetch("http://localhost:3001/accept-sharing", reqInit)
       .then((response) => response.json())
       .then((datas) => console.log(datas))
       .catch((error) => console.log(error));
   };
   return (
-    <button className="secondary-button" onClick={cancelRequest}>
-      Annuler
+    <button className="secondary-button" onClick={acceptRequest}>
+      Accepter
     </button>
   );
 };
 
-export default CancelSharingRequest;
+export default AcceptSharingRequest;

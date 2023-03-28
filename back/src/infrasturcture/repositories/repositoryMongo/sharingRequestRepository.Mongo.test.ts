@@ -117,11 +117,15 @@ describe('SharingRequestRepository', () => {
                     existingSharingRequestParams
                 );
 
+                const result = await SharingRequest.findById(
+                    existingSharingRequest.id
+                ).populate(['applicant', 'sharer', 'sharedSupply']);
+
                 expect(
                     await sharingRequestRepositoryMongo.getSharingRequest(
                         existingSharingRequest.id
                     )
-                ).toEqual(existingSharingRequest);
+                ).toEqual(result);
             });
         });
     });

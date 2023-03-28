@@ -29,17 +29,17 @@ const SentSharingRequests = () => {
   }, []);
 
   return (
-    <>
-      <p>Demande de partage envoyées</p>
+    <div className="sharing-requests">
+      <h2>Demande de partage envoyées</h2>
       {sharingRequests.map((element) => (
-        <div>
+        <div className="sharing-request">
           <img src={element.supplyImage} alt={element.supplyName} />
           <p>{element.supplyName}</p>
           <p>{element.sharerName}</p>
           <CancelSharingRequest id={element.id} />
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

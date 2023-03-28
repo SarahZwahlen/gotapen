@@ -1,0 +1,83 @@
+@use "global.scss" as global;
+
+
+.handle-supplies-options{
+    display: flex;
+    flex-direction: column;
+    gap : 1rem;
+}
+.user-supplies {
+    display: flex;
+    flex-direction: column;
+    gap : 1rem;
+}
+
+.user-supply{
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 8px global.$box-shadow;
+    padding: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap : 1rem;
+
+    div{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .user-supply-infos {
+        img {
+            object-fit: cover;
+            border : 1px solid global.$main-red;
+            border-radius: 10px;
+            width: 5rem;
+            height: 5rem;
+        }
+        display: flex;
+        align-items: center;
+        gap : 0.5rem;
+        justify-content: flex-start;
+
+    }
+    
+    .user-supply-handle-buttons{
+        height: min-content;
+        display: flex;
+        gap : 1rem;
+    }
+}
+
+.create-supply-form{
+    @include global.small-form;
+        form {
+        width: 100%;
+    }
+    
+    input {
+        width: 100%;
+    }
+
+    button{
+        width: 100%;
+    }
+    gap : 2rem;
+}
+.modify-supply-form{
+    @include global.small-form;
+
+    form {
+        width: 100%;
+    }
+    
+    input {
+        width: 100%;
+    }
+
+    button{
+        width: 100%;
+    }
+}

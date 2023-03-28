@@ -5,6 +5,7 @@ import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMon
 import { acceptSharingRequest } from '../../usecases/sharingRequest/acceptSharingRequest.usecase';
 
 const acceptSharing = async (req: Express.Request, res: Express.Response) => {
+    console.log(req.body);
     try {
         if (req.session.user) {
             await acceptSharingRequest(

@@ -1,0 +1,154 @@
+$main-black : black;
+$main-red : rgb(110, 40, 40);
+
+$box-shadow : rgb(228, 228, 228);
+
+$main-font-family :Helvetica, Calibri, sans-serif;
+
+*{
+    box-sizing: border-box;
+}
+
+h1, h2, h3, h4, a, p, ul, li, label{
+    margin : 0;
+    font-family : $main-font-family;
+    padding: 0
+}
+
+body {
+    margin : 0;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 5px 5px 5px 5px $box-shadow ;
+    padding: 1rem;
+    background-color: $main-red;
+
+    h1 {
+        color : white;
+    }
+
+    nav {
+        ul{
+            li {
+                list-style-type: none;
+                a {
+                    color : white;
+                    text-decoration: none;
+
+                    &:hover {
+                        transition: 0.2s;
+                        border-radius : 5px;
+                        background-color: white;
+                        color : $main-red
+                    }
+                }
+            }
+        }
+    }
+}
+
+main {
+    padding: 1rem;
+}
+
+button{
+        &:hover {
+        transition:0.2s;
+        cursor: pointer;}
+
+}
+
+
+.main-button {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    border : 0;
+        &:hover {
+        background-color: $main-red;
+        color : white
+    }
+}
+
+.secondary-button {
+    border: 1px solid $main-red;
+    font-size: 0.9rem;
+    background-color: $main-red;
+    color : white;
+    border-radius: 5px;
+    padding : 0.6rem;
+
+    &:hover{
+        background-color: white;
+        color : $main-red;
+    }
+}
+
+.user-error {
+    color : $main-red;
+    font-size: 0.9rem;
+    padding: 0.8rem;
+    font-style: italic;
+}
+
+@mixin small-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap : 1rem;
+
+        label {
+            font-size: 1rem;
+        }
+
+        input{
+            font-size: 1rem;
+            padding: 0.9rem;
+            border-radius: 5px;
+            border : 1px solid $main-black;
+        }
+    }
+}
+
+@media screen and (min-width : 451px){
+        header {
+    background-color: blue;
+        padding: 2rem;
+    }
+    .burger{
+        display: none;
+    }
+    .nav-links {
+        display: flex;
+        ul{
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            gap: 1rem
+        }
+    }
+    main {
+        padding: 2rem;
+    }
+}
+
+@media screen and (min-width : 981px) {
+            header {
+    background-color: violet;
+        padding: 2rem;
+    }
+
+    main {
+        padding: 2rem;
+    }
+}
