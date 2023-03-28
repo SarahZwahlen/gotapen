@@ -1,7 +1,7 @@
 import { UserRepositoryInterface } from '../../infrasturcture/models/persistence/UserRepositoryInterface';
 import { SupplyType } from '../../infrasturcture/models/supply';
 
-const ShowBorrowedSupplies = async (
+const showBorrowedSupplies = async (
     userId: string,
     userRepo: UserRepositoryInterface
 ): Promise<SupplyType[] | null> => {
@@ -13,4 +13,4 @@ const ShowBorrowedSupplies = async (
     }
 };
 
-export default ShowBorrowedSupplies;
+export default showBorrowedSupplies;

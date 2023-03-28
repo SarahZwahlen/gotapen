@@ -7,6 +7,7 @@ const GiveBackSupply = (props: Partial<Supply>) => {
       method: "DELETE",
       mode: "cors",
       credentials: "include",
+      headers: { "Content-type": "application/json" },
       body: JSON.stringify({
         supplyId: props.id,
       }),

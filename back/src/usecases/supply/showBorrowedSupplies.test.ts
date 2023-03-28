@@ -6,7 +6,7 @@ import {
 } from '../../infrasturcture/builders/builders.test.utils';
 import { supplyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/supply.respository.inMemory';
 import { userRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/user.resposotory.InMemory';
-import ShowBorrowedSupplies from './showBorrowedSupplies.usecase';
+import showBorrowedSupplies from './showBorrowedSupplies.usecase';
 
 describe('Show borrowed supplies', () => {
     beforeEach(() => supplyRepoInMemory.reset());
@@ -31,7 +31,7 @@ describe('Show borrowed supplies', () => {
         // Given an accepted sharing request
         user.borrowedSupplies = [...user.borrowedSupplies, supply];
 
-        expect(await ShowBorrowedSupplies(user.id, userRepoInMemory)).toEqual(
+        expect(await showBorrowedSupplies(user.id, userRepoInMemory)).toEqual(
             user.borrowedSupplies
         );
     });
@@ -41,7 +41,7 @@ describe('Show borrowed supplies', () => {
         const user = await buildUser();
         userRepoInMemory.givenExistingUser(user);
 
-        expect(await ShowBorrowedSupplies(user.id, userRepoInMemory)).toBe(
+        expect(await showBorrowedSupplies(user.id, userRepoInMemory)).toBe(
             null
         );
     });

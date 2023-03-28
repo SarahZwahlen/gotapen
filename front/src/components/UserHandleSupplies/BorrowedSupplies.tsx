@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Supply } from "../../infrastructure/types";
 import GiveBackSupply from "./GiveBackSupply";
 
@@ -11,7 +11,19 @@ const BorrowedSupplies = () => {
     credentials: "include",
   };
 
-  fetch("http://localhost:3001/borrowed-supplies")
+  useEffect(() => {
+    fetch("http://localhost:3001/show-borrowed-supplies", reqInit)
+      .then((response) => response.json())
+      .then((datas) => {
+        console.log(datas);
+        if (datas.supplies) {
+          setBorrowedSupplies(datas.supplies);
+        } else {
+          setBorrowedSupplies([]);
+        }
+      })
+      .catch((error) => console.log(error));
+  }, []);
 
   return (
     <>

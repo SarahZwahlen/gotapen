@@ -21,6 +21,7 @@ import deleteUser from '../controllers/user/deleteUser.controller';
 import showUserSupplies from '../controllers/supply/getUserSupplies.controller';
 import showUserDatas from '../controllers/user/getUserDatas.controller';
 import updateUserDatas from '../controllers/user/updateUserDatas.controller';
+import getUserBorrowedSupplies from '../controllers/user/getUserBorrowedSupplies';
 
 const router = express.Router();
 
@@ -28,6 +29,7 @@ router.get('/show-supplies', showCompanySupplies);
 router.get('/show-received-sharing-requests', showReceivedSharingRequest);
 router.get('/show-sent-sharing-requests', showSentSharingRequests);
 router.get('/show-user-supplies', showUserSupplies);
+router.get('/show-borrowed-supplies', getUserBorrowedSupplies);
 router.get('/account', showUserDatas);
 
 router.post('/create-account', createAccount);

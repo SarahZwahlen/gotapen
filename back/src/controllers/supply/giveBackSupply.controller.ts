@@ -5,7 +5,9 @@ import User from '../../infrasturcture/models/user';
 const giveBackSupply = async (req: Express.Request, res: Express.Response) => {
     try {
         if (req.session.user) {
+            console.log(req.body);
             const supply = await Supply.findOne({ _id: req.body.supplyId });
+            console.log(supply);
             if (supply) {
                 await Supply.updateOne(
                     { _id: supply._id },
@@ -21,6 +23,10 @@ const giveBackSupply = async (req: Express.Request, res: Express.Response) => {
                 );
                 res.json({
                     message: 'User gives back a supply'
+                });
+            } else {
+                res.json({
+                    message: "This supply doesn't exists"
                 });
             }
         } else {
