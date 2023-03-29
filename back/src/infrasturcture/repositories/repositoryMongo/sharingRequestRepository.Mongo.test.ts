@@ -27,7 +27,8 @@ describe('SharingRequestRepository', () => {
                 // Given I have a supply to share
                 const sharedSupply = await Supply.create({
                     name: 'pencil',
-                    owner: sharer.id
+                    owner: sharer,
+                    imagePath: 'toto.jpg'
                 });
                 // Given I have an applicant
                 const existingApplicant = await User.create({
@@ -96,7 +97,8 @@ describe('SharingRequestRepository', () => {
                 // Given I have a supply to share
                 const sharedSupply = await Supply.create({
                     name: 'pencil',
-                    owner: sharer.id
+                    owner: sharer.id,
+                    imagePath: 'toto.jpg'
                 });
                 // Given I have an applicant
                 const existingApplicant = await User.create({
@@ -142,7 +144,8 @@ describe('SharingRequestRepository', () => {
             // Given I have a supply to share
             const sharedSupply = await Supply.create({
                 name: 'pencil',
-                owner: sharer.id
+                owner: sharer.id,
+                imagePath: 'toto.jpg'
             });
             // Given I have an applicant
             const existingApplicant = await User.create({

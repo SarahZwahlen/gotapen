@@ -11,9 +11,8 @@ const sendSharingRequest = async (
     try {
         if (req.session.user) {
             await sendSharingRequestUseCase(
-                req.body.sharerId,
                 req.session.user.id,
-                req.body.sharedSupplyId,
+                req.body.supplyId,
                 userRepositoryMongo,
                 supplyRepositoryMongo,
                 sharingRequestRepositoryMongo.sendSharingRequest

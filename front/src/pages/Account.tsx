@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import Layout from "../components/Layout";
-import AskForSupply from "../components/SharingRequests/AskForSupply";
+import AvailableSupplies from "../components/SharingRequests/AvailableSupplies";
+import "../assets/scss/account.scss";
 
 const Account = () => {
   const [userDatas, setUserDatas] = useState({
@@ -43,7 +44,7 @@ const Account = () => {
       <button className="main-button" onClick={showAskForSupply}>
         J'ai besoin de matériel !
       </button>
-      {askForSupplyVisibility && <AskForSupply />}
+      {askForSupplyVisibility && <AvailableSupplies />}
     </Layout>
   );
 };

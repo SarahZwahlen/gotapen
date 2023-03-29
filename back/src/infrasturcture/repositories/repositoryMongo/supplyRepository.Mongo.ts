@@ -29,7 +29,7 @@ const supplyRepositoryMongo: SupplyRepositoryInterface = {
         return true;
     },
     getSupply: async (supplyId: string): Promise<SupplyType | null> => {
-        const supply = await Supply.findById(supplyId);
+        const supply = await Supply.findById(supplyId).populate('owner');
         return supply;
     },
     getSupplies: async (userId: string): Promise<SupplyType[]> => {

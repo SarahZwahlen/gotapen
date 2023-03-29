@@ -14,22 +14,25 @@ describe('Send a sharing request', () => {
         userRepoInMemory.reset();
     });
     test('Happy path', async () => {
+        // Given an owner
         const owner = await buildUser({
             email: 'owner@mail.com',
             firstname: 'owner'
         });
+
+        // Given an applicant
         const applicant = await buildUser({
             email: 'applicant@mail.com',
             firstname: 'applicant'
         });
-
+        // Given a supply
         const supply = await buildSupply({ availability: true, owner: owner });
         const sharingRequestDB: SharingRequestType[] = [];
-
+        // Everything exists on database
         userRepoInMemory.givenExistingUser(owner);
         userRepoInMemory.givenExistingUser(applicant);
         supplyRepoInMemory.givenExistingSupply(supply);
-
+        // Given a sharing request
         const sharingRequest = await buildSharinRequest({
             applicant: applicant,
             sharer: owner,
@@ -37,16 +40,27 @@ describe('Send a sharing request', () => {
         });
         const sendSharingRq = async (
             ownerId: string,
-            applicantId: string,
-            supplyId: string
+            applicantId: string
+            // supplyId: string
         ) => {
-            owner.receivedSharingRequests = [sharingRequest];
-            applicant.sentSharingRequests = [sharingRequest];
+            const theOwner = await userRepoInMemory.getUserById(ownerId);
+            const theApplicant = await userRepoInMemory.getUserById(
+                applicantId
+            );
+            // const theSupply = await supplyRepoInMemory.getSupply(supplyId);
+            if (!theOwner || !theApplicant) {
+                throw new Error("User doesn't exists");
+            }
+            // if (!theSupply) {
+            //     throw new Error("Supply doesn't exists");
+            // }
+            theOwner.receivedSharingRequests = [sharingRequest];
+            theApplicant.sentSharingRequests = [sharingRequest];
+
             sharingRequestDB.push(sharingRequest);
         };
 
         await sendSharingRequestUseCase(
-            owner.id,
             applicant.id,
             supply.id,
             userRepoInMemory,
@@ -89,7 +103,7 @@ describe('Send a sharing request', () => {
         await expect(
             async () =>
                 await sendSharingRequestUseCase(
-                    owner.id,
+                    // owner.id,
                     applicant.id,
                     supply.id,
                     userRepoInMemory,
@@ -130,7 +144,6 @@ describe('Send a sharing request', () => {
         await expect(
             async () =>
                 await sendSharingRequestUseCase(
-                    owner.id,
                     applicant.id,
                     supply.id,
                     userRepoInMemory,
