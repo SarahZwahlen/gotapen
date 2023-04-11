@@ -1,6 +1,5 @@
 import Supply, { SupplyType } from '../../models/supply';
 import fs from 'fs';
-import { CompanyType } from '../../models/company';
 import { SupplyRepositoryInterface } from '../../models/persistence/SupplyRepositoryInterface';
 
 const supplyRepositoryMongo: SupplyRepositoryInterface = {
@@ -40,13 +39,18 @@ const supplyRepositoryMongo: SupplyRepositoryInterface = {
         const supplies = await Supply.find({ company: companyId });
         return supplies;
     },
-    getCompanyAvailableSupplies: async (company: CompanyType) => {
+    getCompanyAvailableSupplies: async (company, userId) => {
         const allSupplies = await Supply.find({
             company: company.id,
             availability: true
+        }).populate('owner');
+        const result: SupplyType[] = [];
+        allSupplies.forEach((supply) => {
+            if (supply.owner.id !== userId) {
+                result.push(supply);
+            }
         });
-
-        return allSupplies;
+        return result;
     }
 };
 

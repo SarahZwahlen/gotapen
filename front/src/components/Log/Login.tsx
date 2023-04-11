@@ -1,50 +1,17 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useAuthent } from "../../security/authContext";
 
 const Login = (props: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const navigate = useNavigate();
+  const { login } = useAuthent();
 
   const showLoginForm = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     props.setLoginFormVisibility(!props.loginFormVisibility);
     props.setCreateAccountFormVisibility(false);
-  };
-
-  const refreshEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const refreshPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-  const login = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    const reqInit: RequestInit = {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    };
-
-    fetch(`${process.env.REACT_APP_URL_BACK}/login`, reqInit)
-      .then((response) => response.json())
-      .then((datas) => {
-        if (datas.isLogged) {
-          navigate("/account");
-        } else {
-          setErrorMessage(datas.message);
-        }
-      })
-      .catch((error) => console.log(error));
   };
 
   return (
@@ -60,18 +27,32 @@ const Login = (props: any) => {
             <input
               type="email"
               name="email"
-              onChange={refreshEmail}
+              onChange={(event) => {
+                setEmail(event.target.value);
+              }}
               placeholder="Email"
             />
             <label htmlFor="password">Mot de passe</label>
             <input
               type="password"
               name="password"
-              onChange={refreshPassword}
+              onChange={(event) => {
+                setPassword(event.target.value);
+              }}
               placeholder="Mot de passe"
             />
-            <button className="main-button" onClick={login}>
-              Connection
+            <button
+              className="main-button"
+              onClick={async (e) => {
+                e.preventDefault();
+                console.log("front");
+                const errorResponse = await login(email, password);
+                if (errorResponse) {
+                  setErrorMessage("Le mot de passe ou l'email est incorrect");
+                }
+              }}
+            >
+              Connexion
             </button>
           </form>
         </>

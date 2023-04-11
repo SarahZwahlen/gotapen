@@ -38,6 +38,7 @@ const supplyRepoInMemory: SupplyRepositoryInterface & {
         return Promise.resolve(true);
     },
     getSupplies: function (userId) {
+        const result = this.supplies.filter((s) => s.owner.id === userId);
         return Promise.resolve(
             this.supplies.filter((s) => s.owner.id === userId)
         );
@@ -47,10 +48,13 @@ const supplyRepoInMemory: SupplyRepositoryInterface & {
             this.supplies.filter((s) => s.company.id === companyId)
         );
     },
-    getCompanyAvailableSupplies: function (company) {
+    getCompanyAvailableSupplies: function (company, userId) {
         return Promise.resolve(
             this.supplies.filter(
-                (s) => s.company.id === company.id && s.availability
+                (s) =>
+                    s.company.id === company.id &&
+                    s.availability &&
+                    s.owner.id !== userId
             )
         );
     }

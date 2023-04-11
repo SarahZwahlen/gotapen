@@ -1,9 +1,11 @@
 import { useState } from "react";
 import BurgerMenu from "./BurgerMenu";
+import { Link } from "react-router-dom";
+import { useAuthent } from "../../security/authContext";
 
 const Nav = () => {
   const [isActive, setIsActive] = useState<boolean>(false);
-
+  const { logout } = useAuthent();
   return (
     <>
       <nav>
@@ -12,19 +14,26 @@ const Nav = () => {
         <div className={`nav-links ${isActive ? "hidden" : "show"}`}>
           <ul>
             <li>
-              <a href="/">Accueil</a>
+              <Link to="/">Accueil</Link>
             </li>
             <li>
-              <a href="/handle-user-supplies">Fournitures</a>
+              <Link to="/handle-user-supplies">Fournitures</Link>
             </li>
             <li>
-              <a href="handle-sharing-requests">Demandes</a>
+              <Link to="/handle-sharing-requests">Demandes</Link>
             </li>
             <li>
-              <a href="/account">Profil</a>
+              <Link to="/account">Profil</Link>
             </li>
             <li>
-              <a href="/logout">Se déconnecter</a>
+              <span
+                role="button"
+                onClick={() => {
+                  logout();
+                }}
+              >
+                Se déconnecter
+              </span>
             </li>
           </ul>
         </div>

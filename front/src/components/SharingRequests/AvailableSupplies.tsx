@@ -27,12 +27,16 @@ const AvailableSupplies = () => {
     <div>
       <h2>Fournitures disponibles</h2>
       {availableSupplies.map((supply: Supply) => (
-        <div>
+        <div className="available-supplies">
           <img
             src={`${process.env.REACT_APP_URL_BACK}/${supply.imagePath}`}
             alt={supply.name}
           />
           <p>{supply.name}</p>
+          <div>
+            <p>{supply.owner.firstname}</p>
+            <p>{supply.owner.surname}</p>
+          </div>
           <AskForSupply id={supply.id} />
         </div>
       ))}

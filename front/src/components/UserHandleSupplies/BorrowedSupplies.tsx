@@ -11,6 +11,8 @@ const BorrowedSupplies = () => {
     credentials: "include",
   };
 
+  console.log(borrowedSupplies);
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_URL_BACK}/show-borrowed-supplies`, reqInit)
       .then((response) => response.json())

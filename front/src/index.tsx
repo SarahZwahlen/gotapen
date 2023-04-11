@@ -1,14 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import Account from "./pages/Account";
-import AccesDenied from "./pages/AccessDenied";
-import PageNotFound from "./pages/PageNotFound";
-import UserHandleSupplies from "./pages/UserSupplies";
-import UserSharingRequests from "./pages/UserSharingRequests";
-import CloseSession from "./pages/CloseSession";
+import { BrowserRouter } from "react-router-dom";
+import { AuthentProvider } from "./security/authContext";
+import Router from "./components/Router/Router";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -16,23 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route>
-          <Route index element={<Home />} />
-          <Route path="/account" element={<Account />} />
-          <Route
-            path="/handle-user-supplies"
-            element={<UserHandleSupplies />}
-          />
-          <Route
-            path="/handle-sharing-requests"
-            element={<UserSharingRequests />}
-          />
-          <Route path="/access-denied" element={<AccesDenied />} />
-          <Route path="/logout" element={<CloseSession />} />
-          <Route path="/*" element={<PageNotFound />} />
-        </Route>
-      </Routes>
+      <AuthentProvider>
+        <Router />
+      </AuthentProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

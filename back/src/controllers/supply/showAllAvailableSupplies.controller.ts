@@ -1,6 +1,7 @@
 import Express from 'express';
 import { companyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/companyRepository.Mongo';
 import { supplyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/supplyRepository.Mongo';
+import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
 import showCompanyAvailableSupplies from '../../usecases/supply/showCompanyAvailableSupplies.usecase';
 
 const showAllAvailableSupply = async (
@@ -10,7 +11,8 @@ const showAllAvailableSupply = async (
     try {
         if (req.session.user) {
             const supplies = await showCompanyAvailableSupplies(
-                req.session.user.company,
+                req.session.user.id,
+                userRepositoryMongo,
                 companyRepositoryMongo,
                 supplyRepositoryMongo
             );

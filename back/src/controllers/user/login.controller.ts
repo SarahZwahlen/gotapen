@@ -12,8 +12,11 @@ const loginController = async (req: Request, res: Response) => {
         );
         req.session.user = user;
         res.json({
-            message: 'Authentification succeed',
-            isLogged: true
+            user: {
+                surname: req.session.user.surname,
+                firstname: req.session.user.firstname,
+                email: req.session.user.email
+            }
         });
     } catch (error) {
         res.status(401).json({

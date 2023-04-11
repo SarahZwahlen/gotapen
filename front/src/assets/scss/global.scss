@@ -120,6 +120,24 @@ button{
     }
 }
 
+@mixin small-box{
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 8px $box-shadow;
+    padding: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap : 1rem;
+}
+
+@mixin thumbnail{
+    object-fit: cover;
+    border : 1px solid $main-red;
+    border-radius: 10px;
+    width: 5rem;
+    height: 5rem;
+}
+
 @media screen and (min-width : 451px){
         header {
     background-color: blue;

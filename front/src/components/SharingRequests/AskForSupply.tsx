@@ -21,7 +21,7 @@ const AskForSupply = (props: Partial<Supply>) => {
       .catch((error) => console.log(error));
   };
   return (
-    <button className="small-button" onClick={askForSupply}>
+    <button className="secondary-button" onClick={askForSupply}>
       Demander
     </button>
   );

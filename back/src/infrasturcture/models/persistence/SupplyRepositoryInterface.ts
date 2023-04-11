@@ -14,7 +14,8 @@ type SupplyRepositoryInterface = {
     getSupplies: (userId: string) => Promise<SupplyType[]>;
     getAllCompynySupplies: (companyId: string) => Promise<SupplyType[]>;
     getCompanyAvailableSupplies: (
-        company: CompanyType
+        company: CompanyType,
+        userId: string
     ) => Promise<SupplyType[] | null>;
 };
 

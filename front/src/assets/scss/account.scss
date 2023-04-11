@@ -1,1 +1,10 @@
-@use "global.scss" as global
+@use "global.scss" as global;
+
+.available-supplies {
+    @include global.small-box;
+
+    img {
+        @include global.thumbnail
+    }
+
+}

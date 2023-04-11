@@ -13,14 +13,8 @@
 }
 
 .user-supply{
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 8px global.$box-shadow;
-    padding: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include global.small-box;
     flex-direction: column;
-    gap : 1rem;
 
     div{
         display: flex;
@@ -31,11 +25,7 @@
 
     .user-supply-infos {
         img {
-            object-fit: cover;
-            border : 1px solid global.$main-red;
-            border-radius: 10px;
-            width: 5rem;
-            height: 5rem;
+            @include global.thumbnail
         }
         display: flex;
         align-items: center;
@@ -83,19 +73,10 @@
 }
 
 .borrowed-supplies {
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px 8px global.$box-shadow;
-    padding: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap : 1rem;
+        @include global.small-box;
 
     img {
-    object-fit: cover;
-    border : 1px solid global.$main-red;
-    border-radius: 10px;
-    width: 5rem;
-    height: 5rem;
+            @include global.thumbnail
+
     }
 }
