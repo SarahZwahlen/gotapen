@@ -1,21 +1,12 @@
+import { HTTPClientPOSTappJson } from "../../clientsHTTP/HTTPClient";
 import { SharingRequest } from "../../infrastructure/types";
 
 const AcceptSharingRequest = (props: SharingRequest) => {
   const acceptRequest = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    const reqInit: RequestInit = {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        sharingRequestId: props.id,
-      }),
-    };
-
-    fetch(`${process.env.REACT_APP_URL_BACK}/accept-sharing`, reqInit)
-      .then((response) => response.json())
-      .then((datas) => console.log(datas))
-      .catch((error) => console.log(error));
+    await HTTPClientPOSTappJson(
+      { sharingRequestId: props.id },
+      "accept-sharing"
+    );
   };
   return (
     <button className="secondary-button" onClick={acceptRequest}>

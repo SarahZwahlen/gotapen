@@ -1,6 +1,7 @@
 import Supply, { SupplyType } from '../../models/supply';
 import fs from 'fs';
 import { SupplyRepositoryInterface } from '../../models/persistence/SupplyRepositoryInterface';
+import { filePath } from '../../../utils/filespaths.utils';
 
 const supplyRepositoryMongo: SupplyRepositoryInterface = {
     addSupply: async (supplyName, owner, company, imagePath) => {
@@ -8,7 +9,7 @@ const supplyRepositoryMongo: SupplyRepositoryInterface = {
             name: supplyName,
             owner: owner,
             company: company,
-            imagePath: `public/images/${imagePath}`
+            imagePath: filePath(imagePath)
         });
         await newSupply.save();
         return newSupply;

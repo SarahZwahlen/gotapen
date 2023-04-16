@@ -7,6 +7,7 @@ import {
 } from "react";
 import { User } from "../infrastructure/types";
 import { useNavigate } from "react-router-dom";
+import { HTTPClientPOSTappJson } from "../clientsHTTP/HTTPClient";
 
 type AuthentContextType = {
   isLogged: boolean;
@@ -36,24 +37,14 @@ const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
   const login = useCallback(
     async (email: string, password: string) => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_URL_BACK}/login`,
-          {
-            method: "POST",
-            mode: "cors",
-            credentials: "include",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify({
-              email,
-              password,
-            }),
-          }
+        const response = await HTTPClientPOSTappJson(
+          { email, password },
+          "login"
         );
-        if (response.status !== 200) {
-          return await response.json();
+        if (response.error) {
+          return response;
         }
-        const userResponse = await response.json();
-        setUser(userResponse.user);
+        setUser(response.user);
         navigate("/account");
       } catch (error) {
         console.log(error);

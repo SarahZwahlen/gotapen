@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { HTTPClientPOSTappJson } from "../../clientsHTTP/HTTPClient";
 
 const CreateAccount = (props: any) => {
   const [email, setEmail] = useState("");
@@ -32,32 +33,23 @@ const CreateAccount = (props: any) => {
   const refreshFirstname = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFirstname(event.target.value);
   };
-  const createAccount = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const createAccount = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log("Create account");
-
-    const reqInit: RequestInit = {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
+    const result = await HTTPClientPOSTappJson(
+      {
         email,
         password,
         surname,
         firstname,
-      }),
-    };
-    fetch(`${process.env.REACT_APP_URL_BACK}/create-account`, reqInit)
-      .then((response) => response.json())
-      .then((datas) => {
-        if (datas.isLogged) {
-          navigate("/account");
-        } else {
-          setErrorMessage(datas.message);
-        }
-      })
-      .catch((error) => console.log(error));
+      },
+      "create-account"
+    );
+
+    if (result.isLogged) {
+      navigate("/account");
+    } else {
+      setErrorMessage(result.message);
+    }
   };
   return (
     <div className="create-account">

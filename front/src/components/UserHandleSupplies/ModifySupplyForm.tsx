@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { HTTPClientPOSTformData } from "../../clientsHTTP/HTTPClient";
 
 const ModifySupplyForm = (props: any) => {
   const [supplyName, setSupplyName] = useState<string>(props.name!);
-  const [imagePath, setImagePath] = useState<string>(props.imagePath!);
+  const [image, setImage] = useState<File | null>(null);
 
   const updateName = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -11,33 +12,26 @@ const ModifySupplyForm = (props: any) => {
 
   const updateImagePath = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    setImagePath(event.target.value);
+    if (!event.target.files) {
+      return;
+    }
+    setImage(event.target.files[0]);
   };
 
-  const validateChanges = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const validateChanges = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
     event.preventDefault();
     console.log("validate");
 
     const formData = new FormData();
     formData.append("name", supplyName);
     formData.append("id", props.id!);
-    formData.append("imagePath", imagePath);
+    if (image) {
+      formData.append("image", image);
+    }
 
-    console.log(formData);
-
-    const reqInit: RequestInit = {
-      method: "POST",
-      mode: "cors",
-      credentials: "include",
-      body: formData,
-    };
-
-    fetch(`${process.env.REACT_APP_URL_BACK}/modify-supply`, reqInit)
-      .then((response) => response.json())
-      .then((datas) => {
-        console.log(datas);
-      })
-      .catch((error) => console.log(error));
+    await HTTPClientPOSTformData(formData, "modify-supply");
   };
   return (
     <div className="modify-supply-form">

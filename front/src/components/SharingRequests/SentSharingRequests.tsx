@@ -35,7 +35,10 @@ const SentSharingRequests = () => {
       <h2>Demande de partage envoyées</h2>
       {sharingRequests.map((element) => (
         <div className="sharing-request">
-          <img src={element.supplyImage} alt={element.supplyName} />
+          <img
+            src={`${process.env.REACT_APP_URL_BACK}/${element.supplyImage}`}
+            alt={element.supplyName}
+          />
           <p>{element.supplyName}</p>
           <p>{element.sharerName}</p>
           <CancelSharingRequest id={element.id} />
