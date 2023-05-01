@@ -24,7 +24,6 @@ const userSchema = new Schema<UserType>(
             unique: true,
             required: true,
             min: 5
-            // validate: /^([w-.]+@([w-]+.)+[w-]{2,4})?$/
         },
         password: {
             type: String,

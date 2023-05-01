@@ -57,6 +57,28 @@ const supplyRepoInMemory: SupplyRepositoryInterface & {
                     s.owner.id !== userId
             )
         );
+    },
+    modifySupply: async function (supplyId, datas) {
+        const supplyToModify = await this.getSupply(supplyId);
+        if (supplyToModify) {
+            if (datas.name) {
+                supplyToModify.name = datas.name;
+            }
+            if (datas.availability) {
+                if (datas.availability === 'false') {
+                    supplyToModify.availability = false;
+                }
+                if (datas.availability === 'true') {
+                    supplyToModify.availability === true;
+                }
+            }
+            if (datas.imagePath) {
+                supplyToModify.imagePath = datas.imagePath;
+            }
+            return Promise.resolve(supplyToModify);
+        } else {
+            return null;
+        }
     }
 };
 

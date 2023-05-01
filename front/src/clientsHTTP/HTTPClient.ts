@@ -2,6 +2,7 @@ const HTTPClientPOSTappJson = async (
   body: { [key: string]: any },
   url: string
 ) => {
+  console.log("http client post", body);
   const reqInit: RequestInit = {
     method: "POST",
     mode: "cors",
@@ -22,7 +23,7 @@ const HTTPClientPOSTformData = async (formData: FormData, url: string) => {
     method: "POST",
     mode: "cors",
     credentials: "include",
-    headers: { "content-type": "application/json" },
+    // headers: { "content-type": "multipart/form-data" },
     body: formData,
   };
 

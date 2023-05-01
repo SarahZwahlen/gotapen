@@ -6,7 +6,6 @@ import { useAuthent } from "../security/authContext";
 
 const Account = () => {
   const userDatas = useAuthent();
-  console.log(userDatas);
   const [askForSupplyVisibility, setAskForSupplyVisibility] =
     useState<boolean>(false);
 
@@ -16,7 +15,8 @@ const Account = () => {
   };
   return (
     <Layout>
-      <h1>Bonjour {userDatas.user?.firstname}</h1>
+      <h2>Bonjour {userDatas.user?.firstname}</h2>
+      <h3>Que souhaitez-vous faire ? </h3>
       <button className="main-button" onClick={showAskForSupply}>
         J'ai besoin de matériel !
       </button>

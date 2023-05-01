@@ -1,3 +1,20 @@
+@use "../scss/global.scss" as global;
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 5px 5px 5px 5px global.$box-shadow ;
+    padding: 1rem;
+    background-color: global.$main-red;
+
+    h1 {
+        color : white;
+        width: max-content;
+    }
+}
+
+
 .burger {
     display: flex;
     flex-direction: column;
@@ -16,29 +33,110 @@
         cursor : pointer;
     }
 }
+.nav-links  {
+    display: none;
+}
+.burger-nav-links {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+
+    ul {
+        display: flex;
+        flex-direction : column;
+        align-items: center;
+        width: 100%;
+
+        li {
+            list-style-type: none;
+            border-top: 1px solid transparent;
+            border-right: 1px solid transparent;
+            border-left: 1px solid transparent;
+            text-align: center;
+
+            border-bottom: 1px solid global.$main-red;
+            padding: 0.5rem;
+            width: 100%;
+            &:hover {
+                transition: 0.2s;
+                background-color: global.$main-red;
+
+                a, span{
+                    color : white;
+                }
+            }
+
+            a, span {
+                text-decoration: none;
+                font-weight: 600;
+                color: black;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
 .hidden{
+    // transition: 0.1s;
+    // transform: scale(1, 0);
+    // transform-origin: top;
     display: none;
 }
 
 .show{
+    // transition: 0.1s;
+    // transform: scale(1, 1);
+    // transform-origin: top;
     display: flex;
 }
 
-header {
-    h1{
-        width: 152px;
+
+
+@media screen and (min-width : 480px){
+    header {
+        padding: 2rem;
+    }
+    .burger{
+        display: none;
+    }
+    .burger-nav-links {
+        display: none;
+    }
+    .nav-links{
+            display:  flex;
+            
+            ul {
+                display: flex;
+                justify-content: flex-end;
+                flex-direction: row;
+                gap : 1rem;
+                flex-wrap: wrap;
+
+                li {
+                list-style-type: none;
+                a, span {
+                    color : white;
+                    text-decoration: none;
+                    padding: 0.5rem;
+                    &:hover {
+                        cursor: pointer;
+                        border-radius : 5px;
+                        background-color: white;
+                        color : global.$main-red
+                    }
+                }
+            }
+            }
+
+    }
+}
+
+
+@media screen and (min-width : 1024px) {
+    header {
+        padding: 2rem;
     }
 
-    nav {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-
-        ul {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end
-            ;
-        }
-    }
 }

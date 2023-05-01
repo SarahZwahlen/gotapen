@@ -52,6 +52,14 @@ const supplyRepositoryMongo: SupplyRepositoryInterface = {
             }
         });
         return result;
+    },
+    modifySupply: async (supplyId, datas) => {
+        const supplyUpdated = await Supply.updateOne(
+            { _id: supplyId },
+            { ...datas }
+        );
+
+        return supplyUpdated;
     }
 };
 

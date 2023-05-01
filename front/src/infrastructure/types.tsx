@@ -3,6 +3,7 @@ type Supply = {
   imagePath: string;
   id: string;
   owner: User;
+  availability: Boolean;
 };
 
 type SharingRequest = {

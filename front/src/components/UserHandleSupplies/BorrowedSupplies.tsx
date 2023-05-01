@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Supply } from "../../infrastructure/types";
 import GiveBackSupply from "./GiveBackSupply";
+import Image from "../Image";
 
 const BorrowedSupplies = () => {
   const [borrowedSupplies, setBorrowedSupplies] = useState<Supply[]>([]);
@@ -30,9 +31,11 @@ const BorrowedSupplies = () => {
     <>
       <h2>Fournitures empruntées</h2>
       {borrowedSupplies.map((supply) => (
-        <div className="borrowed-supplies">
-          <img src={supply.imagePath} alt={supply.name} />
-          <p>{supply.name}</p>
+        <div className="borrowed-supplies" key={supply.id}>
+          <Image imageURL={supply.imagePath} alt={supply.name} />
+          <p className="supply-name">{supply.name}</p>
+          <p>{supply.owner.firstname}</p>
+          <p>{supply.owner.firstname}</p>
           <GiveBackSupply id={supply.id} />
         </div>
       ))}

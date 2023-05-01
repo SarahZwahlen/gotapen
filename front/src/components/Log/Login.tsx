@@ -45,7 +45,6 @@ const Login = (props: any) => {
               className="main-button"
               onClick={async (e) => {
                 e.preventDefault();
-                console.log("front");
                 const errorResponse = await login(email, password);
                 if (errorResponse) {
                   setErrorMessage("Le mot de passe ou l'email est incorrect");

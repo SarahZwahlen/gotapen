@@ -5,11 +5,9 @@ const ModifyUSerSupply = (props: any) => {
   };
 
   return (
-    <div>
-      <button className="secondary-button" onClick={showModifyForm}>
-        Modifier
-      </button>
-    </div>
+    <button className="secondary-button" onClick={showModifyForm}>
+      Modifier
+    </button>
   );
 };
 

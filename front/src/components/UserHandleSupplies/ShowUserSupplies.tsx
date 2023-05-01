@@ -4,8 +4,8 @@ import UserSupply from "./UserSupply";
 
 const ShowUserSupplies = () => {
   const [supplies, setSupplies] = useState<Supply[]>([]);
-  // const [formVisibility, setFormVisibility] = useState<boolean>(false);
 
+  console.log(supplies);
   useEffect(() => {
     const reqInit: RequestInit = {
       method: "GET",
@@ -22,7 +22,7 @@ const ShowUserSupplies = () => {
     <div className="user-supplies">
       <h2>Vos fournitures</h2>
       {supplies.map((supply) => (
-        <UserSupply supply={supply} />
+        <UserSupply key={supply.id} supply={supply} />
       ))}
     </div>
   );

@@ -19,37 +19,7 @@ body {
     margin : 0;
 }
 
-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 5px 5px 5px 5px $box-shadow ;
-    padding: 1rem;
-    background-color: $main-red;
 
-    h1 {
-        color : white;
-    }
-
-    nav {
-        ul{
-            li {
-                list-style-type: none;
-                a {
-                    color : white;
-                    text-decoration: none;
-
-                    &:hover {
-                        transition: 0.2s;
-                        border-radius : 5px;
-                        background-color: white;
-                        color : $main-red
-                    }
-                }
-            }
-        }
-    }
-}
 
 main {
     padding: 1rem;
@@ -61,6 +31,7 @@ button{
         cursor: pointer;}
 
 }
+
 
 
 .main-button {
@@ -126,45 +97,25 @@ button{
     padding: 0.8rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     gap : 1rem;
 }
 
 @mixin thumbnail{
     object-fit: cover;
-    border : 1px solid $main-red;
     border-radius: 10px;
     width: 5rem;
     height: 5rem;
 }
 
-@media screen and (min-width : 451px){
-        header {
-    background-color: blue;
-        padding: 2rem;
-    }
-    .burger{
-        display: none;
-    }
-    .nav-links {
-        display: flex;
-        ul{
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            gap: 1rem
-        }
-    }
+
+@media screen and (min-width : 480px){
+
     main {
         padding: 2rem;
     }
 }
 
-@media screen and (min-width : 981px) {
-            header {
-    background-color: violet;
-        padding: 2rem;
-    }
+@media screen and (min-width : 1024px) {
 
     main {
         padding: 2rem;

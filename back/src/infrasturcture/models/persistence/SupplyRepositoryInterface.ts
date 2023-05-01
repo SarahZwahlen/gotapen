@@ -1,3 +1,4 @@
+import { UpdateResult } from 'mongodb';
 import { CompanyType } from '../company';
 import { SupplyType } from '../supply';
 import { UserType } from '../user';
@@ -17,6 +18,14 @@ type SupplyRepositoryInterface = {
         company: CompanyType,
         userId: string
     ) => Promise<SupplyType[] | null>;
+    modifySupply: (
+        supplyId: string,
+        datas: Partial<
+            Pick<SupplyType, 'name' | 'imagePath'> & {
+                availability: string;
+            }
+        >
+    ) => Promise<SupplyType | null | UpdateResult>;
 };
 
 export type { SupplyRepositoryInterface };

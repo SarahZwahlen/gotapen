@@ -9,7 +9,7 @@ const getUserBorrowedSupplies = async (req: Request, res: Response) => {
                 req.session.user.id,
                 userRepositoryMongo
             );
-
+            console.log(supplies);
             res.json({
                 supplies
             });

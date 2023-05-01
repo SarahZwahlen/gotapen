@@ -37,10 +37,26 @@
     .user-supply-handle-buttons{
         height: min-content;
         display: flex;
+        justify-content: flex-end;
         gap : 1rem;
     }
 }
-
+.unavailable {
+    color : rgb(116, 14, 14);
+    font-style: italic;
+    font-size: 0.8rem;
+    background-color: rgba(255, 145, 145, 0.664);
+    padding: 0.3rem;
+    border-radius: 3px;
+}
+.available {
+    color : green;
+    font-style: italic;
+    font-size: 0.8rem;
+    background-color: rgba(164, 229, 155, 0.664);
+    padding: 0.3rem;
+    border-radius: 3px;
+}
 .create-supply-form{
     @include global.small-form;
         form {
@@ -74,6 +90,7 @@
 
 .borrowed-supplies {
         @include global.small-box;
+        align-items: center;
 
     img {
             @include global.thumbnail
