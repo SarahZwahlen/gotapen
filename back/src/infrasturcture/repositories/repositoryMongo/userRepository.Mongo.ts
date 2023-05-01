@@ -50,6 +50,7 @@ const userRepositoryMongo: UserRepositoryInterface = {
                 }
             );
         }
+        return await User.findById(userId);
     },
     getBorrowedSupplies: async (userId) => {
         const user = await User.findById(userId).populate('borrowedSupplies');

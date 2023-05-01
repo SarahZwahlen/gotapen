@@ -32,6 +32,7 @@ const updateUserDatas: RequestHandler = async (req, res) => {
             }
         }
     } catch (error) {
+        console.log('Plantage');
         res.json({
             message: 'An error occured'
         });

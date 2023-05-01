@@ -37,13 +37,14 @@ router.get('/company-available-supplies', showAllAvailableSupply);
 router.post('/create-account', createAccount);
 router.post('/login', loginController);
 router.post('/add-supply', uploadMulterSingleFile, addSupply);
-router.post('/modify-supply', uploadMulterSingleFile, modifySupply);
 router.post('/create-company', createCompany);
 router.post('/show-supply', showSupply);
 router.post('/join-company', joinCompany);
 router.post('/send-sharing-request', sendSharingRequest);
 router.post('/accept-sharing', acceptSharing);
-router.post('/modify-user', updateUserDatas);
+
+router.put('/modify-user', updateUserDatas);
+router.put('/modify-supply', uploadMulterSingleFile, modifySupply);
 
 router.delete('/delete-supply', deleteSupply);
 router.delete('/delete-company', deleteCompany);

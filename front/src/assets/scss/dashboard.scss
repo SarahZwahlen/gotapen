@@ -1,0 +1,36 @@
+@use "global.scss" as global;
+
+article {
+    margin-top: 1rem;
+
+    h2 {
+        margin : 1rem 0;
+    }
+}
+.available-supplies {
+    @include global.small-box;
+
+    div{
+        display: flex;
+        div {
+            display:flex;
+            justify-content: center;
+            flex-direction: column;
+            padding-left: 1rem ;
+        }
+    }
+
+    img {
+        @include global.thumbnail
+    }
+
+}
+
+.supply-name {
+    font-size: 1.3rem;
+}
+
+.supply-owner {
+    font-style: italic;
+    color : grey
+}

@@ -13,7 +13,7 @@ type UserRepositoryInterface = {
         datas: Partial<
             Pick<UserType, 'email' | 'password' | 'firstname' | 'surname'>
         >
-    ) => Promise<void>;
+    ) => Promise<UserType | null>;
     getUserByEmail: (email: string) => Promise<UserType | null>;
     getUserById: (userId: string) => Promise<UserType | null>;
     deleteUser: (userId: string) => Promise<void>;

@@ -14,6 +14,7 @@ type User = {
   firstname: string;
   surname: string;
   email: string;
+  password: string;
 };
 
 export type { Supply, SharingRequest, User };

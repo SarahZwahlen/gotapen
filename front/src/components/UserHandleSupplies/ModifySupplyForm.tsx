@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HTTPClientPOSTformData } from "../../clientsHTTP/HTTPClient";
+import { HTTPClientPUTformData } from "../../clientsHTTP/HTTPClient";
 
 const ModifySupplyForm = (props: any) => {
   const [supplyName, setSupplyName] = useState<string>(props.name!);
@@ -31,7 +31,7 @@ const ModifySupplyForm = (props: any) => {
       formData.append("image", image);
     }
 
-    await HTTPClientPOSTformData(formData, "modify-supply");
+    await HTTPClientPUTformData(formData, "modify-supply");
   };
   return (
     <div className="modify-supply-form">

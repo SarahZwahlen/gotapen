@@ -1,36 +1,29 @@
 @use "global.scss" as global;
 
-article {
-    margin-top: 1rem;
-
+.current-user {
     h2 {
         margin : 1rem 0;
     }
+    display: flex;
+    flex-direction: column;
+    gap : 0.5rem;
+    font-size : 1.2rem;
 }
-.available-supplies {
-    @include global.small-box;
 
-    div{
+    form {
         display: flex;
-        div {
-            display:flex;
-            justify-content: center;
-            flex-direction: column;
-            padding-left: 1rem ;
+        flex-direction: column;
+        align-items: center;
+        gap : 1rem;
+
+        label {
+            font-size: 1rem;
+        }
+
+        input{
+            font-size: 1rem;
+            padding: 0.9rem;
+            border-radius: 5px;
+            border : 1px solid global.$main-black;
         }
     }
-
-    img {
-        @include global.thumbnail
-    }
-
-}
-
-.supply-name {
-    font-size: 1.3rem;
-}
-
-.supply-owner {
-    font-style: italic;
-    color : grey
-}

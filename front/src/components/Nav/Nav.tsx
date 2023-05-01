@@ -22,6 +22,9 @@ const NavLinks = () => {
               <Link to="/handle-sharing-requests">Demandes</Link>
             </li>
             <li>
+              <Link to="/dashboard">Tableau de bord</Link>
+            </li>
+            <li>
               <Link to="/account">Profil</Link>
             </li>
             <li>

@@ -1,10 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import Account from "../../pages/Account";
+import Dashboard from "../../pages/Dashboard";
 import Home from "../../pages/Home";
 import PageNotFound from "../../pages/PageNotFound";
 import UserSharingRequests from "../../pages/UserSharingRequests";
 import UserHandleSupplies from "../../pages/UserSupplies";
 import { useAuthent } from "../../security/authContext";
+import Account from "../../pages/Account";
 
 const Router = () => {
   const { isLogged, isLoading } = useAuthent();
@@ -18,7 +19,7 @@ const Router = () => {
       <Route index element={<Home />} />
       {isLogged && (
         <>
-          <Route path="/account" element={<Account />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route
             path="/handle-user-supplies"
             element={<UserHandleSupplies />}
@@ -27,6 +28,7 @@ const Router = () => {
             path="/handle-sharing-requests"
             element={<UserSharingRequests />}
           />
+          <Route path="/account" element={<Account />} />
         </>
       )}
       <Route path="/*" element={<PageNotFound />} />

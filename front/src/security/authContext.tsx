@@ -45,7 +45,7 @@ const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
           return response;
         }
         setUser(response.user);
-        navigate("/account");
+        navigate("/dashboard");
       } catch (error) {
         console.log(error);
       }

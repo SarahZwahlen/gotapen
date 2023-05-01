@@ -15,7 +15,11 @@ const modifyUser = async (
             Pick<UserType, 'email' | 'password' | 'firstname' | 'surname'>
         > = {};
         if (datas.email) {
-            updatePayload.email = datas.email;
+            if (emailValidator(datas.email!)) {
+                updatePayload.email = datas.email;
+            } else {
+                throw new Error('This email is not valid');
+            }
         }
         if (datas.password) {
             updatePayload.password = datas.password;
@@ -26,13 +30,7 @@ const modifyUser = async (
         if (datas.firstname) {
             updatePayload.firstname = datas.firstname;
         }
-
-        if (emailValidator(datas.email!)) {
-            await userRepo.updateUser(userId, updatePayload);
-            return await userRepo.getUserById(userId);
-        } else {
-            throw new Error('This email is not valid');
-        }
+        return await userRepo.updateUser(userId, updatePayload);
     } else {
         throw new Error("This user doesn't exists");
     }
