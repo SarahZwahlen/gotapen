@@ -6,7 +6,7 @@ const createAccount = async (req: Express.Request, res: Express.Response) => {
     try {
         if (!req.body.email) {
             throw new Error('An email is missing');
-        }
+        } 
         if (!req.body.password) {
             throw new Error('A password is missing');
         }

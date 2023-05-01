@@ -1,5 +1,6 @@
 import { UserRepositoryInterface } from '../../infrasturcture/models/persistence/UserRepositoryInterface';
 import { UserType } from '../../infrasturcture/models/user';
+import { emailValidator } from '../../utils/emailValidator';
 
 const modifyUser = async (
     userId: string,
@@ -25,8 +26,13 @@ const modifyUser = async (
         if (datas.firstname) {
             updatePayload.firstname = datas.firstname;
         }
-        await userRepo.updateUser(userId, updatePayload);
-        return await userRepo.getUserById(userId);
+
+        if (emailValidator(datas.email!)) {
+            await userRepo.updateUser(userId, updatePayload);
+            return await userRepo.getUserById(userId);
+        } else {
+            throw new Error('This email is not valid');
+        }
     } else {
         throw new Error("This user doesn't exists");
     }
