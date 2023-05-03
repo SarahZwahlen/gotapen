@@ -13,6 +13,7 @@ type AuthentContextType = {
   isLogged: boolean;
   user: User | null;
   isLoading: boolean;
+  isAdmin: boolean;
   login: (
     email: string,
     password: string
@@ -24,6 +25,7 @@ const AuthentContext = createContext<AuthentContextType>({
   isLogged: false,
   user: null,
   isLoading: true,
+  isAdmin: false,
   login: () => Promise.resolve(),
   logout: () => Promise.resolve(),
 });
@@ -32,6 +34,7 @@ const useAuthent = () => useContext(AuthentContext);
 
 const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const login = useCallback(
@@ -45,6 +48,9 @@ const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
           return response;
         }
         setUser(response.user);
+        if (response.user) {
+          setIsAdmin(response.user?.role.includes("admin"));
+        }
         navigate("/dashboard");
       } catch (error) {
         console.log(error);
@@ -64,6 +70,8 @@ const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
 
       await fetch(`${process.env.REACT_APP_URL_BACK}/logout`, reqInit);
       setUser(null);
+      setIsAdmin(false);
+
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -87,6 +95,7 @@ const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
         const datas = await response.json();
         if (datas.isLogged) {
           setUser(datas.datas);
+          setIsAdmin(datas.datas.role.includes("admin"));
         }
       } catch (error) {
         console.log(error);
@@ -101,6 +110,7 @@ const AuthentProvider = ({ children }: { children?: React.ReactNode }) => {
     isLogged: user !== null,
     isLoading,
     user,
+    isAdmin,
     login,
     logout,
   };

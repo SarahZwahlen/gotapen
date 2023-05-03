@@ -4,17 +4,13 @@ import { UserRepositoryInterface } from '../../models/persistence/UserRepository
 import { SupplyType } from '../../models/supply';
 
 const userRepositoryMongo: UserRepositoryInterface = {
-    saveUser: async (datas: {
-        email: string;
-        password: string;
-        firstname: string;
-        surname: string;
-    }) => {
+    saveUser: async (datas) => {
         const user = new User({
             email: datas.email,
             firstname: datas.firstname,
             surname: datas.surname,
-            password: await bcrypt.hash(datas.password, 10)
+            company: datas.companyId,
+            password: await bcrypt.hash(datas.password!, 10)
         });
 
         await user.save();

@@ -23,6 +23,7 @@ import showUserDatas from '../controllers/user/getUserDatas.controller';
 import updateUserDatas from '../controllers/user/updateUserDatas.controller';
 import getUserBorrowedSupplies from '../controllers/user/getUserBorrowedSupplies';
 import showAllAvailableSupply from '../controllers/supply/showAllAvailableSupplies.controller';
+import getEmployees from '../controllers/company/getEmployees.controller';
 
 const router = express.Router();
 
@@ -33,6 +34,7 @@ router.get('/show-user-supplies', showUserSupplies);
 router.get('/show-borrowed-supplies', getUserBorrowedSupplies);
 router.get('/account', showUserDatas);
 router.get('/company-available-supplies', showAllAvailableSupply);
+router.get('/get-employees-list', getEmployees);
 
 router.post('/create-account', createAccount);
 router.post('/login', loginController);

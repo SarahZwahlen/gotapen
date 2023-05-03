@@ -1,72 +1,97 @@
-import { UserType } from '../../infrasturcture/models/user';
 import { createUser } from './createUser.usecase';
-import { buildUser } from '../../infrasturcture/builders/builders.test.utils';
+import {
+    buildCompany,
+    buildUser
+} from '../../infrasturcture/builders/builders.test.utils';
+import { userRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/user.resposotory.InMemory';
+import { companyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/company.repository.inMemory';
 
 describe('Create a user account', () => {
+    beforeEach(() => companyRepoInMemory.reset());
+    beforeEach(() => userRepoInMemory.reset());
+
     test('Connection succeed', async () => {
+        //Given received user datas
         const datas = {
             email: 'sarah@mail.fr',
             password: '123',
             surname: 'Zwn',
-            firstname: 'Sarah'
+            firstname: 'Sarah',
+            companyName: 'Truc',
+            companyCode: '123'
         };
+        //Given a company
+        const company = await buildCompany({
+            name: datas.companyName,
+            joinCode: datas.companyCode
+        });
 
-        let user: UserType;
+        //The company exists in database
+        companyRepoInMemory.givenExistingCompany(company);
 
-        const getUser = async (email: string): Promise<UserType | null> => {
-            return null;
-        };
-        const saveUser = async (datas: {
-            email: string;
-            surname: string;
-            firstname: string;
-            password: string;
-        }): Promise<UserType> => {
-            user = await buildUser({
-                email: datas.email,
-                surname: datas.surname,
-                firstname: datas.firstname,
-                password: datas.password
-            });
-            return user;
-        };
+        const newUser = await createUser(
+            datas,
+            userRepoInMemory,
+            companyRepoInMemory
+        );
 
-        expect(await createUser(datas, saveUser, getUser)).toEqual(user!);
+        const expectUser = await buildUser({
+            id: newUser.id,
+            company: newUser.company,
+            password: newUser.password,
+            firstname: newUser.firstname,
+            surname: newUser.surname,
+            email: newUser.email
+        });
+
+        expect(newUser).toEqual(expectUser);
+        expect(company.employees).toContain(newUser);
     });
 
     test('Email is already used', async () => {
+        //Given received user datas
         const datas = {
             email: 'sarah@mail.fr',
             password: '123',
             surname: 'Zwn',
-            firstname: 'Sarah'
+            firstname: 'Sarah',
+            companyName: 'Truc',
+            companyCode: '123'
         };
+        //Given an other user
+        const otherUser = await buildUser({ email: 'sarah@mail.fr' });
 
-        let user: UserType;
+        //Second user already exists in database
+        userRepoInMemory.givenExistingUser(otherUser);
+        //Given a company
+        const company = await buildCompany({
+            name: datas.companyName,
+            joinCode: datas.companyCode
+        });
 
-        const getUser = async (email: string): Promise<UserType | null> => {
-            user = await buildUser({
-                email
-            });
-            return user;
-        };
-        const saveUser = async (datas: {
-            email: string;
-            surname: string;
-            firstname: string;
-            password: string;
-        }): Promise<UserType> => {
-            user = await buildUser({
-                email: datas.email,
-                surname: datas.surname,
-                firstname: datas.firstname,
-                password: datas.password
-            });
-            return user;
+        //The company exists in database
+        companyRepoInMemory.givenExistingCompany(company);
+
+        await expect(
+            async () =>
+                await createUser(datas, userRepoInMemory, companyRepoInMemory)
+        ).rejects.toThrow('This email is already used by an other user');
+    });
+
+    test("The company doesn't exists", async () => {
+        //Given received user datas
+        const datas = {
+            email: 'sarah@mail.fr',
+            password: '123',
+            surname: 'Zwn',
+            firstname: 'Sarah',
+            companyName: 'Truc',
+            companyCode: '123'
         };
 
         await expect(
-            async () => await createUser(datas, saveUser, getUser)
-        ).rejects.toThrow('This email is already used by an other user');
+            async () =>
+                await createUser(datas, userRepoInMemory, companyRepoInMemory)
+        ).rejects.toThrow('This company name is not valid');
     });
 });

@@ -16,7 +16,8 @@ const loginController = async (req: Request, res: Response) => {
             user: {
                 surname: req.session.user.surname,
                 firstname: req.session.user.firstname,
-                email: req.session.user.email
+                email: req.session.user.email,
+                role: req.session.user.roles
             }
         });
     } catch (error) {

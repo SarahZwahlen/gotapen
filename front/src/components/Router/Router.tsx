@@ -6,9 +6,11 @@ import UserSharingRequests from "../../pages/UserSharingRequests";
 import UserHandleSupplies from "../../pages/UserSupplies";
 import { useAuthent } from "../../security/authContext";
 import Account from "../../pages/Account";
+import BackOffice from "../../pages/BackOffice";
 
 const Router = () => {
   const { isLogged, isLoading } = useAuthent();
+  const { isAdmin } = useAuthent();
 
   if (isLoading) {
     return <h1>Chargement...</h1>;
@@ -29,6 +31,7 @@ const Router = () => {
             element={<UserSharingRequests />}
           />
           <Route path="/account" element={<Account />} />
+          {isAdmin && <Route path="/back-office" element={<BackOffice />} />}
         </>
       )}
       <Route path="/*" element={<PageNotFound />} />

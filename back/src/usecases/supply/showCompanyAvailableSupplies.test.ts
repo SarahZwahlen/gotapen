@@ -3,7 +3,7 @@ import {
     buildSupply,
     buildUser
 } from '../../infrasturcture/builders/builders.test.utils';
-import companyRepoInMemory from '../../infrasturcture/repositories/repositoryInMemory/company.repository.inMemory';
+import { companyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/company.repository.inMemory';
 import { supplyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/supply.respository.inMemory';
 import { userRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/user.resposotory.InMemory';
 import showCompanyAvailableSupplies from './showCompanyAvailableSupplies.usecase';

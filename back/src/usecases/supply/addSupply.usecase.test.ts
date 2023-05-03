@@ -6,7 +6,7 @@ import {
 import { createNewSupply } from './addSuply.usecase';
 import { userRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/user.resposotory.InMemory';
 import { supplyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/supply.respository.inMemory';
-import companyRepoInMemory from '../../infrasturcture/repositories/repositoryInMemory/company.repository.inMemory';
+import { companyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/company.repository.inMemory';
 
 describe('Create a supply and add it to the owner', () => {
     beforeEach(() => {

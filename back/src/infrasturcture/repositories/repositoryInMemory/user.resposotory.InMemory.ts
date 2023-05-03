@@ -1,4 +1,4 @@
-import { buildUser } from '../../builders/builders.test.utils';
+import { buildCompany, buildUser } from '../../builders/builders.test.utils';
 import { UserRepositoryInterface } from '../../models/persistence/UserRepositoryInterface';
 import { UserType } from '../../models/user';
 
@@ -34,17 +34,13 @@ const userRepoInMemory: UserRepositoryInterface & {
             return result;
         }
     },
-    saveUser: async function (datas: {
-        email: string;
-        password: string;
-        firstname: string;
-        surname: string;
-    }) {
+    saveUser: async function (datas) {
         const user = await buildUser({
             email: datas.email,
             password: datas.password,
             firstname: datas.firstname,
-            surname: datas.surname
+            surname: datas.surname,
+            company: await buildCompany({ id: datas.companyId })
         });
         this.users.push(user);
         return user;
@@ -67,8 +63,9 @@ const userRepoInMemory: UserRepositoryInterface & {
                 ...datas
             };
             this.givenExistingUser(user);
+            return user;
         } else {
-            return;
+            return null;
         }
     },
     getBorrowedSupplies: async function (userId) {

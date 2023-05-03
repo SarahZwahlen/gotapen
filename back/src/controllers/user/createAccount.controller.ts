@@ -1,25 +1,44 @@
 import Express from 'express';
 import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
 import { createUser } from '../../usecases/user/createUser.usecase';
+import { companyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/companyRepository.Mongo';
 
 const createAccount = async (req: Express.Request, res: Express.Response) => {
     try {
         if (!req.body.email) {
-            throw new Error('An email is missing');
-        } 
+            res.status(401).json({
+                message: 'An email is missing'
+            });
+        }
         if (!req.body.password) {
-            throw new Error('A password is missing');
+            res.status(401).json({
+                message: 'A password is missing'
+            });
         }
         if (!req.body.firstname) {
-            throw new Error('A firstname is missing');
+            res.status(401).json({
+                message: 'A firstname is missing'
+            });
         }
         if (!req.body.surname) {
-            throw new Error('A surname is missing');
+            res.status(401).json({
+                message: 'A surname is missing'
+            });
+        }
+        if (!req.body.companyCode) {
+            res.status(401).json({
+                message: 'The company code is missing'
+            });
+        }
+        if (!req.body.companyName) {
+            res.status(401).json({
+                message: 'The company name is missing'
+            });
         }
         const user = await createUser(
             req.body,
-            userRepositoryMongo.saveUser,
-            userRepositoryMongo.getUserByEmail
+            userRepositoryMongo,
+            companyRepositoryMongo
         );
         req.session.user = user;
         res.json({

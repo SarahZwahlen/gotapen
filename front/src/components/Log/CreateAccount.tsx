@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { HTTPClientPOSTappJson } from "../../clientsHTTP/HTTPClient";
 
 const CreateAccount = (props: any) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [surname, setSurname] = useState("");
-  const [firstname, setFirstname] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [email, setEmail] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>(null);
+  const [surname, setSurname] = useState<string | null>(null);
+  const [firstname, setFirstname] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [companyCode, setCompanyCode] = useState<string | null>(null);
+  const [companyName, setCompanyName] = useState<string | null>(null);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const showCreateAccountForm = (
@@ -18,21 +21,21 @@ const CreateAccount = (props: any) => {
     props.setLoginFormVisibility(false);
   };
 
-  const refreshEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
+  useEffect(() => {
+    if (
+      email &&
+      password &&
+      surname &&
+      firstname &&
+      companyCode &&
+      companyName
+    ) {
+      setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [email, password, surname, firstname, companyCode, companyName]);
 
-  const refreshPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  };
-
-  const refreshSurname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSurname(event.target.value);
-  };
-
-  const refreshFirstname = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFirstname(event.target.value);
-  };
   const createAccount = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     const result = await HTTPClientPOSTappJson(
@@ -41,6 +44,8 @@ const CreateAccount = (props: any) => {
         password,
         surname,
         firstname,
+        companyCode,
+        companyName,
       },
       "create-account"
     );
@@ -61,24 +66,57 @@ const CreateAccount = (props: any) => {
           <p className="user-error">{errorMessage}</p>
           <form>
             <label htmlFor="firstname">Prénom</label>
-            <input type="text" name="firstname" onChange={refreshFirstname} />
+            <input
+              type="text"
+              name="firstname"
+              onChange={(event) => setFirstname(event.target.value)}
+              required
+            />
             <label htmlFor="surname">Nom de famille</label>
-            <input type="text" name="surname" onChange={refreshSurname} />
+            <input
+              type="text"
+              name="surname"
+              onChange={(event) => setSurname(event.target.value)}
+              required
+            />
             <label htmlFor="email">Email</label>
             <input
               type="ëmail"
               name="email"
-              onChange={refreshEmail}
+              onChange={(event) => setEmail(event.target.value)}
               placeholder="Your email"
             />
             <label htmlFor="password">Mot de passe</label>
             <input
               type="password"
               name="password"
-              onChange={refreshPassword}
+              onChange={(event) => setPassword(event.target.value)}
               placeholder="Mot de passe"
+              required
             />
-            <button className="main-button" onClick={createAccount}>
+            <label htmlFor="companyName">Nom de l'entreprise</label>
+            <input
+              type="text"
+              name="companyName"
+              required
+              onChange={(event) => setCompanyName(event.target.value)}
+            />
+            <label htmlFor="companyCode">Code entreprise</label>
+            <p>
+              Afin de rejoindre le groupe GotAPen de votre entreprise, veuillez
+              renseigner ci-après le code d'accès
+            </p>
+            <input
+              type="text"
+              name="companyCode"
+              required
+              onChange={(event) => setCompanyCode(event.target.value)}
+            />
+            <button
+              disabled={isDisabled}
+              className="main-button"
+              onClick={createAccount}
+            >
               Créer le compte
             </button>
           </form>

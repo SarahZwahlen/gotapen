@@ -4,7 +4,7 @@ import { useAuthent } from "../../security/authContext";
 const NavLinks = () => {
   const { isLogged } = useAuthent();
   const { logout } = useAuthent();
-
+  const { isAdmin } = useAuthent();
   return (
     <>
       <ul>
@@ -27,6 +27,11 @@ const NavLinks = () => {
             <li>
               <Link to="/account">Profil</Link>
             </li>
+            {isAdmin && (
+              <li>
+                <Link to="/back-office">Back office</Link>
+              </li>
+            )}
             <li>
               <span
                 role="button"

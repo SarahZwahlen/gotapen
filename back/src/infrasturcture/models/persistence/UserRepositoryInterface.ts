@@ -2,12 +2,9 @@ import { SupplyType } from '../supply';
 import { UserType } from '../user';
 
 type UserRepositoryInterface = {
-    saveUser: (datas: {
-        email: string;
-        password: string;
-        firstname: string;
-        surname: string;
-    }) => Promise<UserType>;
+    saveUser: (
+        datas: Partial<UserType> & { companyId: string }
+    ) => Promise<UserType>;
     updateUser: (
         userId: string,
         datas: Partial<

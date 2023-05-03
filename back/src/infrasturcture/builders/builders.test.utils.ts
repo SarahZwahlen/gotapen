@@ -21,6 +21,10 @@ const buildUser = async (params: Partial<UserType> = {}): Promise<UserType> => {
     };
     user.password = await bcrypt.hash(user.password, 10);
 
+    if (params.password) {
+        user.password = params.password;
+    }
+
     return user;
 };
 
