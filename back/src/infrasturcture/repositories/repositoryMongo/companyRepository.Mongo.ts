@@ -38,7 +38,7 @@ const companyRepositoryMongo: CompanyRepositoryInterface = {
     createCompany: async (companyName, joinCode) => {
         const newCompany = await Company.create({
             name: companyName,
-            joinCode: joinCode
+            joinCode: await bcrypt.hash(joinCode, 10)
         });
         newCompany.save();
 

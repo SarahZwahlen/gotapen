@@ -6,25 +6,25 @@ import { CreateCompanyAccount } from '../../usecases/company/createCompanyAccoun
 
 const createCompany = async (req: Express.Request, res: Express.Response) => {
     try {
-        console.log(req.body);
         const newAdmin = await CreateCompanyAccount(
             req.body,
             userRepositoryMongo,
             companyRepositoryMongo
         );
-        res.json({
+        res.status(200).json({
             message: 'company created',
-            user: newAdmin
+            user: newAdmin,
+            isLogged: true
         });
     } catch (error) {
         if (error instanceof MongoError) {
             if (error.code === 11000) {
-                return res.json({
+                return res.status(401).json({
                     message: 'Company name already exists'
                 });
             }
         }
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { HTTPClientPOSTappJson } from "../../clientsHTTP/HTTPClient";
+import { useAuthent } from "../../security/authContext";
 
 const CreateAccount = (props: any) => {
   const [email, setEmail] = useState<string | null>(null);
@@ -11,6 +12,8 @@ const CreateAccount = (props: any) => {
   const [companyCode, setCompanyCode] = useState<string | null>(null);
   const [companyName, setCompanyName] = useState<string | null>(null);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  const { login } = useAuthent();
 
   const navigate = useNavigate();
   const showCreateAccountForm = (
@@ -52,7 +55,10 @@ const CreateAccount = (props: any) => {
     );
 
     if (result.isLogged) {
-      navigate("/account");
+      const errorResponse = await login(email!, password!);
+      if (errorResponse) {
+        setErrorMessage("Le mot de passe ou l'email est incorrect");
+      }
     } else {
       setErrorMessage(result.message);
     }
@@ -110,7 +116,7 @@ const CreateAccount = (props: any) => {
               renseigner ci-après le code d'accès
             </p>
             <input
-              type="text"
+              type="password"
               name="companyCode"
               required
               onChange={(event) => setCompanyCode(event.target.value)}

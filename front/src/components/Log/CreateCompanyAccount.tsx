@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { HTTPClientPOSTappJson } from "../../clientsHTTP/HTTPClient";
 import { useNavigate } from "react-router-dom";
+import { useAuthent } from "../../security/authContext";
 
 const CreateCompanyAccount = (props: any) => {
   const [formVisibility, setLoginFormVisibility] = useState<boolean>(false);
@@ -14,6 +15,7 @@ const CreateCompanyAccount = (props: any) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   const navigate = useNavigate();
+  const { login } = useAuthent();
 
   useEffect(() => {
     if (email && password && surname && firstname && joinCode && companyName) {
@@ -47,7 +49,10 @@ const CreateCompanyAccount = (props: any) => {
     );
 
     if (result.isLogged) {
-      navigate("/account");
+      const errorResponse = await login(email!, password!);
+      if (errorResponse) {
+        setErrorMessage("Le mot de passe ou l'email est incorrect");
+      }
     } else {
       setErrorMessage(result.message);
     }
