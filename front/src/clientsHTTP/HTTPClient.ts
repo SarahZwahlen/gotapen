@@ -81,10 +81,26 @@ const HTTPClientGET = async (url: string) => {
 
   return response;
 };
+
+const HTTPClientDELETE = async (url: string, body: any) => {
+  const reqInit: RequestInit = {
+    method: "DELETE",
+    mode: "cors",
+    credentials: "include",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(body),
+  };
+  const response = await (
+    await fetch(`${process.env.REACT_APP_URL_BACK}/${url}`, reqInit)
+  ).json();
+
+  return response;
+};
 export {
   HTTPClientPOSTappJson,
   HTTPClientPOSTformData,
   HTTPClientPUTappJson,
   HTTPClientPUTformData,
   HTTPClientGET,
+  HTTPClientDELETE,
 };

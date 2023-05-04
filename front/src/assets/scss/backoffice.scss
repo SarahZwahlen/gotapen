@@ -1,1 +1,24 @@
 @use "global.scss" as global;
+
+
+h2 {
+    margin : 1rem 0;
+}
+.main-button {
+    margin-bottom: 1rem;
+}
+.employees-list {
+    display: flex;
+    flex-direction: column;
+    gap : 1.5rem;
+}
+
+.employee {
+    
+    @include global.small-box;
+    align-items: center;
+}
+
+.employee-name {
+    font-weight: 600;
+}

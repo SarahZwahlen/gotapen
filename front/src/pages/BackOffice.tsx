@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
 import HandleEmployees from "../components/BackOffice/HandleEmployees";
+import "../assets/scss/backoffice.scss";
 
 const BackOffice = () => {
   const [isHandleVisible, setIsHandleVisible] = useState<boolean>(false);

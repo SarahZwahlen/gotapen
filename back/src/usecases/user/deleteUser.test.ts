@@ -1,48 +1,50 @@
-import { buildUser } from '../../infrasturcture/builders/builders.test.utils';
-import { UserType } from '../../infrasturcture/models/user';
+import {
+    buildSupply,
+    buildUser
+} from '../../infrasturcture/builders/builders.test.utils';
+import { supplyRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/supply.respository.inMemory';
+import { userRepoInMemory } from '../../infrasturcture/repositories/repositoryInMemory/user.resposotory.InMemory';
 import { deleteAccount } from './deleteUser.usecase';
 
 describe('Delete user account', () => {
+    beforeEach(() => userRepoInMemory.reset());
+    beforeEach(() => supplyRepoInMemory.reset());
     test('The account is deleted', async () => {
+        //Given users
         const user = await buildUser();
-        const userId = user.id;
-        let userDB: UserType[] = [
-            await buildUser({ firstname: 'fleur' }),
-            await buildUser({ firstname: 'coucou' }),
-            user
-        ];
+        const secondUser = await buildUser({ firstname: 'fleur' });
+        const thirdUser = await await buildUser({ firstname: 'coucou' });
 
-        const getUser = async (userId: string) => {
-            return user;
-        };
+        //Users got a supplies
+        const supply = await buildSupply({ owner: user });
+        const secondSupply = await buildSupply({ owner: secondUser });
 
-        const deleteUser = async (userId: string) => {
-            userDB = userDB.filter((user) => user.id !== userId);
-            return;
-        };
-        await deleteAccount(userId, await getUser, await deleteUser);
-        expect(userDB).not.toContain(user);
+        //Supplies exists in database
+        supplyRepoInMemory.givenExistingSupply(supply);
+        supplyRepoInMemory.givenExistingSupply(secondSupply);
+
+        //Users exist in database
+        userRepoInMemory.givenExistingUser(user);
+        userRepoInMemory.givenExistingUser(secondUser);
+        userRepoInMemory.givenExistingUser(thirdUser);
+
+        await deleteAccount(user.id, userRepoInMemory);
+        expect(userRepoInMemory.users).not.toContain(user);
+        expect(supplyRepoInMemory.supplies).not.toContain(supply);
     });
 
     test("If user doen't exist, it throw an error", async () => {
+        //Given users
         const user = await buildUser();
-        const userId = user.id;
-        let userDB: UserType[] = [
-            await buildUser({ firstname: 'fleur' }),
-            await buildUser({ firstname: 'coucou' }),
-            user
-        ];
+        const secondUser = await buildUser({ firstname: 'fleur' });
+        const thirdUser = await await buildUser({ firstname: 'coucou' });
 
-        const getUser = async (userId: string) => {
-            return null;
-        };
+        //Only some users exist in database
+        userRepoInMemory.givenExistingUser(secondUser);
+        userRepoInMemory.givenExistingUser(thirdUser);
 
-        const deleteUser = async (userId: string) => {
-            userDB = userDB.filter((user) => user.id !== userId);
-            return;
-        };
         await expect(
-            async () => await deleteAccount(userId, getUser, deleteUser)
+            async () => await deleteAccount(user.id, userRepoInMemory)
         ).rejects.toThrow("This user doesn't exists");
     });
 });

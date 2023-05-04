@@ -1,7 +1,7 @@
 import mongoose, { Schema, model } from 'mongoose';
 import { CompanyType } from './company';
 import { SharingRequestType } from './sharingRequest';
-import { SupplyType } from './supply';
+import Supply, { SupplyType } from './supply';
 
 type UserType = {
     id: string;
@@ -73,6 +73,16 @@ const userSchema = new Schema<UserType>(
         ]
     },
     { timestamps: true }
+);
+
+userSchema.pre(
+    'deleteOne',
+    { document: true, query: false },
+    async function (next) {
+        // eslint-disable-next-line @typescript-eslint/no-this-alias
+        const user = this;
+        await Supply.deleteMany({ owner: user._id });
+    }
 );
 
 const User = model<UserType>('User', userSchema);

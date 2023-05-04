@@ -1,13 +1,12 @@
-import { UserType } from '../../infrasturcture/models/user';
+import { UserRepositoryInterface } from '../../infrasturcture/models/persistence/UserRepositoryInterface';
 
 const deleteAccount = async (
     userId: string,
-    getUser: (userId: string) => Promise<UserType | null>,
-    deleteUser: (userId: string) => Promise<void>
+    userRepository: UserRepositoryInterface
 ): Promise<void> => {
-    const user = await getUser(userId);
+    const user = await userRepository.getUserById(userId);
     if (user) {
-        await deleteUser(userId);
+        await userRepository.deleteUser(userId);
         return;
     } else {
         throw new Error("This user doesn't exists");

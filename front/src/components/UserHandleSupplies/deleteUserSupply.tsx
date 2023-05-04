@@ -1,22 +1,13 @@
+import { HTTPClientDELETE } from "../../clientsHTTP/HTTPClient";
 import { Supply } from "../../infrastructure/types";
 
 const deleteUserSupply = (props: Pick<Supply, "id">) => {
   const deleteSupply = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    const reqInit: RequestInit = {
-      method: "DELETE",
-      mode: "cors",
-      credentials: "include",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({
-        supplyId: props.id,
-      }),
-    };
 
-    fetch(`${process.env.REACT_APP_URL_BACK}/delete-supply`, reqInit)
-      .then((response) => response.json())
-      .then((datas) => console.log(datas))
-      .catch((error) => console.log(error));
+    HTTPClientDELETE("delete-supply", {
+      supplyId: props.id,
+    });
   };
   return (
     <button className="secondary-button" onClick={deleteSupply}>

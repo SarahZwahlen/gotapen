@@ -1,6 +1,7 @@
 import { buildCompany, buildUser } from '../../builders/builders.test.utils';
 import { UserRepositoryInterface } from '../../models/persistence/UserRepositoryInterface';
 import { UserType } from '../../models/user';
+import { supplyRepoInMemory } from './supply.respository.inMemory';
 
 const userRepoInMemory: UserRepositoryInterface & {
     users: UserType[];
@@ -43,6 +44,10 @@ const userRepoInMemory: UserRepositoryInterface & {
         return user;
     },
     deleteUser: async function (userId) {
+        supplyRepoInMemory.supplies = supplyRepoInMemory.supplies.filter(
+            (supply) => supply.owner.id !== userId
+        );
+
         const user = await this.getUserById(userId);
         if (user) {
             const userIndex = this.users.indexOf(user);
