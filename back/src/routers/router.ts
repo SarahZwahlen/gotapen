@@ -37,9 +37,9 @@ router.get('/company-available-supplies', showAllAvailableSupply);
 router.get('/get-employees-list', getEmployees);
 
 router.post('/create-account', createAccount);
+router.post('/create-company-account', createCompany);
 router.post('/login', loginController);
 router.post('/add-supply', uploadMulterSingleFile, addSupply);
-router.post('/create-company', createCompany);
 router.post('/show-supply', showSupply);
 router.post('/join-company', joinCompany);
 router.post('/send-sharing-request', sendSharingRequest);

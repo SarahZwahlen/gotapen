@@ -1,17 +1,15 @@
-import Company from '../../infrasturcture/models/company';
-import bcrypt from 'bcrypt';
 import Express from 'express';
 import { MongoError } from 'mongodb';
 
 const createCompany = async (req: Express.Request, res: Express.Response) => {
     try {
-        const hashedJoinCode = await bcrypt.hash(req.body.joinCode, 10);
+        // const hashedJoinCode = await bcrypt.hash(req.body.joinCode, 10);
 
-        const newCompany = new Company({
-            ...req.body,
-            joinCode: hashedJoinCode
-        });
-        await newCompany.save();
+        // const newCompany = new Company({
+        //     ...req.body,
+        //     joinCode: hashedJoinCode
+        // });
+        // await newCompany.save();
         res.json({
             message: 'company created'
         });

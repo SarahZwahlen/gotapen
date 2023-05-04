@@ -12,6 +12,7 @@ const Login = (props: any) => {
     event.preventDefault();
     props.setLoginFormVisibility(!props.loginFormVisibility);
     props.setCreateAccountFormVisibility(false);
+    props.setCompanyAcountVisibility(false);
   };
 
   return (
