@@ -122,7 +122,7 @@ const CreateCompanyAccount = (props: any) => {
             <button
               disabled={isDisabled}
               className="main-button"
-              // onClick={createAccount}
+              onClick={createCompanyAccount}
             >
               Créer le compte
             </button>

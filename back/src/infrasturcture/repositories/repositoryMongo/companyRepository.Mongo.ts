@@ -34,6 +34,15 @@ const companyRepositoryMongo: CompanyRepositoryInterface = {
             { _id: companyId },
             { $push: { employees: employeeId } }
         );
+    },
+    createCompany: async (companyName, joinCode) => {
+        const newCompany = await Company.create({
+            name: companyName,
+            joinCode: joinCode
+        });
+        newCompany.save();
+
+        return newCompany;
     }
 };
 

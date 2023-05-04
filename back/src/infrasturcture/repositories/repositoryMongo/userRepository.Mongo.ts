@@ -5,17 +5,30 @@ import { SupplyType } from '../../models/supply';
 
 const userRepositoryMongo: UserRepositoryInterface = {
     saveUser: async (datas) => {
-        const user = new User({
-            email: datas.email,
-            firstname: datas.firstname,
-            surname: datas.surname,
-            company: datas.companyId,
-            password: await bcrypt.hash(datas.password!, 10)
-        });
+        if (datas.roles) {
+            const user = new User({
+                email: datas.email,
+                firstname: datas.firstname,
+                surname: datas.surname,
+                company: datas.companyId,
+                password: await bcrypt.hash(datas.password!, 10),
+                roles: datas.roles
+            });
 
-        await user.save();
+            await user.save();
+            return user;
+        } else {
+            const user = new User({
+                email: datas.email,
+                firstname: datas.firstname,
+                surname: datas.surname,
+                company: datas.companyId,
+                password: await bcrypt.hash(datas.password!, 10)
+            });
 
-        return user;
+            await user.save();
+            return user;
+        }
     },
     getUserByEmail: async (email: string) => {
         const user = await User.findOne({ email });

@@ -10,6 +10,10 @@ type CompanyRepositoryInterface = {
     ) => Promise<boolean>;
     getCompanyByName: (companyName: string) => Promise<CompanyType | null>;
     addEmployee: (employeeId: string, companyId: string) => Promise<void>;
+    createCompany: (
+        companyName: string,
+        joinCode: string
+    ) => Promise<CompanyType>;
 };
 
 export type { CompanyRepositoryInterface };

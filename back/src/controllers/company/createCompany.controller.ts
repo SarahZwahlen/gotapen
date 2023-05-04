@@ -1,17 +1,20 @@
 import Express from 'express';
 import { MongoError } from 'mongodb';
+import { companyRepositoryMongo } from '../../infrasturcture/repositories/repositoryMongo/companyRepository.Mongo';
+import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMongo/userRepository.Mongo';
+import { CreateCompanyAccount } from '../../usecases/company/createCompanyAccount';
 
 const createCompany = async (req: Express.Request, res: Express.Response) => {
     try {
-        // const hashedJoinCode = await bcrypt.hash(req.body.joinCode, 10);
-
-        // const newCompany = new Company({
-        //     ...req.body,
-        //     joinCode: hashedJoinCode
-        // });
-        // await newCompany.save();
+        console.log(req.body);
+        const newAdmin = await CreateCompanyAccount(
+            req.body,
+            userRepositoryMongo,
+            companyRepositoryMongo
+        );
         res.json({
-            message: 'company created'
+            message: 'company created',
+            user: newAdmin
         });
     } catch (error) {
         if (error instanceof MongoError) {

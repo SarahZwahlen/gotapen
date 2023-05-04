@@ -2,6 +2,7 @@ import { CompanyType } from '../../models/company';
 import { CompanyRepositoryInterface } from '../../models/persistence/CompanyRepositoryInterface';
 import bcrypt from 'bcrypt';
 import { userRepoInMemory } from './user.resposotory.InMemory';
+import { buildCompany } from '../../builders/builders.test.utils';
 const companyRepoInMemory: CompanyRepositoryInterface & {
     companies: CompanyType[];
     reset: () => void;
@@ -49,6 +50,15 @@ const companyRepoInMemory: CompanyRepositoryInterface & {
         const company = await this.getCompany(companyId);
         const user = await userRepoInMemory.getUserById(employeeId);
         company!.employees.push(user!);
+    },
+    createCompany: async function (companyName, joinCode) {
+        const company = await buildCompany({
+            name: companyName,
+            joinCode: joinCode
+        });
+        this.companies.push(company);
+
+        return company;
     }
 };
 
