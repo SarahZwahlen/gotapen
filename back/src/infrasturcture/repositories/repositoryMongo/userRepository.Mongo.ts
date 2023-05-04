@@ -56,6 +56,21 @@ const userRepositoryMongo: UserRepositoryInterface = {
         } else {
             return null;
         }
+    },
+    logUser: async (email, password) => {
+        const user = await User.findOne({ email: email });
+
+        if (user) {
+            const result = await bcrypt.compare(password, user.password);
+
+            if (result) {
+                return user;
+            } else {
+                throw new Error('Wrong password');
+            }
+        } else {
+            throw new Error("This user does'nt exists");
+        }
     }
 };
 

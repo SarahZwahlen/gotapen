@@ -9,7 +9,7 @@ const loginController = async (req: Request, res: Response) => {
         const user: UserType = await logUser(
             req.body.email,
             req.body.password,
-            userRepositoryMongo.getUserByEmail
+            userRepositoryMongo
         );
         req.session.user = user;
         res.status(200).json({

@@ -15,6 +15,7 @@ type UserRepositoryInterface = {
     getUserById: (userId: string) => Promise<UserType | null>;
     deleteUser: (userId: string) => Promise<void>;
     getBorrowedSupplies: (userId: string) => Promise<SupplyType[] | null>;
+    logUser: (email: string, password: string) => Promise<UserType | null>;
 };
 
 export type { UserRepositoryInterface };

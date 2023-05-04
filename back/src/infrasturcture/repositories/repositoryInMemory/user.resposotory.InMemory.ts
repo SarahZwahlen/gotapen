@@ -24,10 +24,7 @@ const userRepoInMemory: UserRepositoryInterface & {
         }
     },
     getUserByEmail: async function (userEmail: string) {
-        const result = this.users.find(
-            (user: UserType) => user.email === userEmail
-        );
-
+        const result = this.users.find((user) => user.email === userEmail);
         if (!result) {
             return null;
         } else {
@@ -74,6 +71,19 @@ const userRepoInMemory: UserRepositoryInterface & {
             return user.borrowedSupplies;
         } else {
             throw new Error("This user doesn't exists");
+        }
+    },
+    logUser: async function (email, password) {
+        const user = this.users.find((user) => user.email === email);
+
+        if (user) {
+            if (user.password === password) {
+                return user;
+            } else {
+                throw new Error('Wrong password');
+            }
+        } else {
+            throw new Error("This user does'nt exists");
         }
     }
 };

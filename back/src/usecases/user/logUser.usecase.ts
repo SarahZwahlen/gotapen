@@ -1,20 +1,14 @@
+import { UserRepositoryInterface } from '../../infrasturcture/models/persistence/UserRepositoryInterface';
 import { UserType } from '../../infrasturcture/models/user';
-import bcrypt from 'bcrypt';
 
 const logUser = async (
     email: string,
     password: string,
-    getUser: (email: string) => Promise<UserType | null>
+    userRepo: UserRepositoryInterface
 ): Promise<UserType> => {
-    const user = await getUser(email);
+    const user = await userRepo.logUser(email, password);
 
     if (!user) {
-        throw new Error("This user does'nt exists");
-    }
-
-    const result = await bcrypt.compare(password, user.password);
-
-    if (!result) {
         throw new Error('Wrong password');
     }
 

@@ -19,7 +19,7 @@ const buildUser = async (params: Partial<UserType> = {}): Promise<UserType> => {
         receivedSharingRequests: [],
         ...params
     };
-    user.password = await bcrypt.hash(user.password, 10);
+    // user.password = await bcrypt.hash(user.password, 10);
 
     if (params.password) {
         user.password = params.password;
