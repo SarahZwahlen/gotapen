@@ -59,7 +59,7 @@ const CreateCompanyAccount = (props: any) => {
   };
 
   return (
-    <>
+    <div className="create-company-account">
       <button className="main-button" onClick={handleFormVisibility}>
         Créer une nouvelle entreprise
       </button>
@@ -134,7 +134,7 @@ const CreateCompanyAccount = (props: any) => {
           </form>
         </>
       )}
-    </>
+    </div>
   );
 };
 
