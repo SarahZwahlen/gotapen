@@ -1,7 +1,8 @@
 $main-black : black;
 $main-red : rgb(110, 40, 40);
+$light-grey : #e9e9ed;
 
-$box-shadow : rgb(228, 228, 228);
+$box-shadow : rgb(238, 238, 238);
 
 $main-font-family :Helvetica, Calibri, sans-serif;
 
@@ -38,6 +39,8 @@ button{
     padding: 0.8rem;
     font-size: 1rem;
     border-radius: 10px;
+        background-color: $light-grey;
+
     border : 0;
         &:hover {
         background-color: $main-red;
@@ -93,7 +96,7 @@ button{
 
 @mixin small-box{
     border-radius: 10px;
-    box-shadow: 0px 0px 5px 8px $box-shadow;
+    box-shadow: 0px 0px 10px 5px $box-shadow;
     padding: 0.8rem;
     display: flex;
     justify-content: space-between;

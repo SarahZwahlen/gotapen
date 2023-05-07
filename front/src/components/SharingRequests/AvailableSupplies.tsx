@@ -26,24 +26,26 @@ const AvailableSupplies = () => {
   return (
     <article>
       <h2>Fournitures disponibles</h2>
-      {availableSupplies.map((supply: Supply) => (
-        <div className="available-supplies" key={supply.id}>
-          <div>
-            <img
-              src={`${process.env.REACT_APP_URL_BACK}/${supply.imagePath}`}
-              alt={supply.name}
-            />
+      <div className="available-supplies">
+        {availableSupplies.map((supply: Supply) => (
+          <div className="available-supply" key={supply.id}>
             <div>
-              <p className="supply-name">{supply.name}</p>
+              <img
+                src={`${process.env.REACT_APP_URL_BACK}/${supply.imagePath}`}
+                alt={supply.name}
+              />
+              <div>
+                <p className="supply-name">{supply.name}</p>
 
-              <p className="supply-owner">
-                {supply.owner.firstname} {supply.owner.surname}
-              </p>
+                <p className="supply-owner">
+                  {supply.owner.firstname} {supply.owner.surname}
+                </p>
+              </div>
             </div>
+            <AskForSupply id={supply.id} />
           </div>
-          <AskForSupply id={supply.id} />
-        </div>
-      ))}
+        ))}
+      </div>
     </article>
   );
 };
