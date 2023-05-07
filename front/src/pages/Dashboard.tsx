@@ -46,7 +46,7 @@ const Dashboard = () => {
             </>
           )}
         </section>
-        <section>{askForSupplyVisibility && <AvailableSupplies />}</section>
+        {askForSupplyVisibility && <AvailableSupplies />}
       </article>
     </Layout>
   );

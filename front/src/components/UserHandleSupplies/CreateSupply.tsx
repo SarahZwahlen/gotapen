@@ -37,7 +37,7 @@ const CreateSupply = () => {
   return (
     <>
       <h2>Créer une fourniture</h2>
-      <div className="create-supply-form">
+      <section className="create-supply-form">
         <form>
           <label htmlFor="name">Nom de la fourniture</label>
           <input onChange={updateSupplyName} name="name" type="text" />
@@ -48,7 +48,7 @@ const CreateSupply = () => {
             Créer la fourniture
           </button>
         </form>
-      </div>
+      </section>
     </>
   );
 };

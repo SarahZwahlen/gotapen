@@ -19,12 +19,14 @@ const ShowUserSupplies = () => {
   }, []);
 
   return (
-    <div className="user-supplies">
+    <article className="user-supplies">
       <h2>Vos fournitures</h2>
-      {supplies.map((supply) => (
-        <UserSupply key={supply.id} supply={supply} />
-      ))}
-    </div>
+      <section className="your-supplies">
+        {supplies.map((supply) => (
+          <UserSupply key={supply.id} supply={supply} />
+        ))}
+      </section>
+    </article>
   );
 };
 

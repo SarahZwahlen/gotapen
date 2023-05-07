@@ -34,7 +34,7 @@ const UserHandleSupplies = () => {
   return (
     <Layout>
       <h1>Gérer vos fournitures</h1>
-      <div className="handle-supplies-options">
+      <article className="handle-supplies-options">
         <button className="main-button" onClick={showUserSupplies}>
           Voir vos fournitures
         </button>
@@ -44,10 +44,10 @@ const UserHandleSupplies = () => {
         <button className="main-button" onClick={borrwedSupplies}>
           Vos fournitures empruntées
         </button>
-        {showSuppliesVIsibility && <ShowUserSupplies />}
-        {createSupplyVisibility && <CreateSupply />}
-        {borrowedSuppliesVisibility && <BorrowedSupplies />}
-      </div>
+      </article>
+      {showSuppliesVIsibility && <ShowUserSupplies />}
+      {createSupplyVisibility && <CreateSupply />}
+      {borrowedSuppliesVisibility && <BorrowedSupplies />}
     </Layout>
   );
 };

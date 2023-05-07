@@ -30,15 +30,17 @@ const BorrowedSupplies = () => {
   return (
     <>
       <h2>Fournitures empruntées</h2>
-      {borrowedSupplies.map((supply) => (
-        <div className="borrowed-supplies" key={supply.id}>
-          <Image imageURL={supply.imagePath} alt={supply.name} />
-          <p className="supply-name">{supply.name}</p>
-          <p>{supply.owner.firstname}</p>
-          <p>{supply.owner.firstname}</p>
-          <GiveBackSupply id={supply.id} />
-        </div>
-      ))}
+      <section className="borrowed-supplies">
+        {borrowedSupplies.map((supply) => (
+          <div className="borrowed-supply" key={supply.id}>
+            <Image imageURL={supply.imagePath} alt={supply.name} />
+            <p className="supply-name">{supply.name}</p>
+            <p>{supply.owner.firstname}</p>
+            <p>{supply.owner.firstname}</p>
+            <GiveBackSupply id={supply.id} />
+          </div>
+        ))}
+      </section>
     </>
   );
 };

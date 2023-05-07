@@ -24,7 +24,7 @@ const AvailableSupplies = () => {
   }, []);
 
   return (
-    <article>
+    <section>
       <h2>Fournitures disponibles</h2>
       <div className="available-supplies">
         {availableSupplies.map((supply: Supply) => (
@@ -46,7 +46,7 @@ const AvailableSupplies = () => {
           </div>
         ))}
       </div>
-    </article>
+    </section>
   );
 };
 
