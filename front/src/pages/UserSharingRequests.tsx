@@ -24,14 +24,14 @@ const UserSharingRequests = () => {
   return (
     <Layout>
       <h1>Demandes de partage</h1>
-      <div className="handle-sharing-requests-options">
+      <article className="handle-sharing-requests-options">
         <button className="main-button" onClick={showSentSharingRequests}>
           Demandes envoyées
         </button>
         <button className="main-button" onClick={showReceivedSharingRequests}>
           Demandes reçues
         </button>
-      </div>
+      </article>
       {sentSRVisibility && <SentSharingRequests />}
       {receivedSRVisibility && <ReceivedSharingRequests />}
     </Layout>

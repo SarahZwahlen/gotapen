@@ -32,23 +32,29 @@ const ReceivedSharingRequests = () => {
   }, []);
 
   return (
-    <div className="sharing-requests">
+    <article className="sharing-requests">
       <h2>Demande de partage reçues</h2>
-      {sharingRequests.map((element) => (
-        <div className="sharing-request">
-          <img
-            src={`${process.env.REACT_APP_URL_BACK}/${element.supplyImage}`}
-            alt={element.supplyName}
-          />
-          <div>
-            <p>{element.supplyName}</p>
-            <p>{element.applicantName}</p>
+      <section className="sub-sharing-requests">
+        {sharingRequests.map((element) => (
+          <div className="sharing-request">
+            <div className="sr-infos">
+              <img
+                src={`${process.env.REACT_APP_URL_BACK}/${element.supplyImage}`}
+                alt={element.supplyName}
+              />
+              <div>
+                <p>{element.supplyName}</p>
+                <p className="supply-owner">{element.applicantName}</p>
+              </div>
+            </div>
+            <div className="accept-denied">
+              <DeniedSharingRequest id={element.id} />
+              <AcceptSharingRequest id={element.id} />
+            </div>
           </div>
-          <DeniedSharingRequest id={element.id} />
-          <AcceptSharingRequest id={element.id} />
-        </div>
-      ))}
-    </div>
+        ))}
+      </section>
+    </article>
   );
 };
 
