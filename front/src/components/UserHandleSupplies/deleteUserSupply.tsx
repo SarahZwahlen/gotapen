@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { HTTPClientDELETE } from "../../clientsHTTP/HTTPClient";
 import { Supply } from "../../infrastructure/types";
 
-const deleteUserSupply = (props: Pick<Supply, "id">) => {
+const DeleteUserSupply = (props: Pick<Supply, "id">) => {
+  const navigate = useNavigate();
   const deleteSupply = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -16,4 +18,4 @@ const deleteUserSupply = (props: Pick<Supply, "id">) => {
   );
 };
 
-export default deleteUserSupply;
+export default DeleteUserSupply;
