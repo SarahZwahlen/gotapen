@@ -9,22 +9,22 @@ const deleteCompany = async (req: Express.Request, res: Express.Response) => {
                 req.session.user.company.id === req.body.id
             ) {
                 await Company.deleteOne({ _id: req.body.id });
-                res.json({
+                res.status(200).json({
                     message: 'Company deleted'
                 });
             } else {
-                res.json({
+                res.status(401).json({
                     message: 'You have to be an admin of this company'
                 });
             }
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You have to be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

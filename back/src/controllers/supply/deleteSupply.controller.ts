@@ -4,26 +4,25 @@ import { deleteSupplyUsecase } from '../../usecases/supply/deleteSupply.usecase'
 
 const deleteSupply = async (req: Express.Request, res: Express.Response) => {
     try {
-        console.log(req.body);
         if (req.body.supplyId) {
             if (req.session.user) {
                 await deleteSupplyUsecase(
                     req.body.supplyId,
                     supplyRepositoryMongo.deleteSupplyAndAllItsRef
                 );
-                res.json({ message: 'Supply deleted' });
+                res.status(200).json({ message: 'Supply deleted' });
             } else {
-                res.json({
+                res.status(401).json({
                     message: 'User is not authentified'
                 });
             }
         } else {
-            res.json({
+            res.status(400).json({
                 message: 'supplyId is missing'
             });
         }
     } catch (error) {
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

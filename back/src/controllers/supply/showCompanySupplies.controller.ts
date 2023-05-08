@@ -11,18 +11,18 @@ const showCompanySupplies = async (
         if (req.session.user) {
             const supplies =
                 await supplyRepositoryMongo.getCompanyAvailableSupplies;
-            res.json({
+            res.status(200).json({
                 message: 'Here are the supplies',
                 supplies: supplies
             });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You have to be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

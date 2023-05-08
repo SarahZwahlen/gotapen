@@ -5,9 +5,8 @@ import Express from 'express';
 const deleteUser = async (req: Express.Request, res: Express.Response) => {
     try {
         if (req.session.user) {
-            console.log('back body', req.body);
             await deleteAccount(req.body.employeeId, userRepositoryMongo);
-            res.status(202).json({
+            res.status(200).json({
                 message: 'The user is deleted'
             });
         } else {

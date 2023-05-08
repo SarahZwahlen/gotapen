@@ -13,20 +13,22 @@ const showUserSupplies = async (req: Request, res: Response) => {
             );
 
             if (userSupplies) {
-                res.json({
+                res.status(200).json({
                     message: 'Here are the supplies',
                     supplies: userSupplies
                 });
             } else {
-                res.json({ message: "This user doesn't have any supply" });
+                res.status(200).json({
+                    message: "This user doesn't have any supply"
+                });
             }
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'User is not logged'
             });
         }
     } catch (error) {
-        res.json({
+        res.status(400).json({
             message: 'An error occured',
             error: error
         });

@@ -17,17 +17,17 @@ const sendSharingRequest = async (
                 supplyRepositoryMongo,
                 sharingRequestRepositoryMongo.sendSharingRequest
             );
-            res.json({
+            res.status(200).json({
                 message: 'Sharing request success'
             });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You must be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({ message: 'Sharing request failed' });
+        res.status(400).json({ message: 'Sharing request failed' });
     }
 };
 

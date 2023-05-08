@@ -25,23 +25,23 @@ const joinCompany = async (req: Express.Request, res: Express.Response) => {
                             { _id: req.body.companyId },
                             { employees: user }
                         );
-                        res.json({
+                        res.status(200).json({
                             message: 'Company joined'
                         });
                     } else {
-                        res.json({
+                        res.status(401).json({
                             message: 'Join company failed'
                         });
                     }
                 }
             );
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You have to be logged'
             });
         }
     } catch (error) {
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

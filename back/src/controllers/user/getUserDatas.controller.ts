@@ -10,7 +10,7 @@ const showUserDatas = async (req: Request, res: Response) => {
                 userRepositoryMongo.getUserById
             );
             if (userDatas) {
-                res.json({
+                res.status(200).json({
                     message: 'Here are the user datas',
                     datas: {
                         firstname: userDatas.firstname,
@@ -23,20 +23,20 @@ const showUserDatas = async (req: Request, res: Response) => {
                     isLogged: true
                 });
             } else {
-                res.json({
+                res.status(400).json({
                     message: "This user doesn't exists",
                     isLogged: false
                 });
             }
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You must be logged',
                 isLogged: false
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured',
             isLogged: false,
             error: error

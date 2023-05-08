@@ -4,17 +4,17 @@ const logOutController = (req: Request, res: Response) => {
     try {
         if (req.session.user) {
             req.session.destroy(() => console.log('Session destroyed'));
-            res.json({
+            res.status(200).json({
                 message: 'Log out succeed'
             });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'User is not logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

@@ -18,20 +18,20 @@ const showAllAvailableSupply = async (
             );
 
             if (!supplies) {
-                res.json({ message: 'there is no supplies' });
+                res.status(200).json({ message: 'there is no supplies' });
+            } else {
+                res.status(200).json({
+                    supplies: supplies
+                });
             }
-
-            res.json({
-                supplies: supplies
-            });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You must be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

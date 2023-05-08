@@ -15,21 +15,21 @@ const showSentSharingRequests = async (
                 sharingRequestRepositoryMongo.showSentSharingRequests
             );
             if (requests) {
-                res.json({
+                res.status(200).json({
                     message: 'Here are the sent sharing requests',
                     requests
                 });
             } else {
-                res.json({
+                res.status(200).json({
                     message: 'No sent sharing requests'
                 });
             }
         } else {
-            res.json('You must be logged');
+            res.status(401).json('You must be logged');
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

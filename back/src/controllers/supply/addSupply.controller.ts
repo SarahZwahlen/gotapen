@@ -21,27 +21,27 @@ const addSupply = async (req: Express.Request, res: Express.Response) => {
                         supplyRepositoryMongo
                     );
 
-                    res.json({
+                    res.status(200).json({
                         message: 'Supply is created',
                         supply: result
                     });
                 } else {
-                    res.json({
+                    res.status(400).json({
                         error: 'A file is missing'
                     });
                 }
             } else {
-                res.json({
+                res.status(400).json({
                     error: 'The supply name is missing'
                 });
             }
         } else {
-            res.json({
+            res.status(401).json({
                 error: 'User is not logged'
             });
         }
     } catch (error) {
-        res.json({
+        res.status(400).json({
             message: 'An error occured, pleasy retry',
             error: error
         });

@@ -7,7 +7,6 @@ import { deniedSharingRequest } from '../../usecases/sharingRequest/deniedSharin
 const deniedSharing = async (req: Express.Request, res: Express.Response) => {
     try {
         if (req.session.user) {
-            console.log(req.body);
             await deniedSharingRequest(
                 req.body.sharingRequestId,
                 sharingRequestRepositoryMongo.getSharingRequest,
@@ -15,17 +14,17 @@ const deniedSharing = async (req: Express.Request, res: Express.Response) => {
                 supplyRepositoryMongo.getSupply,
                 sharingRequestRepositoryMongo.deniedSharingRequest
             );
-            res.json({
+            res.status(200).json({
                 message: 'The sharing request has been denied'
             });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You must be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

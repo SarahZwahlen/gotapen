@@ -5,7 +5,6 @@ import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMon
 import { acceptSharingRequest } from '../../usecases/sharingRequest/acceptSharingRequest.usecase';
 
 const acceptSharing = async (req: Express.Request, res: Express.Response) => {
-    console.log(req.body);
     try {
         if (req.session.user) {
             await acceptSharingRequest(
@@ -16,17 +15,17 @@ const acceptSharing = async (req: Express.Request, res: Express.Response) => {
                 sharingRequestRepositoryMongo.acceptSharingRequest
             );
 
-            res.json({
+            res.status(200).json({
                 message: 'The sharing request has been accepted'
             });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You must be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

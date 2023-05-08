@@ -6,7 +6,7 @@ import { modifyUser } from '../../usecases/user/modifyUser.usecase';
 const updateUserDatas: RequestHandler = async (req, res) => {
     try {
         if (!req.session.user) {
-            res.json({
+            res.status(401).json({
                 message: 'You must be logged'
             });
         } else {
@@ -21,19 +21,18 @@ const updateUserDatas: RequestHandler = async (req, res) => {
             );
             if (user) {
                 req.session.user = user;
-                res.json({
+                res.status(200).json({
                     message: 'Use has been modified',
                     user: user
                 });
             } else {
-                res.json({
+                res.status(400).json({
                     message: 'An error occured'
                 });
             }
         }
     } catch (error) {
-        console.log('Plantage');
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

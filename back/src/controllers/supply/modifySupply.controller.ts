@@ -21,7 +21,6 @@ const modifySupply = async (req: Express.Request, res: Express.Response) => {
                 const currentSupply = await supplyRepositoryMongo.getSupply(
                     req.body.id
                 );
-                console.log('currentSupply', currentSupply);
                 if (currentSupply) {
                     fs.rmSync(`public/${currentSupply.imagePath}`, {
                         force: true
@@ -38,13 +37,13 @@ const modifySupply = async (req: Express.Request, res: Express.Response) => {
                 supply: modifiedSupply
             });
         } else {
-            res.json({
+            res.status(401).json({
                 message: 'You have to be logged'
             });
         }
     } catch (error) {
         console.log(error);
-        res.json({
+        res.status(400).json({
             message: 'An error occured'
         });
     }

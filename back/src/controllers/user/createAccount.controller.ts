@@ -5,46 +5,52 @@ import { companyRepositoryMongo } from '../../infrasturcture/repositories/reposi
 
 const createAccount = async (req: Express.Request, res: Express.Response) => {
     try {
-        if (!req.body.email) {
+        if (req.body.email) {
+            if (req.body.password) {
+                if (req.body.firstname) {
+                    if (req.body.surname) {
+                        if (req.body.companyCode) {
+                            if (req.body.companyName) {
+                                const user = await createUser(
+                                    req.body,
+                                    userRepositoryMongo,
+                                    companyRepositoryMongo
+                                );
+                                req.session.user = user;
+                                res.status(200).json({
+                                    message: 'account created',
+                                    isLogged: true
+                                });
+                            } else {
+                                res.status(401).json({
+                                    message: 'The company name is missing'
+                                });
+                            }
+                        } else {
+                            res.status(401).json({
+                                message: 'The company code is missing'
+                            });
+                        }
+                    } else {
+                        res.status(401).json({
+                            message: 'A surname is missing'
+                        });
+                    }
+                } else {
+                    res.status(401).json({
+                        message: 'A firstname is missing'
+                    });
+                }
+            } else {
+                res.status(401).json({
+                    message: 'A password is missing'
+                });
+            }
+        } else {
             res.status(401).json({
                 message: 'An email is missing'
             });
         }
-        if (!req.body.password) {
-            res.status(401).json({
-                message: 'A password is missing'
-            });
-        }
-        if (!req.body.firstname) {
-            res.status(401).json({
-                message: 'A firstname is missing'
-            });
-        }
-        if (!req.body.surname) {
-            res.status(401).json({
-                message: 'A surname is missing'
-            });
-        }
-        if (!req.body.companyCode) {
-            res.status(401).json({
-                message: 'The company code is missing'
-            });
-        }
-        if (!req.body.companyName) {
-            res.status(401).json({
-                message: 'The company name is missing'
-            });
-        }
-        const user = await createUser(
-            req.body,
-            userRepositoryMongo,
-            companyRepositoryMongo
-        );
-        req.session.user = user;
-        res.json({
-            message: 'account created',
-            isLogged: true
-        });
     } catch (error) {
         console.log(error);
         res.status(500).json({
