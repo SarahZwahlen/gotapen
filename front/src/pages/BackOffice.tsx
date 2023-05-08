@@ -8,15 +8,17 @@ const BackOffice = () => {
   return (
     <Layout>
       <h2>Here is the back office !</h2>
-      <button
-        className="main-button"
-        onClick={(e) => {
-          e.preventDefault();
-          setIsHandleVisible(!isHandleVisible);
-        }}
-      >
-        Voir la liste des employés
-      </button>
+      <article>
+        <button
+          className="main-button"
+          onClick={(e) => {
+            e.preventDefault();
+            setIsHandleVisible(!isHandleVisible);
+          }}
+        >
+          Voir la liste des employés
+        </button>
+      </article>
       {isHandleVisible && <HandleEmployees />}
     </Layout>
   );

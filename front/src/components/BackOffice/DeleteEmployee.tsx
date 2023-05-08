@@ -1,6 +1,6 @@
 import { HTTPClientDELETE } from "../../clientsHTTP/HTTPClient";
 
-const DeleteEmployee = (props: { id: string }) => {
+const DeleteEmployee = (props: any) => {
   const deleteEmployee = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
@@ -8,7 +8,7 @@ const DeleteEmployee = (props: { id: string }) => {
   };
 
   return (
-    <button className="secondary-button" onClick={deleteEmployee}>
+    <button className={props.className} onClick={deleteEmployee}>
       Supprimer
     </button>
   );

@@ -71,7 +71,7 @@ const userRepositoryMongo: UserRepositoryInterface = {
         }
     },
     logUser: async (email, password) => {
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: email }).populate('company');
 
         if (user) {
             const result = await bcrypt.compare(password, user.password);

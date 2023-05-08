@@ -8,7 +8,7 @@ const getEmployees = async (req: Express.Request, res: Express.Response) => {
             if (req.session.user.roles.includes('admin')) {
                 const employeesList = await getEmployeesList(
                     companyRepositoryMongo,
-                    req.session.user.company.toString()
+                    req.session.user.company.id
                 );
                 if (employeesList) {
                     res.status(200).json({

@@ -15,24 +15,23 @@ const HandleEmployees = () => {
       .then((response) => response.json())
       .then((datas) => {
         setEmployeesList(datas.employeesList);
-        console.log(datas);
       })
       .catch((error) => console.log(error));
   }, []);
   return (
     <>
       {employeesList && (
-        <div className="employees-list">
+        <article className="employees-list">
           {employeesList.map((employee: any) => (
-            <div className="employee">
+            <div className="employee" key={employee.id}>
               <p className="employee-name">
                 {employee.firstname} {employee.surname}
               </p>
               <p>{employee.email}</p>
-              <DeleteEmployee id={employee.id} />
+              <DeleteEmployee id={employee.id} className={"secondary-button"} />
             </div>
           ))}
-        </div>
+        </article>
       )}
     </>
   );

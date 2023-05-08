@@ -4,7 +4,6 @@ import userRepositoryMongo from '../../infrasturcture/repositories/repositoryMon
 import { logUser } from '../../usecases/user/logUser.usecase';
 
 const loginController = async (req: Request, res: Response) => {
-    console.log(req.body);
     try {
         const user: UserType = await logUser(
             req.body.email,
@@ -17,7 +16,9 @@ const loginController = async (req: Request, res: Response) => {
                 surname: req.session.user.surname,
                 firstname: req.session.user.firstname,
                 email: req.session.user.email,
-                role: req.session.user.roles
+                role: req.session.user.roles,
+                companyName: req.session.user.company.name,
+                id: req.session.user.id
             }
         });
     } catch (error) {

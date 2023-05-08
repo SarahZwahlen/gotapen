@@ -7,6 +7,10 @@ h2 {
 .main-button {
     margin-bottom: 1rem;
 }
+ .company-employees-list{
+    display: flex;
+    flex-direction: column;
+ }
 .employees-list {
     display: flex;
     flex-direction: column;
@@ -21,4 +25,25 @@ h2 {
 
 .employee-name {
     font-weight: 600;
+}
+
+@media screen and (min-width : 480px){
+
+}
+
+@media screen and (min-width : 1024px) {
+    .employees-list {
+        flex-direction: row;
+
+        .employee {
+            flex-direction: column;
+            width: 23%;
+
+            button {
+                width: 100%;
+            }
+        
+        }
+    }
+
 }

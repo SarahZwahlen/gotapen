@@ -16,7 +16,9 @@ const showUserDatas = async (req: Request, res: Response) => {
                         firstname: userDatas.firstname,
                         surname: userDatas.surname,
                         email: userDatas.email,
-                        role: userDatas.roles
+                        role: userDatas.roles,
+                        companyName: userDatas.company.name,
+                        id: userDatas.id
                     },
                     isLogged: true
                 });

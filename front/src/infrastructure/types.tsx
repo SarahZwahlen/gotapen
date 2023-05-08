@@ -11,11 +11,13 @@ type SharingRequest = {
 };
 
 type User = {
+  id: string;
   firstname: string;
   surname: string;
   email: string;
   password: string;
   role: string[];
+  companyName: string;
 };
 
 export type { Supply, SharingRequest, User };
