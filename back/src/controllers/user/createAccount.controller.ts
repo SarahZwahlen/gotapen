@@ -19,7 +19,8 @@ const createAccount = async (req: Express.Request, res: Express.Response) => {
                                 req.session.user = user;
                                 res.status(200).json({
                                     message: 'account created',
-                                    isLogged: true
+                                    isLogged: true,
+                                    user
                                 });
                             } else {
                                 res.status(401).json({

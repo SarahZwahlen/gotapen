@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
 import { HTTPClientPOSTappJson } from "../../clientsHTTP/HTTPClient";
 import { useAuthent } from "../../security/authContext";
 
@@ -14,8 +13,6 @@ const CreateAccount = (props: any) => {
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   const { login } = useAuthent();
-
-  const navigate = useNavigate();
   const showCreateAccountForm = (
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -55,6 +52,7 @@ const CreateAccount = (props: any) => {
     );
 
     if (result.isLogged) {
+      console.log("im logged");
       const errorResponse = await login(email!, password!);
       if (errorResponse) {
         setErrorMessage("Le mot de passe ou l'email est incorrect");
